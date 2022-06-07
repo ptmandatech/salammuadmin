@@ -1,0 +1,89 @@
+<ng-container>
+
+  <mat-sidenav-container class="example-container shadow">
+      <mat-sidenav #left mode="side" opened autosize position="start" >
+
+        <div style="position: absolute; top:0px; width: 100%; overflow-x: hidden;">
+
+          <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+            <nav class="uk-navbar-container logo-content" uk-navbar >
+              <div class="uk-text-center" style="padding: 20px">
+                <img src="../../assets/imgs/logo.svg" style="width: 80%;">
+              </div>
+            </nav>
+          </div>
+
+        <!--content -->
+        <mat-nav-list>
+          <mat-list-item routerLink="/admin/dashboard" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">donut_small</mat-icon>
+            <h3 matLine class="light">Dashboard</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/banner" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">photo_library</mat-icon>
+            <h3 matLine class="light">Banner</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/pengajian" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">campaign</mat-icon>
+            <h3 matLine class="light">Pengajian</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/cabang-ranting" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">grass</mat-icon>
+            <h3 matLine class="light">Cabang dan Ranting</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/video" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">videocam</mat-icon>
+            <h3 matLine class="light">Video</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/doa-dzikir" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">menu_book</mat-icon>
+            <h3 matLine class="light">Doa dan Dzikir</h3>
+          </mat-list-item>
+
+          <mat-list-item routerLink="/admin/artikelmu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">article</mat-icon>
+            <h3 matLine class="light">ArtikelMU</h3>
+          </mat-list-item>
+
+
+        </mat-nav-list>
+
+        <!-- End Content -->
+
+      </div>
+
+
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div class="uk-flex">
+          <div class="spacer">
+            <mat-toolbar color="primary" class="border-bottom shadow"  uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+              <button mat-icon-button (click)="left.toggle()">
+                <mat-icon>menu</mat-icon>
+              </button>
+              <!-- <span>{{pageTitle}}</span> -->
+              <div class="spacer"></div>
+              <div style="text-align: right; padding-right: 10px;">
+                <small>Jhondee</small>
+              </div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>account_circle</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+
+                <button mat-menu-item routerLink="/auth/login"><mat-icon>logout</mat-icon>Keluar</button>
+              </mat-menu>
+            </mat-toolbar>
+          </div>
+        </div>
+       <router-outlet></router-outlet>
+      </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  </ng-container>

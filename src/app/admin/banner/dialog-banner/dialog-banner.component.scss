@@ -1,0 +1,22 @@
+.mat-toolbar-single-row {
+  height: auto !important;
+  // background: transparent;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.mat-toolbar-single-row button {
+  width: 200px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+#uploadFile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+}

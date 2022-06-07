@@ -1,0 +1,74 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div uk-grid>
+          <div class="uk-width-1-2">
+            <h1>Cabang dan Ranting</h1>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <button mat-flat-button class="tambah">Tambah</button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <hr>
+      <table class="uk-table uk-table-middle uk-table-divider">
+        <thead>
+            <tr>
+                <th class="uk-table-shrink">Nama Cabang/Ranting</th>
+                <th>Kategori</th>
+                <th>Alamat</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="uk-table-shrink" style="vertical-align: middle;">
+                  <mat-list>
+                    <mat-list-item>
+                      <h3 mat-line>Pengajian Online</h3>
+                      <p mat-line class="uk-text-muted">Lokasi Masjid besar Limbung kecamatan Balangan Ds Ujungrusi RT 13 RW 02 Nomor Rumah 25</p>
+                    </mat-list-item>
+                  </mat-list>
+                </td>
+                <td style="vertical-align: middle;">Cabang</td>
+                <td style="vertical-align: middle;">Jl Adiwerna No 2 Banjaran</td>
+                <td style="vertical-align: middle;">
+                  <mat-chip-list aria-label="Fish selection">
+                    <mat-chip color="primary" selected>Verified</mat-chip>
+                  </mat-chip-list>
+                </td>
+                <td class="uk-table-shrink" style="vertical-align: middle;">
+                  <button mat-mini-fab >
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="primary" >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

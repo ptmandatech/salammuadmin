@@ -1,0 +1,93 @@
+<div style="margin: 16px">
+
+  <div class="border-card">
+    <div style="margin: 16px">
+      <div uk-grid>
+        <div class="uk-width-1-2">
+          <h1>Banner</h1>
+        </div>
+        <div class="uk-width-1-2" style="text-align:right;">
+          <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Banner</button>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <hr>
+    <table class="uk-table uk-table-divider">
+      <thead>
+          <tr>
+              <th>Gambar</th>
+              <th>Link</th>
+              <th>Oleh</th>
+              <th>Dibuat</th>
+              <th>Aksi</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td style="vertical-align: middle;">
+                <img class="uk-thumbnail" src="../../../assets/imgs/slide1.png">
+              </td>
+              <td style="vertical-align: middle;">https://example.com</td>
+              <td style="vertical-align: middle;">Satriyo</td>
+              <td style="vertical-align: middle;">15/09/2022</td>
+              <td style="vertical-align: middle;">
+                <button mat-mini-fab color="primary" (click)="openDialog()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn" (click)="delete()">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">
+              <img class="uk-thumbnail" src="../../../assets/imgs/slide2.png">
+            </td>
+            <td style="vertical-align: middle;">https://example.com</td>
+            <td style="vertical-align: middle;">Satriyo</td>
+            <td style="vertical-align: middle;">15/09/2022</td>
+            <td style="vertical-align: middle;">
+              <button mat-mini-fab color="primary" (click)="openDialog()">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">
+              <img class="uk-thumbnail" src="../../../assets/imgs/slide3.png">
+            </td>
+            <td style="vertical-align: middle;">https://example.com</td>
+            <td style="vertical-align: middle;">Satriyo</td>
+            <td style="vertical-align: middle;">15/09/2022</td>
+            <td style="vertical-align: middle;">
+              <button mat-mini-fab color="primary" (click)="openDialog()">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+      <li><a href="#"><span uk-pagination-previous></span></a></li>
+      <li><a href="#">1</a></li>
+      <li class="uk-disabled"><span>...</span></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">6</a></li>
+      <li class="uk-active"><span>7</span></li>
+      <li><a href="#">8</a></li>
+      <li><a href="#"><span uk-pagination-next></span></a></li>
+  </ul>
+
+  </div>
+
+</div>
