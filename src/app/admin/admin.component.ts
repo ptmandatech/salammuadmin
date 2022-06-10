@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-admin',
@@ -9,6 +11,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
   constructor(
+    public api: ApiService,
     private router: Router,
     public routes: ActivatedRoute
   ) { }
@@ -22,6 +25,18 @@ export class AdminComponent implements OnInit {
         this.pageTitle = this.routes.snapshot.firstChild?.data.title;
       }
     });
+    this.cekLogin();
+  }
+
+  userData:any;
+  cekLogin()
+  {    
+    this.api.me().then(res=>{
+      this.userData = res;
+      console.log(this.userData)
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+    })
   }
 
 }

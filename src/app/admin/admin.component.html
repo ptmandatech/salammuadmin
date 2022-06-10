@@ -70,7 +70,7 @@
               <!-- <span>{{pageTitle}}</span> -->
               <div class="spacer"></div>
               <div style="text-align: right; padding-right: 10px;">
-                <small>Jhondee</small>
+                <small>{{userData == undefined ? '':userData.name}}</small>
               </div>
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>account_circle</mat-icon>
