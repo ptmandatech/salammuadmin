@@ -3,6 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogPengajianComponent } from './dialog-pengajian/dialog-pengajian.component';
 import Swal from 'sweetalert2';
 import { DetailPengajianComponent } from './detail-pengajian/detail-pengajian.component';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import * as Notiflix from 'notiflix';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-pengajian',
@@ -11,9 +16,51 @@ import { DetailPengajianComponent } from './detail-pengajian/detail-pengajian.co
 })
 export class PengajianComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,) { }
+  constructor(
+    public api: ApiService,
+    private router: Router,
+    public common: CommonService,
+    public routes: ActivatedRoute,
+    public dialog: MatDialog,
+  ) { }
 
+  pageTitle:any;
+  serverImgBanner:any;
   ngOnInit(): void {
+    Loading.pulse();
+    this.serverImgBanner = this.common.photoBaseUrl+'banners/';
+    this.pageTitle = this.routes.snapshot.firstChild?.data.title;
+    this.router.events.forEach((event) => {
+      if(event instanceof NavigationEnd) {
+        this.pageTitle = this.routes.snapshot.firstChild?.data.title;
+      }
+    });
+    this.cekLogin();
+    this.getAllPengajian();
+  }
+
+  userData:any;
+  cekLogin()
+  {    
+    this.api.me().then(res=>{
+      this.userData = res;
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      localStorage.removeItem('salammuToken');
+      this.router.navigate(['/auth/login'], {replaceUrl:true});
+    })
+  }
+
+  allPengajian:any = [];
+  getAllPengajian() {
+    this.api.get('pengajian?all').then(res=>{
+      this.allPengajian = res;
+      console.log(res)
+      Loading.remove();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
+    });
   }
 
   //Dialog tambah/edit banner

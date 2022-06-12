@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
     if(user.is_active == 1) {
       var that = this;
       setTimeout(function () {
-        that.router.navigate(['admin/dashboard']);
+        that.router.navigate(['admin/dashboard'], {replaceUrl:true});
       }, 1000);
     } else {
       // this.nonaktif = true;

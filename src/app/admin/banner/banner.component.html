@@ -24,13 +24,13 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
+          <tr *ngFor="let n of allBanners">
               <td style="vertical-align: middle;">
-                <img class="uk-thumbnail" src="../../../assets/imgs/slide1.png">
+                <img class="uk-thumbnail" src="{{n.image == undefined ? '../../../assets/imgs/slide1.png':(serverImgBanner+n.image)}}" style="width: 50%;">
               </td>
-              <td style="vertical-align: middle;">https://example.com</td>
-              <td style="vertical-align: middle;">Satriyo</td>
-              <td style="vertical-align: middle;">15/09/2022</td>
+              <td style="vertical-align: middle;"><a href="{{serverImgBanner+n.image}}">Klik disini</a></td>
+              <td style="vertical-align: middle;">{{n.user_name}}</td>
+              <td style="vertical-align: middle;">{{n.created_at | date:'dd/MM/yyyy'}}</td>
               <td style="vertical-align: middle;">
                 <button mat-mini-fab color="primary" (click)="openDialog()">
                   <mat-icon>edit</mat-icon>
@@ -39,38 +39,6 @@
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">
-              <img class="uk-thumbnail" src="../../../assets/imgs/slide2.png">
-            </td>
-            <td style="vertical-align: middle;">https://example.com</td>
-            <td style="vertical-align: middle;">Satriyo</td>
-            <td style="vertical-align: middle;">15/09/2022</td>
-            <td style="vertical-align: middle;">
-              <button mat-mini-fab color="primary" (click)="openDialog()">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">
-              <img class="uk-thumbnail" src="../../../assets/imgs/slide3.png">
-            </td>
-            <td style="vertical-align: middle;">https://example.com</td>
-            <td style="vertical-align: middle;">Satriyo</td>
-            <td style="vertical-align: middle;">15/09/2022</td>
-            <td style="vertical-align: middle;">
-              <button mat-mini-fab color="primary" (click)="openDialog()">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
           </tr>
       </tbody>
     </table>

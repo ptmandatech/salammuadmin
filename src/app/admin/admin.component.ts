@@ -36,6 +36,8 @@ export class AdminComponent implements OnInit {
       console.log(this.userData)
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      localStorage.removeItem('salammuToken');
+      this.router.navigate(['/auth/login'], {replaceUrl:true});
     })
   }
 
