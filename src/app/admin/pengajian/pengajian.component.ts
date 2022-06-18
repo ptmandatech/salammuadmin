@@ -55,7 +55,6 @@ export class PengajianComponent implements OnInit {
   getAllPengajian() {
     this.api.get('pengajian?all').then(res=>{
       this.allPengajian = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -64,26 +63,30 @@ export class PengajianComponent implements OnInit {
   }
 
   //Dialog tambah/edit banner
-  openDialog(): void {
+  openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogPengajianComponent, {
       width: '650px',
+      data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllPengajian();
     });
   }
 
   //Dialog verifikasi
-  openDetail(): void {
+  openDetail(data:any): void {
     const dialogRef = this.dialog.open(DetailPengajianComponent, {
       width: '650px',
+      data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllPengajian();
     });
   }
 
-  delete() {
+  delete(data:any) {
     Swal.fire({
       title: 'Anda Yakin ingin menghapus data ?',
       text: "Data yang telah terhapus tidak dapat dikembalikan!",
@@ -94,11 +97,11 @@ export class PengajianComponent implements OnInit {
       confirmButtonText: 'Ya, hapus!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Data Berhasil di Hapus',
-          showConfirmButton: false,
-          timer: 1500
+        this.api.delete('pengajian/'+data.id).then(res => {
+          if(res) {
+            Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
+            this.getAllPengajian();
+          }
         })
       }
     })

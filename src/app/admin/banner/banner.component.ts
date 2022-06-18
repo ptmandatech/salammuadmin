@@ -54,7 +54,6 @@ export class BannerComponent implements OnInit {
   getAllBanners() {
     this.api.get('banners').then(res=>{
       this.allBanners = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -63,16 +62,18 @@ export class BannerComponent implements OnInit {
   }
 
   //Dialog tambah/edit banner
-  openDialog(): void {
+  openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogBannerComponent, {
       width: '650px',
+      data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllBanners();
     });
   }
 
-  delete() {
+  delete(n:any) {
     Swal.fire({
       title: 'Anda Yakin ingin menghapus data ?',
       text: "Data yang telah terhapus tidak dapat dikembalikan!",
@@ -83,12 +84,19 @@ export class BannerComponent implements OnInit {
       confirmButtonText: 'Ya, hapus!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Data Berhasil di Hapus',
-          showConfirmButton: false,
-          timer: 1500
+        this.api.delete('banners/'+n.id).then(res => {
+          if(res) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Berhasil menghapus data.',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.getAllBanners();
+          }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

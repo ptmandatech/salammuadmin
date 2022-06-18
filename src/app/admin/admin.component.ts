@@ -33,7 +33,6 @@ export class AdminComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
-      console.log(this.userData)
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       localStorage.removeItem('salammuToken');

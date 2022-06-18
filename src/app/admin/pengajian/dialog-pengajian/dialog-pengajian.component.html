@@ -1,82 +1,86 @@
-<h1 mat-dialog-title>Tambah/Edit Pengajian</h1>
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Pengajian</h1>
 
 <div mat-dialog-content>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Pengajian</mat-label>
-    <input matInput required>
+    <input [(ngModel)]="pengajianData.name" matInput required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Pembicara</mat-label>
-    <input matInput required>
+    <input matInput [(ngModel)]="pengajianData.speaker" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Deskripsi</mat-label>
-    <textarea matInput required></textarea>
+    <textarea matInput [(ngModel)]="pengajianData.descriptions" required></textarea>
   </mat-form-field>
 
   <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
     <mat-form-field appearance="fill">
       <mat-label>Tanggal Pengajian</mat-label>
-      <input matInput [matDatepicker]="picker">
+      <input matInput [(ngModel)]="dateValue" [matDatepicker]="picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Jam Pengajian</mat-label>
-      <input matTimepicker>
+      <input matInput [(ngModel)]="timeValue">
       <mat-icon matSuffix >alarm</mat-icon>
     </mat-form-field>
   </div>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Penyelenggara</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let p of penyelenggara" [value]="p">{{p}}</mat-option>
+    <mat-select [(ngModel)]="pengajianData.organizer">
+      <mat-option *ngFor="let n of ['cabang', 'ranting', 'lainnya']" value="{{n}}">{{n}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika Cabang terpilih -->
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Cabang</mat-label>
-    <mat-select>
-      <mat-option>Cabang tegal</mat-option>
+    <mat-select [(ngModel)]="pengajianData.branch">
+      <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika Ranting terpilih -->
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Ranting</mat-label>
-    <mat-select>
-      <mat-option>Ranting Adiwerna</mat-option>
+    <mat-select [(ngModel)]="pengajianData.twig">
+      <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika lainnya terpilih -->
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Penyelenggara</mat-label>
-    <input matInput required>
+    <input matInput [(ngModel)]="pengajianData.organizer_name" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Live Streaming</mat-label>
-    <input matInput required placeholder="Masukan url/link streaming">
+    <input matInput [(ngModel)]="pengajianData.url_livestream" required placeholder="Masukan url/link streaming"> 
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Alamat Lengkap</mat-label>
-    <textarea matInput required></textarea>
+    <textarea matInput [(ngModel)]="pengajianData.location" required></textarea>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Lokasi Sesuai Peta</mat-label>
-    <input matInput disabled>
+    <input matInput [(ngModel)]="pengajianData.pin">
   </mat-form-field>
+  
+  <div id="map" style="width: auto; height: 300px;"></div>
+  <div id="info">&nbsp;</div>
+  <div id="geolocation"></div>
 
-  <img src="../../../../assets/imgs/maps.png">
+  <div style="margin-top: 100px;"></div>
 
 
 
@@ -84,5 +88,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+  <button mat-flat-button (click)="save()" color="primary">Simpan</button>
 </mat-dialog-actions>

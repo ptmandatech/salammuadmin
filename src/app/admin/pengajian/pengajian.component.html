@@ -12,7 +12,7 @@
             <input matInput placeholder="Cari Nama Pemohon" name="searchText">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field> -->
-          <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Pengajian</button>
+          <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Pengajian</button>
         </div>
       </div>
       <div></div>
@@ -41,20 +41,20 @@
               </td>
               <td style="vertical-align: middle;">{{n.datetime | date:'dd/MM/yyyy'}} ; {{n.datetime | date:'H:mm'}}</td>
               <td style="vertical-align: middle;">{{n.user_name}}</td>
-              <td style="vertical-align: middle;">{{n.datetime | date:'dd/MM/yyyy'}}</td>
+              <td style="vertical-align: middle;">{{n.created_at | date:'dd/MM/yyyy'}}</td>
               <td style="vertical-align: middle;">
                 <mat-chip-list aria-label="Fish selection">
                   <mat-chip color="{{n.verified == '1' ? 'primary':'warn'}}" selected>{{n.verified == '1' ? 'Verified':'Unverified'}}</mat-chip>
                 </mat-chip-list>
               </td>
               <td style="vertical-align: middle;">
-                <button mat-mini-fab (click)="openDetail()">
+                <button mat-mini-fab (click)="openDetail(n)">
                   <mat-icon>visibility</mat-icon>
                 </button>
-                <button mat-mini-fab color="primary" (click)="openDialog()">
+                <button mat-mini-fab color="primary" (click)="openDialog(n)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-mini-fab color="warn" (click)="delete()">
+                <button mat-mini-fab color="warn" (click)="delete(n)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>

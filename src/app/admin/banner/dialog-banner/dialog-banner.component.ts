@@ -1,4 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
+import * as Notiflix from 'notiflix';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-dialog-banner',
@@ -7,14 +12,43 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class DialogBannerComponent implements OnInit {
 
-  constructor() { }
+  bannersData: any = {};
+  serverImgBanner:any;
+  isCreated:boolean;
+  constructor(
+    public common: CommonService,
+    public dialogRef: MatDialogRef<DialogBannerComponent>,
+    @Inject(MAT_DIALOG_DATA) public sourceData: any,
+    private api: ApiService
+  ) {
+    Loading.pulse();
+    this.bannersData = sourceData.data;
+    if(this.bannersData == null) {
+      this.bannersData = {};
+      this.isCreated = true;
+    } else {
+      this.isCreated = false;
+    }
+    Loading.remove();
+  }
 
   ngOnInit(): void {
+    this.serverImgBanner = this.common.photoBaseUrl+'banners/';
+    this.cekLogin();
+  }
+
+  userData:any;
+  cekLogin()
+  {    
+    this.api.me().then(res=>{
+      this.userData = res;
+    });
   }
 
   @ViewChild('fileInput')
   fileInput!: ElementRef;
   fileAttr = 'Belum ada file yang dipilih';
+  image:any;
   uploadFileEvt(imgFile: any) {
     if (imgFile.target.files && imgFile.target.files[0]) {
       this.fileAttr = '';
@@ -27,7 +61,7 @@ export class DialogBannerComponent implements OnInit {
         let image = new Image();
         image.src = e.target.result;
         image.onload = (rs) => {
-          let imgBase64Path = e.target.result;
+          this.image = e.target.result;
         };
       };
       reader.readAsDataURL(imgFile.target.files[0]);
@@ -38,6 +72,37 @@ export class DialogBannerComponent implements OnInit {
     }
   }
 
+  async uploadPhoto()
+  {
+    if(this.image != undefined) {
+      await this.api.put('banners/uploadfoto',{image: this.image}).then(res=>{
+        this.bannersData.image = res;
+        if(res) {
+          this.addBanner();
+        }
+      }, error => {
+        console.log(error)
+      });
+    } else {
+      this.addBanner();
+    }
+  }
 
+  addBanner() {
+    if(this.isCreated == true) {
+      this.bannersData.created_by = this.userData.id;
+      this.api.post('banners', this.bannersData).then(res => {
+        if(res) {
+          Notiflix.Notify.success('Berhasil menambahkan banner.',{ timeout: 2000 });
+        }
+      })
+    } else {
+      this.api.put('banners/'+ this.bannersData.id, this.bannersData).then(res => {
+        if(res) {
+          Notiflix.Notify.success('Berhasil memperbarui banner.',{ timeout: 2000 });
+        }
+      })
+    }
+  }
 
 }
