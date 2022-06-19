@@ -6,6 +6,8 @@ import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import { DialogCabangRantingComponent } from './dialog-cabang-ranting/dialog-cabang-ranting.component';
+import { DetailCabangRantingComponent } from './detail-cabang-ranting/detail-cabang-ranting.component';
+
 
 @Component({
   selector: 'app-cabang-ranting',
@@ -62,6 +64,16 @@ export class CabangRantingComponent implements OnInit {
   //Dialog tambah/edit Cabang Ranting
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCabangRantingComponent, {
+      width: '650px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  //Dialog detail Cabang Ranting
+  detailDialog(): void {
+    const dialogRef = this.dialog.open(DetailCabangRantingComponent, {
       width: '650px',
     });
     dialogRef.afterClosed().subscribe(result => {

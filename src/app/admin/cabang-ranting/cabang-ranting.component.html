@@ -7,7 +7,9 @@
             <h1>Cabang dan Ranting</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah" (click)="openDialog()">Tambah</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah</button>
+            <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
+            <button mat-flat-button color="warn">Batalkan Persetujuan</button>
           </div>
         </div>
         <div></div>
@@ -18,7 +20,8 @@
         <table class="uk-table uk-table-middle uk-table-divider">
           <thead>
               <tr>
-                  <th class="uk-table-shrink">Nama Cabang/Ranting</th>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                  <th>Nama Cabang/Ranting</th>
                   <th>Kategori</th>
                   <th>Alamat</th>
                   <th>Status</th>
@@ -26,27 +29,27 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of allCr">
-                  <td class="uk-table-shrink" style="vertical-align: middle;">
+                <tr *ngFor="let n of allCr">
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                  <td>
                     <mat-list>
                       <mat-list-item>
                         <h3 mat-line>{{n.name}}</h3>
-                        <p mat-line class="uk-text-muted">Lokasi {{n.address}}</p>
                       </mat-list-item>
                     </mat-list>
                   </td>
-                  <td style="vertical-align: middle;">{{n.category}}</td>
-                  <td style="vertical-align: middle;">{{n.address}}</td>
-                  <td style="vertical-align: middle;">
+                  <td>{{n.category}}</td>
+                  <td>{{n.address}}</td>
+                  <td>
                     <mat-chip-list aria-label="Fish selection">
                       <mat-chip color="primary" selected>Verified</mat-chip>
                     </mat-chip-list>
                   </td>
-                  <td class="uk-table-shrink uk-text-nowrap" style="vertical-align: middle;">
-                    <button mat-mini-fab >
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-mini-fab (click)="detailDialog()">
                       <mat-icon>visibility</mat-icon>
                     </button>
-                    <button mat-mini-fab color="primary" >
+                    <button mat-mini-fab color="primary" (click)="openDialog()">
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-mini-fab color="warn">

@@ -12,7 +12,9 @@
             <input matInput placeholder="Cari Nama Pemohon" name="searchText">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field> -->
-          <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Pengajian</button>
+          <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Pengajian</button>
+          <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
+          <button mat-flat-button color="warn">Batalkan Persetujuan</button>
         </div>
       </div>
       <div></div>
@@ -23,7 +25,8 @@
       <table class="uk-table uk-table-divider uk-table-middle">
         <thead>
             <tr>
-                <th>Judul</th>
+                <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                <th class="uk-width-1-4">Judul</th>
                 <th>Tanggal Pengajian</th>
                 <th>Oleh</th>
                 <th>Dibuat</th>
@@ -33,13 +36,16 @@
         </thead>
         <tbody>
             <tr *ngFor="let n of allPengajian">
-                <td>
-                  <mat-list>
-                    <mat-list-item>
-                      <h3 mat-line>{{n.name}}</h3>
-                      <p mat-line class="uk-text-muted uk-text-truncate">Lokasi {{n.location}}</p>
-                    </mat-list-item>
-                  </mat-list>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-width-1-4">
+                  <ul class="uk-list">
+                    <li>
+                      <h3 class="uk-text-truncate">{{n.name}}</h3>
+                    </li>
+                    <li>
+                      <p class="uk-text-muted uk-text-truncate">Lokasi {{n.location}}</p>
+                    </li>
+                </ul>
                 </td>
                 <td>{{n.datetime | date:'dd/MM/yyyy'}} ; {{n.datetime | date:'H:mm'}}</td>
                 <td>{{n.user_name}}</td>

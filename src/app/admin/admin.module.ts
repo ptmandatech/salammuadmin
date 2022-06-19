@@ -14,6 +14,8 @@ import { ArtikelmuComponent } from './artikelmu/artikelmu.component';
 import { DialogBannerComponent } from './banner/dialog-banner/dialog-banner.component';
 import { DialogPengajianComponent } from './pengajian/dialog-pengajian/dialog-pengajian.component';
 import { DetailPengajianComponent } from './pengajian/detail-pengajian/detail-pengajian.component';
+import { DialogCabangRantingComponent } from './cabang-ranting/dialog-cabang-ranting/dialog-cabang-ranting.component';
+import { DetailCabangRantingComponent } from './cabang-ranting/detail-cabang-ranting/detail-cabang-ranting.component';
 
 const routes: Routes = [
   {
@@ -76,7 +78,9 @@ const routes: Routes = [
     ArtikelmuComponent,
     DialogBannerComponent,
     DialogPengajianComponent,
-    DetailPengajianComponent
+    DetailPengajianComponent,
+    DialogCabangRantingComponent,
+    DetailCabangRantingComponent
   ],
   imports: [
     CommonModule,
