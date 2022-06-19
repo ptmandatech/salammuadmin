@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
+import { DialogCabangRantingComponent } from './dialog-cabang-ranting/dialog-cabang-ranting.component';
 
 @Component({
   selector: 'app-cabang-ranting',
@@ -55,6 +56,16 @@ export class CabangRantingComponent implements OnInit {
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       Loading.remove();
+    });
+  }
+
+  //Dialog tambah/edit Cabang Ranting
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCabangRantingComponent, {
+      width: '650px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
