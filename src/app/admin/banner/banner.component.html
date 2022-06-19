@@ -13,35 +13,38 @@
       <div></div>
     </div>
     <hr>
-    <table class="uk-table uk-table-divider">
-      <thead>
-          <tr>
-              <th>Gambar</th>
-              <th>Link</th>
-              <th>Oleh</th>
-              <th>Dibuat</th>
-              <th>Aksi</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let n of allBanners">
-              <td style="vertical-align: middle;">
-                <img class="uk-thumbnail" src="{{n.image == undefined ? '../../../assets/imgs/no-image.png':(serverImgBanner+n.image)}}" style="width: 50%;">
-              </td>
-              <td style="vertical-align: middle;"><a href="{{serverImgBanner+n.image}}">Klik disini</a></td>
-              <td style="vertical-align: middle;">{{n.user_name}}</td>
-              <td style="vertical-align: middle;">{{n.created_at | date:'dd/MM/yyyy'}}</td>
-              <td style="vertical-align: middle;">
-                <button mat-mini-fab color="primary" (click)="openDialog(n)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" (click)="delete(n)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-          </tr>
-      </tbody>
-    </table>
+    <div class="uk-overflow-auto">
+      <table class="uk-table uk-table-divider uk-table-middle">
+        <thead>
+            <tr>
+                <th>Gambar</th>
+                <th>Link</th>
+                <th>Oleh</th>
+                <th>Dibuat</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let n of allBanners">
+                <td>
+                  <img class="uk-thumbnail" src="{{n.image == undefined ? '../../../assets/imgs/no-image.png':(serverImgBanner+n.image)}}" style="width: 50%;">
+                </td>
+                <td><a href="{{serverImgBanner+n.image}}">Klik disini</a></td>
+                <td>{{n.user_name}}</td>
+                <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <button mat-mini-fab color="primary" (click)="openDialog(n)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" (click)="delete(n)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    
 
     <hr>
 

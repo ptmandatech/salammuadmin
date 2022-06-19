@@ -13,47 +13,51 @@
         <div></div>
       </div>
       <hr>
-      <table class="uk-table uk-table-middle uk-table-divider">
-        <thead>
-            <tr>
-                <th class="uk-table-shrink">Nama Cabang/Ranting</th>
-                <th>Kategori</th>
-                <th>Alamat</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let n of allCr">
-                <td class="uk-table-shrink" style="vertical-align: middle;">
-                  <mat-list>
-                    <mat-list-item>
-                      <h3 mat-line>{{n.name}}</h3>
-                      <p mat-line class="uk-text-muted">Lokasi {{n.address}}</p>
-                    </mat-list-item>
-                  </mat-list>
-                </td>
-                <td style="vertical-align: middle;">{{n.category}}</td>
-                <td style="vertical-align: middle;">{{n.address}}</td>
-                <td style="vertical-align: middle;">
-                  <mat-chip-list aria-label="Fish selection">
-                    <mat-chip color="primary" selected>Verified</mat-chip>
-                  </mat-chip-list>
-                </td>
-                <td class="uk-table-shrink" style="vertical-align: middle;">
-                  <button mat-mini-fab >
-                    <mat-icon>visibility</mat-icon>
-                  </button>
-                  <button mat-mini-fab color="primary" >
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-mini-fab color="warn">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-            </tr>
-        </tbody>
-      </table>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th class="uk-table-shrink">Nama Cabang/Ranting</th>
+                  <th>Kategori</th>
+                  <th>Alamat</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let n of allCr">
+                  <td class="uk-table-shrink" style="vertical-align: middle;">
+                    <mat-list>
+                      <mat-list-item>
+                        <h3 mat-line>{{n.name}}</h3>
+                        <p mat-line class="uk-text-muted">Lokasi {{n.address}}</p>
+                      </mat-list-item>
+                    </mat-list>
+                  </td>
+                  <td style="vertical-align: middle;">{{n.category}}</td>
+                  <td style="vertical-align: middle;">{{n.address}}</td>
+                  <td style="vertical-align: middle;">
+                    <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="primary" selected>Verified</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                  <td class="uk-table-shrink uk-text-nowrap" style="vertical-align: middle;">
+                    <button mat-mini-fab >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
   
       <hr>
   
