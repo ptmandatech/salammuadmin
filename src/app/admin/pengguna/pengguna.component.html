@@ -1,0 +1,88 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div uk-grid>
+          <div class="uk-width-1-2">
+            <h1>Pengguna</h1>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <button mat-flat-button class="tambah uk-margin-right" >Tambah</button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Avatar</th>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th>No HP</th>
+                  <th>Status</th>
+                  <th>Role</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+                <tr>
+                  <td><img class="uk-preserve-width uk-border-circle" src="../../../assets/imgs/user.svg" width="40" height="40" alt=""></td>
+                  <td>Idham Khadafi</td>
+                  <td>Idham@salammu.id</td>
+                  <td>08776263524</td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="primary" selected>Active</mat-chip>
+                      <mat-chip color="warn" selected>Block</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                  <td>Editor, User</td>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <mat-icon>block</mat-icon>
+                          <span>Block User</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Actifkan User</span>
+                          </button>
+                        <button mat-menu-item>
+                          <mat-icon>manage_accounts</mat-icon>
+                          <span>Ubah Role</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Hapus User</span>
+                        </button>
+                      </mat-menu>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

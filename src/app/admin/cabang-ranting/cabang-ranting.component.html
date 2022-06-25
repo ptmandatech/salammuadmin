@@ -31,13 +31,7 @@
           <tbody>
                 <tr *ngFor="let n of allCr">
                 <td><input class="uk-checkbox" type="checkbox"></td>
-                  <td>
-                    <mat-list>
-                      <mat-list-item>
-                        <h3 mat-line>{{n.name}}</h3>
-                      </mat-list-item>
-                    </mat-list>
-                  </td>
+                  <td>{{n.name}}</td>
                   <td>{{n.category}}</td>
                   <td>{{n.address}}</td>
                   <td>

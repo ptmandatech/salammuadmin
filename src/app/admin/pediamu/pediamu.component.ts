@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogDoaDzikirComponent } from './dialog-doa-dzikir/dialog-doa-dzikir.component';
+import { DialogPediamuComponent } from './dialog-pediamu/dialog-pediamu.component';
 
 @Component({
-  selector: 'app-doa-dzikir',
-  templateUrl: './doa-dzikir.component.html',
-  styleUrls: ['./doa-dzikir.component.scss']
+  selector: 'app-pediamu',
+  templateUrl: './pediamu.component.html',
+  styleUrls: ['./pediamu.component.scss']
 })
-export class DoaDzikirComponent implements OnInit {
+export class PediamuComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog
@@ -16,9 +16,9 @@ export class DoaDzikirComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //Dialog tambah/edit video
+  //Dialog tambah/edit Pediamu
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogDoaDzikirComponent, {
+    const dialogRef = this.dialog.open(DialogPediamuComponent, {
       width: '650px',
     });
     dialogRef.afterClosed().subscribe(result => {

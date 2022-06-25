@@ -16,7 +16,17 @@ import { DialogPengajianComponent } from './pengajian/dialog-pengajian/dialog-pe
 import { DetailPengajianComponent } from './pengajian/detail-pengajian/detail-pengajian.component';
 import { DialogCabangRantingComponent } from './cabang-ranting/dialog-cabang-ranting/dialog-cabang-ranting.component';
 import { DetailCabangRantingComponent } from './cabang-ranting/detail-cabang-ranting/detail-cabang-ranting.component';
-
+import { DialogVideoComponent } from './video/dialog-video/dialog-video.component';
+import { DialogDoaDzikirComponent } from './doa-dzikir/dialog-doa-dzikir/dialog-doa-dzikir.component';
+import { DialogArtikelmuComponent } from './artikelmu/dialog-artikelmu/dialog-artikelmu.component';
+import { PediamuComponent } from './pediamu/pediamu.component';
+import { ProdukmuComponent } from './produkmu/produkmu.component';
+import { DialogPediamuComponent } from './pediamu/dialog-pediamu/dialog-pediamu.component';
+import { KategoriProdukComponent } from './kategori-produk/kategori-produk.component';
+import { PenggunaComponent } from './pengguna/pengguna.component';
+import { RolePermissionComponent } from './role-permission/role-permission.component';
+import { DialogKategoriProdukComponent } from './kategori-produk/dialog-kategori-produk/dialog-kategori-produk.component';
+import { DialogRolePermissionComponent } from './role-permission/dialog-role-permission/dialog-role-permission.component';
 const routes: Routes = [
   {
     path: '',
@@ -56,6 +66,31 @@ const routes: Routes = [
         path: 'artikelmu',
         component: ArtikelmuComponent,
         data:{title:'Artikelmu'}
+      },
+      {
+        path: 'pediamu',
+        component: PediamuComponent,
+        data:{title:'Pediamu'}
+      },
+      {
+        path: 'produkmu',
+        component: ProdukmuComponent,
+        data:{title:'Produkmu'}
+      },
+      {
+        path: 'kategori-produk',
+        component: KategoriProdukComponent,
+        data:{title:'Kategori Produk'}
+      },
+      {
+        path: 'pengguna',
+        component: PenggunaComponent,
+        data:{title:'Pengguna'}
+      },
+      {
+        path: 'role-permission',
+        component: RolePermissionComponent,
+        data:{title:'Role Permission'}
       }
     ]
   },
@@ -80,7 +115,18 @@ const routes: Routes = [
     DialogPengajianComponent,
     DetailPengajianComponent,
     DialogCabangRantingComponent,
-    DetailCabangRantingComponent
+    DetailCabangRantingComponent,
+    DialogVideoComponent,
+    DialogDoaDzikirComponent,
+    DialogArtikelmuComponent,
+    PediamuComponent,
+    ProdukmuComponent,
+    DialogPediamuComponent,
+    KategoriProdukComponent,
+    PenggunaComponent,
+    RolePermissionComponent,
+    DialogKategoriProdukComponent,
+    DialogRolePermissionComponent,
   ],
   imports: [
     CommonModule,

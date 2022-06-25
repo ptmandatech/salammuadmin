@@ -28,7 +28,7 @@ import { DatePipe } from '@angular/common';
     AngularMaterialModule,
     HttpClientModule,
     AdminModule,
-    MatTimepickerModule
+    MatTimepickerModule,
   ],
   providers: [
     DatePipe

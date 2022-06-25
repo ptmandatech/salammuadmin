@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogArtikelmuComponent } from './dialog-artikelmu/dialog-artikelmu.component';
 
 @Component({
   selector: 'app-artikelmu',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtikelmuComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  //Dialog tambah/edit Artikel
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogArtikelmuComponent, {
+      width: '650px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

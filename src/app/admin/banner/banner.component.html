@@ -27,9 +27,9 @@
         <tbody>
             <tr *ngFor="let n of allBanners">
                 <td>
-                  <img class="uk-thumbnail" src="{{n.image == undefined ? '../../../assets/imgs/no-image.png':(serverImgBanner+n.image)}}" style="width: 50%;">
+                  <img class="uk-thumbnail" src="{{n.image == undefined ? '../../../assets/imgs/no-image.png':(serverImgBanner+n.image)}}" width="120" height="120">
                 </td>
-                <td><a href="{{serverImgBanner+n.image}}">Klik disini</a></td>
+                <td><a href="{{n.url}}">{{n.url}}</a></td>
                 <td>{{n.user_name}}</td>
                 <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
                 <td class="uk-table-shrink uk-text-nowrap">

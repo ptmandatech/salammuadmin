@@ -4,40 +4,37 @@
       <div style="margin: 16px">
         <div uk-grid>
           <div class="uk-width-1-2">
-            <h1>Doa dan Dzikir</h1>
+            <h1>Role Permission</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah</button>
+            <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Role</button>
           </div>
         </div>
         <div></div>
       </div>
       <hr>
-
       <div class="uk-overflow-auto">
-        <table class="uk-table uk-table-middle uk-table-divider">
+        <table class="uk-table uk-table-divider uk-table-middle">
           <thead>
               <tr>
-                  <th>Sampul</th>
-                  <th>Judul</th>
-                  <th>Ringkasan</th>
+                  <th>Nama Role</th>
+                  <th>Akses</th>
                   <th>Oleh</th>
                   <th>Dibuat</th>
                   <th>Aksi</th>
               </tr>
           </thead>
           <tbody>
-                <tr>
-                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                  <td>Doa Buka Puasa</td>
-                  <td>Doa mana sih yang sebetulnya dianjurkan oleh Nabi ? Simak Doanya yuk</td>
-                  <td>Oleh Admin Salammu</td>
-                  <td>12 Januari 2022</td>
+              <tr>
+                  <td>Editor</td>
+                  <td>Dashboard, Cabang & Ranting, Video, Doa dan Dzikir</td>
+                  <td>Admin Salammu</td>
+                  <td>12 Januari 2022 </td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-mini-fab color="primary" (click)="openDialog()">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-mini-fab color="warn">
+                    <button mat-mini-fab color="warn" >
                       <mat-icon>delete</mat-icon>
                     </button>
                   </td>

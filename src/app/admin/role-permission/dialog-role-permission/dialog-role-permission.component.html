@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Tambah/Perbarui Role</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="outline">
+    <mat-label>Nama Role</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-list>
+    <mat-list-item *ngFor="let n of ['Dashboard', 'Banner', 'Pengajian', 'Cabang dan Ranting']">
+      <mat-checkbox style="margin: 0 12px" >{{n}}</mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+  </mat-dialog-actions>

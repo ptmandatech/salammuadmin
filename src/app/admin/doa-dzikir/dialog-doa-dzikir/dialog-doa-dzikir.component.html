@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Tamba/Perbarui Doa dan Dzikir</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Judul</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Ringkasan Doa/Dzikir</mat-label>
+    <textarea matInput required></textarea>
+  </mat-form-field>
+
+  <!-- Disini pake Quill juga yaa -->
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Isi Doa/Dzikir</mat-label>
+    <textarea matInput required></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <div>
+      <div class="uk-flex">
+        <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
+        <!-- Display files names -->
+        <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+      <!-- Fetch selected filed on change -->
+      <input
+        type="file"
+        #fileInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+        multiple="multiple"
+        accept="image/*"
+      />
+      </div>
+      <!-- image preview setelah file terpilih -->
+      <img class="uk-margin-top" src="../../../../assets/imgs/no-image.png">
+    </div>
+  </mat-form-field>
+  <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
+
+
+
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+</mat-dialog-actions>

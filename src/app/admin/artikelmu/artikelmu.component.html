@@ -1,1 +1,66 @@
-<p>artikelmu works!</p>
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div uk-grid>
+          <div class="uk-width-1-2">
+            <h1>ArtikelMU</h1>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah</button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Sampul</th>
+                  <th>Judul</th>
+                  <th>Ringkasan</th>
+                  <th>Oleh</th>
+                  <th>Dibuat</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+                <tr>
+                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
+                  <td>Ilmu falaq</td>
+                  <td>Apakah anda mengetahui apa itu ilmu falak ? Simak penjelasannya berikut</td>
+                  <td>Oleh Admin Salammu</td>
+                  <td>12 Januari 2022</td>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-mini-fab color="primary" (click)="openDialog()">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  
