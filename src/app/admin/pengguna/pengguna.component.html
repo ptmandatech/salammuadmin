@@ -7,7 +7,7 @@
             <h1>Pengguna</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah uk-margin-right" >Tambah</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna()">Tambah Pengguna</button>
           </div>
         </div>
         <div></div>
@@ -53,14 +53,18 @@
                             <mat-icon>done_outline</mat-icon>
                             <span>Actifkan User</span>
                         </button>
-                        <button mat-menu-item>
-                            <mat-icon>info</mat-icon>
-                            <span>Lihat User</span>
+                        <button mat-menu-item (click)="dialogPengguna()">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit User</span>
                           </button>
                         <button mat-menu-item (click)="editRole()">
                           <mat-icon>manage_accounts</mat-icon>
                           <span>Ubah Role</span>
                         </button>
+                        <button mat-menu-item (click)="updatePassword()">
+                            <mat-icon>key</mat-icon>
+                            <span>Update Password</span>
+                          </button>
                         <button mat-menu-item>
                           <mat-icon>delete</mat-icon>
                           <span>Hapus User</span>
