@@ -27,6 +27,9 @@ import { PenggunaComponent } from './pengguna/pengguna.component';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
 import { DialogKategoriProdukComponent } from './kategori-produk/dialog-kategori-produk/dialog-kategori-produk.component';
 import { DialogRolePermissionComponent } from './role-permission/dialog-role-permission/dialog-role-permission.component';
+import { DetailUserComponent } from './pengguna/detail-user/detail-user.component';
+import { DialogUserComponent } from './pengguna/dialog-user/dialog-user.component';
+import { DialogSettingRoleComponent } from './pengguna/dialog-setting-role/dialog-setting-role.component';
 const routes: Routes = [
   {
     path: '',
@@ -127,6 +130,9 @@ const routes: Routes = [
     RolePermissionComponent,
     DialogKategoriProdukComponent,
     DialogRolePermissionComponent,
+    DetailUserComponent,
+    DialogUserComponent,
+    DialogSettingRoleComponent,
   ],
   imports: [
     CommonModule,
