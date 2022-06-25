@@ -30,6 +30,7 @@ import { DialogRolePermissionComponent } from './role-permission/dialog-role-per
 import { DialogUserComponent } from './pengguna/dialog-user/dialog-user.component';
 import { DialogSettingRoleComponent } from './pengguna/dialog-setting-role/dialog-setting-role.component';
 import { DialogUpdatePasswordComponent } from './pengguna/dialog-update-password/dialog-update-password.component';
+import { DialogProdukmuComponent } from './produkmu/dialog-produkmu/dialog-produkmu.component';
 const routes: Routes = [
   {
     path: '',
@@ -133,6 +134,7 @@ const routes: Routes = [
     DialogUserComponent,
     DialogSettingRoleComponent,
     DialogUpdatePasswordComponent,
+    DialogProdukmuComponent,
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,166 @@
-<p>produkmu works!</p>
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div uk-grid>
+          <div class="uk-width-1-2">
+            <h1>ProdukMU</h1>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah Produk</button>
+            <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
+            <button mat-flat-button color="warn">Batalkan Persetujuan</button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <hr>
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-divider uk-table-middle">
+          <thead>
+              <tr>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                  <th>Foto</th>
+                  <th>Nama</th>
+                  <th>Kategori</th>
+                  <th>Harga</th>
+                  <th>Oleh</th>
+                  <th>Dibuat</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><input class="uk-checkbox" type="checkbox"></td>
+                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
+                  <td>Tumbler Estetik</td>
+                  <td>Pakaian</td>
+                  <td>Rp. 25.000</td>
+                  <td>Admin Salammu</td>
+                  <td>12 Januari 2022 </td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip color="primary" selected>Verified</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <mat-icon>block</mat-icon>
+                          <span>Block Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Verifikasi Produk</span>
+                          </button>
+                        <button mat-menu-item>
+                            <mat-icon>inventory_2</mat-icon>
+                            <span>Edit Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Hapus</span>
+                        </button>
+                      </mat-menu>
+                  </td>
+              </tr>
+              <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
+                <td>Tumbler Estetik</td>
+                <td>Pakaian</td>
+                <td>Rp. 25.000</td>
+                <td>Admin Salammu</td>
+                <td>12 Januari 2022 </td>
+                <td>
+                  <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="warn" selected>Block</mat-chip>
+                  </mat-chip-list>
+                </td>
+                <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <mat-icon>block</mat-icon>
+                          <span>Block Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Verifikasi Produk</span>
+                          </button>
+                        <button mat-menu-item>
+                            <mat-icon>inventory_2</mat-icon>
+                            <span>Edit Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Hapus</span>
+                        </button>
+                      </mat-menu>
+                </td>
+              </tr>
+              <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
+                <td>Tumbler Estetik</td>
+                <td>Pakaian</td>
+                <td>Rp. 25.000</td>
+                <td>Admin Salammu</td>
+                <td>12 Januari 2022 </td>
+                <td>
+                  <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="accent" selected>Unverified</mat-chip>
+                  </mat-chip-list>
+                </td>
+                <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <mat-icon>block</mat-icon>
+                          <span>Block Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Verifikasi Produk</span>
+                          </button>
+                        <button mat-menu-item>
+                            <mat-icon>inventory_2</mat-icon>
+                            <span>Edit Produk</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Hapus</span>
+                        </button>
+                      </mat-menu>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

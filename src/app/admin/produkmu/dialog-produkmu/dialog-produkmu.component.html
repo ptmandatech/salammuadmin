@@ -1,0 +1,72 @@
+<h1 mat-dialog-title>Tambah/Perbarui Video</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Nama Produk</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Kategori</mat-label>
+    <mat-select required>
+        <mat-option *ngFor="let n of ['Pakaian', 'Furniture']" value="{{n}}">{{n}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Harga</mat-label>
+    <input matInput required type="number">
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Deskripsi Produk</mat-label>
+    <textarea matInput required></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <div>
+      <div class="uk-flex">
+        <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
+        <!-- Display files names -->
+        <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+      <!-- Fetch selected filed on change -->
+      <input
+        type="file"
+        #fileInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+        multiple="multiple"
+        accept="image/*"
+      />
+      </div>
+    </div>
+  </mat-form-field>
+  <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
+
+  <!-- image preview setelah file terpilih -->
+  <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
+    <div *ngFor="let n of [1,2,3]">
+      <div>
+        <div class="uk-card-default">
+            <div class="uk-card-media-top">
+                <img src="../../../../assets/imgs/no-image.png" alt="">
+            </div>
+            <div>
+              <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom">Hapus</button>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+</mat-dialog-actions>
