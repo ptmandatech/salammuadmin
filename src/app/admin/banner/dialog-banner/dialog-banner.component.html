@@ -25,7 +25,8 @@
       />
       </div>
       <!-- image preview setelah file terpilih -->
-      <img *ngIf="bannersData.image != undefined" class="uk-margin-top" src="{{serverImgBanner+bannersData.image}}">
+      <img *ngIf="image != undefined && bannersData.image != ''" class="uk-margin-top" [src]="image">
+      <img *ngIf="bannersData.image != undefined && image == undefined || bannersData.image == ''" class="uk-margin-top" src="{{serverImgBanner+bannersData.image}}">
     </div>
   </mat-form-field>
   <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
@@ -37,5 +38,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button [mat-dialog-close]="true" (click)="uploadPhoto()" color="primary">Simpan</button>
+  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
 </mat-dialog-actions>

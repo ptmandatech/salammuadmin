@@ -1,27 +1,27 @@
-<h1 mat-dialog-title>Tambah/Perbarui Video</h1>
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Produk</h1>
 
 <div mat-dialog-content>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Produk</mat-label>
-    <input matInput required>
+    <input matInput [(ngModel)]="productsData.name" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Kategori</mat-label>
-    <mat-select required>
-        <mat-option *ngFor="let n of ['Pakaian', 'Furniture']" value="{{n}}">{{n}}</mat-option>
+    <mat-select required [(ngModel)]="productsData.category">
+        <mat-option *ngFor="let n of ['pakaian', 'furniture']" value="{{n}}">{{n}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Harga</mat-label>
-    <input matInput required type="number">
+    <input matInput required type="number" [(ngModel)]="productsData.price">
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Deskripsi Produk</mat-label>
-    <textarea matInput required></textarea>
+    <textarea matInput required [(ngModel)]="productsData.descriptions"></textarea>
   </mat-form-field>
 
   <mat-form-field>
@@ -46,20 +46,34 @@
   <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
 
   <!-- image preview setelah file terpilih -->
-  <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
-    <div *ngFor="let n of [1,2,3]">
+  <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="productsData.images.length > 0" uk-grid>
+    <div *ngFor="let img of productsData.images; let idx=index">
       <div>
         <div class="uk-card-default">
             <div class="uk-card-media-top">
-                <img src="../../../../assets/imgs/no-image.png" alt="">
+                <img src="{{img == undefined ? '../../../../assets/imgs/no-image.png':serverImg+img}}" alt="">
             </div>
             <div>
-              <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom">Hapus</button>
+              <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" (click)="removeImages(idx)">Hapus</button>
             </div>
         </div>
       </div>
     </div>
-</div>
+  </div>
+  <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="images.length > 0" uk-grid>
+    <div *ngFor="let img of images; let idx=index">
+      <div>
+        <div class="uk-card-default">
+            <div class="uk-card-media-top">
+                <img [src]="img" alt="">
+            </div>
+            <div>
+              <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" (click)="removeImagesLokal(idx)">Hapus</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -68,5 +82,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
 </mat-dialog-actions>

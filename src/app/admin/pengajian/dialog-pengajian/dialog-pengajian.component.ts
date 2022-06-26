@@ -330,6 +330,7 @@ export class DialogPengajianComponent implements OnInit {
         this.pengajianData.datetime = new Date(this.pengajianData.datetime);
         if(this.isCreated == true) {
           this.pengajianData.verified = false;
+          this.pengajianData.created_by = this.userData.id;
           this.api.post('pengajian', this.pengajianData).then(res => {
             if(res) {
               Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });

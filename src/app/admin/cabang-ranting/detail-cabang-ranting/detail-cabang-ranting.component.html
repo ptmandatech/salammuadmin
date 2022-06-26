@@ -1,35 +1,35 @@
-<h1 mat-dialog-title>Tambah atau Perbarui Cabang Ranting</h1>
+<h1 mat-dialog-title>{{crData.category == 'cabang' ? 'Detail Cabang':'Detail Ranting'}}</h1>
 
 <div mat-dialog-content>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Kategori</mat-label>
-    <mat-select required [disabled]="true">
-        <mat-option *ngFor="let n of ['Cabang', 'Ranting']" value="{{n}}">{{n}}</mat-option>
+    <mat-select required [disabled]="true" [(ngModel)]="crData.category">
+        <mat-option *ngFor="let n of ['cabang', 'ranting']" value="{{n}}">{{n}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika dipilih Cabang -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="crData.category == 'cabang'">
     <mat-label>Nama Cabang</mat-label>
-    <input matInput required [disabled]="true">
+    <input matInput required [(ngModel)]="crData.name" [disabled]="true">
   </mat-form-field>
 
   <!-- Jika dipilih ranting -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="crData.category == 'ranting'">
     <mat-label>Nama Ranting</mat-label>
-    <input matInput required [disabled]="true">
+    <input matInput required [(ngModel)]="crData.name" [disabled]="true">
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Alamat</mat-label>
-    <textarea matInput required [disabled]="true"></textarea>
+    <textarea matInput required [(ngModel)]="crData.address" [disabled]="true"></textarea>
   </mat-form-field>
 
   <!-- Disini pake quill ya -->
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Tentang </mat-label>
-    <textarea matInput required [disabled]="true"></textarea>
+    <textarea matInput required [disabled]="true" [innerHTML]="getInnerHTML(crData.about)"></textarea>
   </mat-form-field>
 
 
@@ -39,6 +39,6 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="primary">Setujui</button>
-  <button mat-flat-button color="warn">Batalkan Persetujuan</button>
+  <button mat-flat-button color="primary" *ngIf="crData.verified == 0" (click)="verifikasi()">Setujui</button>
+  <button mat-flat-button color="warn" *ngIf="crData.verified == 1" (click)="batalVerif()">Batalkan Persetujuan</button>
 </mat-dialog-actions>

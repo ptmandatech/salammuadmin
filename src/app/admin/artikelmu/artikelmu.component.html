@@ -7,7 +7,7 @@
             <h1>ArtikelMU</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah</button>
           </div>
         </div>
         <div></div>
@@ -27,20 +27,20 @@
               </tr>
           </thead>
           <tbody>
-                <tr>
-                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                  <td>Ilmu falaq</td>
-                  <td>Apakah anda mengetahui apa itu ilmu falak ? Simak penjelasannya berikut</td>
-                  <td>Oleh Admin Salammu</td>
-                  <td>12 Januari 2022</td>
-                  <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" (click)="openDialog()">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab color="warn">
-                      <mat-icon>delete</mat-icon>
-                    </button>
-                  </td>
+            <tr *ngFor="let n of allArticles">
+              <td><img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImg+n.image)}}" width="120" height="120" alt=""></td>
+              <td>{{n.title}}</td>
+              <td>{{n.summary}}</td>
+              <td>{{n.user_name}}</td>
+              <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
+              <td class="uk-table-shrink uk-text-nowrap">
+                <button mat-mini-fab color="primary" (click)="openDialog(n)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn" (click)="delete(n)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
               </tr>
           </tbody>
         </table>

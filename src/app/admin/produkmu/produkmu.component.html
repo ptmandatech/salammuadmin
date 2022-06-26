@@ -7,7 +7,7 @@
             <h1>ProdukMU</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah Produk</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Produk</button>
             <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
             <button mat-flat-button color="warn">Batalkan Persetujuan</button>
           </div>
@@ -32,17 +32,20 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
+              <tr *ngFor="let n of allProducts">
                   <td><input class="uk-checkbox" type="checkbox"></td>
-                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                  <td>Tumbler Estetik</td>
-                  <td>Pakaian</td>
-                  <td>Rp. 25.000</td>
-                  <td>Admin Salammu</td>
+                  <td><img class="uk-thumbnail" src="{{n.images == undefined || n.images == '' ? '../../../assets/imgs/no-image.png':serverImg+n.images[0]}}" width="120" height="120" alt=""></td>
+                  <td>{{n.name}}</td>
+                  <td>{{n.category_name}}</td>
+                  <td>Rp. {{n.price | number:'1.0-0'}}</td>
+                  <td>{{n.user_name}}</td>
                   <td><mat-icon class="fill">star</mat-icon></td>
+                  <!-- <td><mat-icon class="gray">star</mat-icon></td> -->
                   <td>
                     <mat-chip-list aria-label="Fish selection">
-                        <mat-chip color="primary" selected>Verified</mat-chip>
+                        <mat-chip color="primary" *ngIf="n.verified == 1 && n.blocked == 0" selected>Verified</mat-chip>
+                        <mat-chip color="accent" *ngIf="n.verified == 0 && n.blocked == 0" selected>Unverified</mat-chip>
+                        <mat-chip color="warn" *ngIf="n.blocked == 1" selected>Block</mat-chip>
                     </mat-chip-list>
                   </td>
                   <td class="uk-table-shrink uk-text-nowrap">
@@ -50,98 +53,32 @@
                         <mat-icon>more_vert</mat-icon>
                       </button>
                       <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item *ngIf="n.blocked == 0" (click)="block(n, true)">
                           <mat-icon>block</mat-icon>
                           <span>Block Produk</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item *ngIf="n.blocked == 1" (click)="block(n, false)">
+                          <mat-icon>lock_open</mat-icon>
+                          <span>Unblock Produk</span>
+                        </button>
+                        <button mat-menu-item *ngIf="n.verified == 0" (click)="verifikasi(n, true)">
                             <mat-icon>done_outline</mat-icon>
                             <span>Verifikasi Produk</span>
-                          </button>
-                        <button mat-menu-item>
+                        </button>
+                        <button mat-menu-item *ngIf="n.verified == 1 && n.blocked == 0" (click)="verifikasi(n, false)">
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Batal Verifikasi Produk</span>
+                        </button>
+                        <button mat-menu-item (click)="openDialog(n)">
                             <mat-icon>inventory_2</mat-icon>
                             <span>Edit Produk</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="delete(n)">
                           <mat-icon>delete</mat-icon>
                           <span>Hapus</span>
                         </button>
                       </mat-menu>
                   </td>
-              </tr>
-              <tr>
-                <td><input class="uk-checkbox" type="checkbox"></td>
-                <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                <td>Tumbler Estetik</td>
-                <td>Pakaian</td>
-                <td>Rp. 25.000</td>
-                <td>Admin Salammu</td>
-                <td><mat-icon class="gray">star</mat-icon></td>
-                <td>
-                  <mat-chip-list aria-label="Fish selection">
-                      <mat-chip color="warn" selected>Block</mat-chip>
-                  </mat-chip-list>
-                </td>
-                <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                          <mat-icon>block</mat-icon>
-                          <span>Block Produk</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon>done_outline</mat-icon>
-                            <span>Verifikasi Produk</span>
-                          </button>
-                        <button mat-menu-item>
-                            <mat-icon>inventory_2</mat-icon>
-                            <span>Edit Produk</span>
-                        </button>
-                        <button mat-menu-item>
-                          <mat-icon>delete</mat-icon>
-                          <span>Hapus</span>
-                        </button>
-                      </mat-menu>
-                </td>
-              </tr>
-              <tr>
-                <td><input class="uk-checkbox" type="checkbox"></td>
-                <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                <td>Tumbler Estetik</td>
-                <td>Pakaian</td>
-                <td>Rp. 25.000</td>
-                <td>Admin Salammu</td>
-                <td><mat-icon class="gray">star</mat-icon></td>
-                <td>
-                  <mat-chip-list aria-label="Fish selection">
-                      <mat-chip color="accent" selected>Unverified</mat-chip>
-                  </mat-chip-list>
-                </td>
-                <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                          <mat-icon>block</mat-icon>
-                          <span>Block Produk</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon>done_outline</mat-icon>
-                            <span>Verifikasi Produk</span>
-                          </button>
-                        <button mat-menu-item>
-                            <mat-icon>inventory_2</mat-icon>
-                            <span>Edit Produk</span>
-                        </button>
-                        <button mat-menu-item>
-                          <mat-icon>delete</mat-icon>
-                          <span>Hapus</span>
-                        </button>
-                      </mat-menu>
-                </td>
               </tr>
           </tbody>
         </table>

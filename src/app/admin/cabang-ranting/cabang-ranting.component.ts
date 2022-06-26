@@ -7,6 +7,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import { DialogCabangRantingComponent } from './dialog-cabang-ranting/dialog-cabang-ranting.component';
 import { DetailCabangRantingComponent } from './detail-cabang-ranting/detail-cabang-ranting.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class CabangRantingComponent implements OnInit {
 
   allCr:any = [];
   getAllCr() {
+    this.allCr = [];
     this.api.get('cr').then(res=>{
       this.allCr = res;
       console.log(res)
@@ -62,23 +64,48 @@ export class CabangRantingComponent implements OnInit {
   }
 
   //Dialog tambah/edit Cabang Ranting
-  openDialog(): void {
+  openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogCabangRantingComponent, {
       width: '650px',
+      data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllCr();
     });
   }
 
   //Dialog detail Cabang Ranting
-  detailDialog(): void {
+  detailDialog(n:any): void {
     const dialogRef = this.dialog.open(DetailCabangRantingComponent, {
       width: '650px',
+      data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getAllCr();
     });
+  }
+
+  delete(n:any) {
+    Swal.fire({
+      title: 'Anda Yakin ingin menghapus data ?',
+      text: "Data yang telah terhapus tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, hapus!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.delete('cr/'+n.id).then(res => {
+          if(res) {
+            Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
+            this.getAllCr();
+          }
+        })
+      }
+    })
   }
 
 }
