@@ -329,6 +329,7 @@ export class DialogPengajianComponent implements OnInit {
         this.pengajianData.datetime = new Date(this.dateValue).setHours(hours, minutes, 0);
         this.pengajianData.datetime = new Date(this.pengajianData.datetime);
         if(this.isCreated == true) {
+          this.pengajianData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
           this.pengajianData.verified = false;
           this.pengajianData.created_by = this.userData.id;
           this.api.post('pengajian', this.pengajianData).then(res => {

@@ -92,6 +92,7 @@ export class DialogArtikelmuComponent implements OnInit {
   save() {
     if(this.isCreated == true) {
       this.articlesData.created_by = this.userData.id;
+      this.articlesData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('articles', this.articlesData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });

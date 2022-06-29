@@ -54,6 +54,7 @@ export class DialogCabangRantingComponent implements OnInit {
     if(this.isCreated == true) {
       this.crData.verified = false;
       this.crData.created_by = this.userData.id;
+      this.crData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('cr', this.crData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });

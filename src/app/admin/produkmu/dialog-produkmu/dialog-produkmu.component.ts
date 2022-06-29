@@ -44,6 +44,7 @@ export class DialogProdukmuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCategories();
     this.cekLogin();
   }
 
@@ -52,6 +53,18 @@ export class DialogProdukmuComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+    });
+  }
+
+  allCategories:any = [];
+  getCategories() {
+    this.api.get('categories').then(res=>{
+      this.allCategories = res;
+      console.log(res)
+      Loading.remove();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
     });
   }
 
@@ -149,7 +162,7 @@ export class DialogProdukmuComponent implements OnInit {
       this.productsData.images = JSON.stringify(this.imageNow);
     }
     if(this.isCreated == true) {
-      this.productsData.id = this.id;
+      this.productsData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.productsData.created_by = this.userData.id;
       this.api.post('products', this.productsData).then(res => {
         if(res) {

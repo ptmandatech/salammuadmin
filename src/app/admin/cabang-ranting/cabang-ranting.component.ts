@@ -87,6 +87,96 @@ export class CabangRantingComponent implements OnInit {
     });
   }
 
+  hasSelectedData:boolean = false;
+  selectAll(evt:any, n:any) {
+    if(n == 'all') {
+      if(evt.target.checked) {
+        this.allCr.forEach((e:any) => {
+          e.checked = true;
+        });
+      } else {
+        this.allCr.forEach((e:any) => {
+          e.checked = false;
+        });
+      }
+    } else {
+      if(evt.target.checked) {
+        this.allCr[n].checked = true;
+      } else {
+        this.allCr[n].checked = false;
+      }
+    }
+    let checkData = this.allCr.filter((e:any) => e.checked == true);
+    checkData.length > 0 ? this.hasSelectedData = true : this.hasSelectedData = false;
+  }
+
+  allData:any = {};
+  verifikasi() {
+    let checkData = this.allCr.filter((e:any) => e.verified == 0 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan verifikasi data cabang/ranting?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Verifikasi!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = true;
+          this.api.put('cr/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
+                this.allCr.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+                Loading.remove();
+              }
+            }
+          })
+        });
+      }
+    })
+  }
+
+  batalVerif() {
+    let checkData = this.allCr.filter((e:any) => e.verified == 1 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data cabang/ranting?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Batalkan!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = false;
+          this.api.put('cr/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
+                this.allCr.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+                Loading.remove();
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
   delete(n:any) {
     Swal.fire({
       title: 'Anda Yakin ingin menghapus data ?',
@@ -103,6 +193,8 @@ export class CabangRantingComponent implements OnInit {
             Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
             this.getAllCr();
           }
+        }, err => {
+          Loading.remove();
         })
       }
     })

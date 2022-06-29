@@ -10,7 +10,7 @@
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Kategori</mat-label>
     <mat-select required [(ngModel)]="productsData.category">
-        <mat-option *ngFor="let n of ['pakaian', 'furniture']" value="{{n}}">{{n}}</mat-option>
+        <mat-option *ngFor="let n of allCategories" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 

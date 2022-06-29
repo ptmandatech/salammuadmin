@@ -59,7 +59,6 @@ export class ProdukmuComponent implements OnInit {
         e.images = JSON.parse(e.images)
       });
       this.allProducts = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -132,6 +131,100 @@ export class ProdukmuComponent implements OnInit {
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
+      }
+    })
+  }
+
+  hasSelectedData:boolean = false;
+  selectAll(evt:any, n:any) {
+    if(n == 'all') {
+      if(evt.target.checked) {
+        this.allProducts.forEach((e:any) => {
+          e.checked = true;
+        });
+      } else {
+        this.allProducts.forEach((e:any) => {
+          e.checked = false;
+        });
+      }
+    } else {
+      if(evt.target.checked) {
+        this.allProducts[n].checked = true;
+      } else {
+        this.allProducts[n].checked = false;
+      }
+    }
+    let checkData = this.allProducts.filter((e:any) => e.checked == true);
+    checkData.length > 0 ? this.hasSelectedData = true : this.hasSelectedData = false;
+  }
+
+  allData:any = {};
+  verifikasiAll() {
+    let checkData = this.allProducts.filter((e:any) => e.verified == 0 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan verifikasi data produk?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Verifikasi!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = true;
+          e.images = JSON.stringify(e.images);
+          this.api.put('products/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                this.getProducts();
+                Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
+                this.allProducts.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
+  batalVerif() {
+    let checkData = this.allProducts.filter((e:any) => e.verified == 1 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data produk?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Batalkan!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = false;
+          e.images = JSON.stringify(e.images);
+          this.api.put('products/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                this.getProducts();
+                Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
+                this.allProducts.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
       }
     })
   }

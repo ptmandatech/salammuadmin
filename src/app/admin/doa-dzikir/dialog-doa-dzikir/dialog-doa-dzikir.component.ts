@@ -92,6 +92,7 @@ export class DialogDoaDzikirComponent implements OnInit {
   save() {
     if(this.isCreated == true) {
       this.doaDzikirData.created_by = this.userData.id;
+      this.doaDzikirData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('doadzikir', this.doaDzikirData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });

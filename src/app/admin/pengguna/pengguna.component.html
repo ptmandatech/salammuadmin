@@ -7,7 +7,7 @@
             <h1>Pengguna</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna()">Tambah Pengguna</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna(null)">Tambah Pengguna</button>
           </div>
         </div>
         <div></div>
@@ -28,44 +28,44 @@
               </tr>
           </thead>
           <tbody>
-                <tr>
-                  <td><img class="uk-preserve-width uk-border-circle" src="../../../assets/imgs/user.svg" width="40" height="40" alt=""></td>
-                  <td>Idham Khadafi</td>
-                  <td>Idham@salammu.id</td>
-                  <td>08776263524</td>
+                <tr *ngFor="let n of allUsers">
+                  <td><img class="uk-preserve-width uk-border-circle" src="{{n.image == null ? '../../../assets/imgs/user.svg':(serverImg+n.image)}}" width="40" height="40" alt=""></td>
+                  <td>{{n.name}}</td>
+                  <td>{{n.email}}</td>
+                  <td>{{n.phone}}</td>
                   <td>
                     <mat-chip-list aria-label="Fish selection">
-                      <mat-chip color="primary" selected>Active</mat-chip>
-                      <mat-chip color="warn" selected>Block</mat-chip>
+                      <mat-chip color="primary" *ngIf="n.is_active == 1" selected>Active</mat-chip>
+                      <mat-chip color="warn" *ngIf="n.is_active == 0" selected>Block</mat-chip>
                     </mat-chip-list>
                   </td>
-                  <td>Editor, User</td>
+                  <td>{{n.role}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
                       </button>
                       <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item *ngIf="n.is_active == 1" [disabled]="userData.email == n.email" (click)="block(n, false)">
                           <mat-icon>block</mat-icon>
                           <span>Block User</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item *ngIf="n.is_active == 0" [disabled]="userData.email == n.email" (click)="block(n, true)">
                             <mat-icon>done_outline</mat-icon>
-                            <span>Actifkan User</span>
+                            <span>Aktifkan User</span>
                         </button>
-                        <button mat-menu-item (click)="dialogPengguna()">
+                        <button mat-menu-item (click)="dialogPengguna(n)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit User</span>
                           </button>
-                        <button mat-menu-item (click)="editRole()">
+                        <button mat-menu-item [disabled]="userData.email == n.email" (click)="editRole(n)">
                           <mat-icon>manage_accounts</mat-icon>
                           <span>Ubah Role</span>
                         </button>
-                        <button mat-menu-item (click)="updatePassword()">
+                        <button mat-menu-item (click)="updatePassword(n)">
                             <mat-icon>key</mat-icon>
                             <span>Update Password</span>
                           </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item [disabled]="userData.email == n.email" (click)="delete(n)">
                           <mat-icon>delete</mat-icon>
                           <span>Hapus User</span>
                         </button>

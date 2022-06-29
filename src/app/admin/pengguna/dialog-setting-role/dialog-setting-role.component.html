@@ -4,16 +4,13 @@
 
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Role</mat-label>
-        <mat-select [formControl]="role" multiple>
-          <mat-option *ngFor="let role of RoleList" [value]="role">{{role}}</mat-option>
+        <mat-select [(ngModel)]="usersData.role">
+          <mat-option *ngFor="let role of RoleList" value="{{role.id}}">{{role.name}}</mat-option>
         </mat-select>
     </mat-form-field>
-      
-
-  
   </div>
   
   <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button [mat-dialog-close]="true" color="primary">Simpan</button>
+      <button mat-flat-button (click)="save()" color="primary">Simpan</button>
     </mat-dialog-actions>

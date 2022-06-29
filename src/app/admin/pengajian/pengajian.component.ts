@@ -86,6 +86,98 @@ export class PengajianComponent implements OnInit {
     });
   }
 
+  hasSelectedData:boolean = false;
+  selectAll(evt:any, n:any) {
+    if(n == 'all') {
+      if(evt.target.checked) {
+        this.allPengajian.forEach((e:any) => {
+          e.checked = true;
+        });
+      } else {
+        this.allPengajian.forEach((e:any) => {
+          e.checked = false;
+        });
+      }
+    } else {
+      if(evt.target.checked) {
+        this.allPengajian[n].checked = true;
+      } else {
+        this.allPengajian[n].checked = false;
+      }
+    }
+    let checkData = this.allPengajian.filter((e:any) => e.checked == true);
+    checkData.length > 0 ? this.hasSelectedData = true : this.hasSelectedData = false;
+  }
+
+  allData:any = {};
+  verifikasi() {
+    let checkData = this.allPengajian.filter((e:any) => e.verified == 0 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan verifikasi data pengajian?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Verifikasi!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = true;
+          this.api.put('pengajian/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
+                this.allPengajian.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+                Loading.remove();
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
+  batalVerif() {
+    let checkData = this.allPengajian.filter((e:any) => e.verified == 1 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data pengajian?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Batalkan!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = false;
+          this.api.put('pengajian/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
+                this.allPengajian.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+                Loading.remove();
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
   delete(data:any) {
     Swal.fire({
       title: 'Anda Yakin ingin menghapus data ?',

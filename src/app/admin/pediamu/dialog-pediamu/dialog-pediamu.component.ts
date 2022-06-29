@@ -91,6 +91,7 @@ export class DialogPediamuComponent implements OnInit {
 
   save() {
     if(this.isCreated == true) {
+      this.pediamuData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.pediamuData.created_by = this.userData.id;
       this.api.post('pediamu', this.pediamuData).then(res => {
         if(res) {

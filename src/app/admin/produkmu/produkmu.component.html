@@ -8,8 +8,8 @@
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
             <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Produk</button>
-            <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
-            <button mat-flat-button color="warn">Batalkan Persetujuan</button>
+            <button mat-flat-button color="accent" *ngIf="hasSelectedData" class="uk-margin-right" (click)="verifikasiAll()">Setujui</button>
+            <button mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="batalVerif()">Batalkan Persetujuan</button>
           </div>
         </div>
         <div></div>
@@ -20,7 +20,7 @@
         <table class="uk-table uk-table-divider uk-table-middle">
           <thead>
               <tr>
-                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" [(ngModel)]="allData.checked" (change)="selectAll($event, 'all')"></th>
                   <th>Foto</th>
                   <th>Nama</th>
                   <th>Kategori</th>
@@ -32,8 +32,8 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of allProducts">
-                  <td><input class="uk-checkbox" type="checkbox"></td>
+              <tr *ngFor="let n of allProducts; let idx=index">
+                  <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                   <td><img class="uk-thumbnail" src="{{n.images == undefined || n.images == '' ? '../../../assets/imgs/no-image.png':serverImg+n.images[0]}}" width="120" height="120" alt=""></td>
                   <td>{{n.name}}</td>
                   <td>{{n.category_name}}</td>

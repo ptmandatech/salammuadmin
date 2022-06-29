@@ -13,8 +13,8 @@
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field> -->
           <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Pengajian</button>
-          <button mat-flat-button color="accent" class="uk-margin-right">Setujui</button>
-          <button mat-flat-button color="warn">Batalkan Persetujuan</button>
+          <button mat-flat-button color="accent" *ngIf="hasSelectedData" class="uk-margin-right" (click)="verifikasi()">Setujui</button>
+          <button mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="batalVerif()">Batalkan Persetujuan</button>
         </div>
       </div>
       <div></div>
@@ -25,7 +25,7 @@
       <table class="uk-table uk-table-divider uk-table-middle">
         <thead>
             <tr>
-                <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" [(ngModel)]="allData.checked" (change)="selectAll($event, 'all')"></th>
                 <th class="uk-width-1-4">Judul</th>
                 <th>Tanggal Pengajian</th>
                 <th>Oleh</th>
@@ -35,8 +35,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let n of allPengajian">
-                <td><input class="uk-checkbox" type="checkbox"></td>
+            <tr *ngFor="let n of allPengajian; let idx=index">
+                <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                 <td class="uk-width-1-4">
                   <ul class="uk-list">
                     <li>

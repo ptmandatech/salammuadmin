@@ -91,6 +91,7 @@ export class DialogBannerComponent implements OnInit {
   addBanner() {
     if(this.isCreated == true) {
       this.bannersData.created_by = this.userData.id;
+      this.bannersData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('banners', this.bannersData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan banner.',{ timeout: 2000 });
