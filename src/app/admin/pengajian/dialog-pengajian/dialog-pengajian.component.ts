@@ -68,7 +68,7 @@ export class DialogPengajianComponent implements OnInit {
       if(this.pengajianData.datetime != '0000-00-00 00:00:00.000000') {
         this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
         this.dateValue = new Date(this.dateValue);
-        this.timeValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'HH:mm');
+        this.timeValue = new Date(this.pengajianData.datetime);
       }
       this.generateMap(undefined);
     }
@@ -320,13 +320,14 @@ export class DialogPengajianComponent implements OnInit {
     } else {
       this.pengajianData.status = 'done';
     }
+    this.timeValue = this.datePipe.transform(new Date(this.timeValue), 'HH:mm');
     let hours = this.timeValue.split(':')[0];
     let minutes = this.timeValue.split(':')[1];
     if(this.dateValue != undefined) {
       if(hours > 24) {
         Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
       } else {
-        this.pengajianData.datetime = new Date(this.dateValue).setHours(hours, minutes, 0);
+        this.pengajianData.datetime = this.dateValue.setHours(hours, minutes);
         this.pengajianData.datetime = new Date(this.pengajianData.datetime);
         if(this.isCreated == true) {
           this.pengajianData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];

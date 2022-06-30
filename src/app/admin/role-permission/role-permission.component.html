@@ -7,7 +7,7 @@
             <h1>Role Permission</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
-            <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Role</button>
+            <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Role</button>
           </div>
         </div>
         <div></div>
@@ -25,16 +25,16 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td>Editor</td>
-                  <td>Dashboard, Cabang & Ranting, Video, Doa dan Dzikir</td>
-                  <td>Admin Salammu</td>
-                  <td>12 Januari 2022 </td>
+              <tr *ngFor="let n of allRoles">
+                  <td>{{n.name}}</td>
+                  <td><span *ngFor="let n of n.path">{{n.name}}, </span></td>
+                  <td>{{n.user_name}}</td>
+                  <td>{{n.created_at | date:'dd/MM/yyyy'}} </td>
                   <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" (click)="openDialog()">
+                    <button mat-mini-fab color="primary" (click)="openDialog(n)">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-mini-fab color="warn" >
+                    <button mat-mini-fab color="warn" (click)="delete(n)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </td>

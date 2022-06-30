@@ -55,7 +55,6 @@ export class PediamuComponent implements OnInit {
     this.allPediamu = [];
     this.api.get('pediamu').then(res=>{
       this.allPediamu = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

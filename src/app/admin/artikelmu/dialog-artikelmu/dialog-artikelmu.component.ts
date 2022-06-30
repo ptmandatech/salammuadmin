@@ -30,7 +30,6 @@ export class DialogArtikelmuComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'articles/';
     this.articlesData = sourceData.data;
-    console.log(this.articlesData)
     if(this.articlesData == null) {
       this.articlesData = {};
       this.isCreated = true;

@@ -73,7 +73,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Lokasi Sesuai Peta</mat-label>
-    <input matInput [(ngModel)]="pengajianData.pin" [disabled]="true">
+    <input matInput [disabled]="true">{{detailLocSelected == undefined ? '':detailLocSelected.display_name}}
   </mat-form-field>
 
   <div id="map" style="width: auto; height: 300px;"></div>

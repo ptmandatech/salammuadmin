@@ -36,11 +36,10 @@
                   <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                   <td><img class="uk-thumbnail" src="{{n.images == undefined || n.images == '' ? '../../../assets/imgs/no-image.png':serverImg+n.images[0]}}" width="120" height="120" alt=""></td>
                   <td>{{n.name}}</td>
-                  <td>{{n.category_name}}</td>
+                  <td>{{allCategories[n.category] == undefined ? '':allCategories[n.category].name}}</td>
                   <td>Rp. {{n.price | number:'1.0-0'}}</td>
                   <td>{{n.user_name}}</td>
-                  <td><mat-icon class="fill">star</mat-icon></td>
-                  <!-- <td><mat-icon class="gray">star</mat-icon></td> -->
+                  <td><mat-icon class="{{n.fav == 1 ? 'fill':'gray'}}" (click)="fav(n)">star</mat-icon></td>
                   <td>
                     <mat-chip-list aria-label="Fish selection">
                         <mat-chip color="primary" *ngIf="n.verified == 1 && n.blocked == 0" selected>Verified</mat-chip>

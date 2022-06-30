@@ -55,7 +55,6 @@ export class DoaDzikirComponent implements OnInit {
     this.allDoaDzikir = [];
     this.api.get('Doadzikir').then(res=>{
       this.allDoaDzikir = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

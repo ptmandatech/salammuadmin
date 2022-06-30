@@ -44,12 +44,28 @@ export class PenggunaComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+      this.getAllRoles();
       this.getAllUsers();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       localStorage.removeItem('salammuToken');
       this.router.navigate(['/auth/login'], {replaceUrl:true});
     })
+  }
+
+  allRoles:any = {};
+  getAllRoles() {
+    this.api.get('roles?all').then(res=>{
+      this.parseRoles(res);
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+    });
+  }
+
+  parseRoles(res:any) {
+    for(var i=0; i<res.length; i++) {
+      this.allRoles[res[i].id] = res[i];
+    }
   }
 
   allUsers:any = [];

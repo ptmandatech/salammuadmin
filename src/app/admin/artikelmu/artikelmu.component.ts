@@ -55,7 +55,6 @@ export class ArtikelmuComponent implements OnInit {
     this.allArticles = [];
     this.api.get('articles').then(res=>{
       this.allArticles = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

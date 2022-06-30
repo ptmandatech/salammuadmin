@@ -32,6 +32,7 @@ import { DialogSettingRoleComponent } from './pengguna/dialog-setting-role/dialo
 import { DialogUpdatePasswordComponent } from './pengguna/dialog-update-password/dialog-update-password.component';
 import { DialogProdukmuComponent } from './produkmu/dialog-produkmu/dialog-produkmu.component';
 import { QuillModule } from 'ngx-quill';
+import {NgxPaginationModule} from 'ngx-pagination';
 const routes: Routes = [
   {
     path: '',
@@ -143,7 +144,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     QuillModule.forRoot(),
     RouterModule,
-    MatTimepickerModule
+    MatTimepickerModule,
+    NgxPaginationModule
   ],
   entryComponents: [
     DashboardComponent,

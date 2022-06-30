@@ -27,7 +27,6 @@ export class DialogProdukmuComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'products/';
     this.productsData = sourceData.data;
-    console.log(this.productsData)
     if(this.productsData == null) {
       this.productsData = {};
       this.isCreated = true;
@@ -60,7 +59,6 @@ export class DialogProdukmuComponent implements OnInit {
   getCategories() {
     this.api.get('categories').then(res=>{
       this.allCategories = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -102,7 +100,6 @@ export class DialogProdukmuComponent implements OnInit {
       for(var i=0; i<this.images.length; i++) {
         await this.api.put('products/uploadfoto/'+this.id,{image: this.images[i]}).then(res=>{
           this.imgUploaded.push(res);
-          console.log(this.imgUploaded)
           if(i+1 == this.images.length) {
             this.save();
           }
@@ -164,6 +161,7 @@ export class DialogProdukmuComponent implements OnInit {
     if(this.isCreated == true) {
       this.productsData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.productsData.created_by = this.userData.id;
+      this.productsData.verified = false
       this.api.post('products', this.productsData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });

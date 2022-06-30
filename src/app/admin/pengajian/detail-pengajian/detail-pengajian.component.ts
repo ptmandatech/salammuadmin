@@ -58,7 +58,7 @@ export class DetailPengajianComponent implements OnInit {
       this.isCreated = true;
     } else {
       this.isCreated = false;
-      this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MMM dd yyyy');
+      this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
       this.timeValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'HH:mm');
       this.generateMap(undefined);
     }
@@ -91,6 +91,7 @@ export class DetailPengajianComponent implements OnInit {
   {
     if(this.pengajianData.pin != null) {
       data = JSON.parse(this.pengajianData.pin);
+      this.getDetailLocation(data);
     }
     var features = [];
     if(data == undefined) {

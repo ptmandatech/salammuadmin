@@ -55,7 +55,6 @@ export class CabangRantingComponent implements OnInit {
     this.allCr = [];
     this.api.get('cr').then(res=>{
       this.allCr = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

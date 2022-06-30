@@ -34,6 +34,7 @@ export class ProdukmuComponent implements OnInit {
         this.pageTitle = this.routes.snapshot.firstChild?.data.title;
       }
     });
+    this.getCategories();
     this.cekLogin();
     this.getProducts();
   }
@@ -64,6 +65,21 @@ export class ProdukmuComponent implements OnInit {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       Loading.remove();
     });
+  }
+
+  allCategories:any = {};
+  getCategories() {
+    this.api.get('categories').then(res=>{
+      this.parseCategories(res);
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+    });
+  }
+
+  parseCategories(res:any) {
+    for(var i=0; i<res.length; i++) {
+      this.allCategories[res[i].id] = res[i];
+    }
   }
 
   checkImage(url:any, image:any) {
@@ -98,6 +114,7 @@ export class ProdukmuComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         n.verified = status;
+        n.images = JSON.stringify(n.images);
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
             Notiflix.Notify.success('Data Berhasil di '+t+'.',{ timeout: 2000 });
@@ -123,6 +140,7 @@ export class ProdukmuComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         n.blocked = status;
+        n.images = JSON.stringify(n.images);
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
             Notiflix.Notify.success('Data Berhasil di '+t+'.',{ timeout: 2000 });
@@ -130,6 +148,31 @@ export class ProdukmuComponent implements OnInit {
           }
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
+        })
+      }
+    })
+  }
+
+  fav(n:any) {
+    let s = n.fav == true ? 'menghapus favorit':'menambahkan favorit';
+    Swal.fire({
+      title: 'Anda yakin ingin '+s+' produk?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Simpan!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        n.fav = n.fav == true ? n.fav = false:n.fav = true;
+        n.images = JSON.stringify(n.images);
+        this.api.put('products/'+ n.id, n).then(res => {
+          if(res) {
+            Notiflix.Notify.success('Data Berhasil disimpan',{ timeout: 2000 });
+            this.getProducts()
+          }
+        }).catch(error => {
+          Notiflix.Notify.success('Data Gagal disimpan',{ timeout: 2000 });
         })
       }
     })

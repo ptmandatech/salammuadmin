@@ -15,66 +15,66 @@
 
         <!--content -->
         <mat-nav-list>
-          <mat-list-item routerLink="/admin/dashboard" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/dashboard']" routerLink="/admin/dashboard" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">donut_small</mat-icon>
             <h3 matLine class="light">Dashboard</h3>
           </mat-list-item>
 
           <p mat-subheader style="color: white;">Apps</p>
 
-          <mat-list-item routerLink="/admin/banner" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/banner']" routerLink="/admin/banner" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">photo_library</mat-icon>
             <h3 matLine class="light">Banner</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/pengajian" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/pengajian']" routerLink="/admin/pengajian" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">campaign</mat-icon>
             <h3 matLine class="light">Pengajian</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/cabang-ranting" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/abang-ranting']" routerLink="/admin/cabang-ranting" routerLinkActive="active-list-item" hidden>
             <mat-icon matListIcon class="light">grass</mat-icon>
             <h3 matLine class="light">Cabang dan Ranting</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/video" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/video']" routerLink="/admin/video" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">videocam</mat-icon>
             <h3 matLine class="light">Video</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/doa-dzikir" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/doa-dzikir']" routerLink="/admin/doa-dzikir" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">menu_book</mat-icon>
             <h3 matLine class="light">Doa dan Dzikir</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/artikelmu" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/artikelmu']" routerLink="/admin/artikelmu" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">article</mat-icon>
             <h3 matLine class="light">ArtikelMU</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/pediamu" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/pediamu']" routerLink="/admin/pediamu" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">collections_bookmark</mat-icon>
             <h3 matLine class="light">PediaMU</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/produkmu" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/produkmu']" routerLink="/admin/produkmu" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">inventory_2</mat-icon>
             <h3 matLine class="light">ProdukMU</h3>
           </mat-list-item>
 
           <p mat-subheader style="color: white;">Settings</p>
 
-          <mat-list-item routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/kategori-produk']" routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">category</mat-icon>
             <h3 matLine class="light">Kategori Produk</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/pengguna" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/pengguna']" routerLink="/admin/pengguna" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">group</mat-icon>
             <h3 matLine class="light">Pengguna</h3>
           </mat-list-item>
 
-          <mat-list-item routerLink="/admin/role-permission" routerLinkActive="active-list-item" >
+          <mat-list-item *ngIf="accessMenu['/admin/role-permission']" routerLink="/admin/role-permission" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">manage_accounts</mat-icon>
             <h3 matLine class="light">Role Permission</h3>
           </mat-list-item>

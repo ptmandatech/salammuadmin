@@ -5,7 +5,7 @@
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Role</mat-label>
         <mat-select [(ngModel)]="usersData.role">
-          <mat-option *ngFor="let role of RoleList" value="{{role.id}}">{{role.name}}</mat-option>
+          <mat-option *ngFor="let role of allRoles" value="{{role.id}}">{{role.name}}</mat-option>
         </mat-select>
     </mat-form-field>
   </div>

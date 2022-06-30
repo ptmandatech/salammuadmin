@@ -21,10 +21,6 @@ export class DialogSettingRoleComponent implements OnInit {
       name: 'Pengguna'
     },
     {
-      id: 'editor',
-      name: 'Editor'
-    },
-    {
       id: 'superadmin',
       name: 'Superadmin'
     }, 
@@ -52,7 +48,6 @@ export class DialogSettingRoleComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'users/';
     this.usersData = sourceData.data;
-    console.log(this.usersData)
     if(this.usersData == null) {
       this.usersData = {};
       this.isCreated = true;
@@ -66,6 +61,7 @@ export class DialogSettingRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cekLogin();
+    this.getAllRoles();
   }
 
   userData:any;
@@ -73,6 +69,18 @@ export class DialogSettingRoleComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+    });
+  }
+
+  allRoles:any = [];
+  getAllRoles() {
+    this.api.get('roles?all').then(res=>{
+      this.allRoles = res;
+      this.allRoles.forEach((e:any, index:any) => {
+        e.path = JSON.parse(e.path);
+      });
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
     });
   }
 

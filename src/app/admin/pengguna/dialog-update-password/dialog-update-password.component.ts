@@ -27,7 +27,6 @@ export class DialogUpdatePasswordComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'users/';
     this.usersData = sourceData.data;
-    console.log(this.usersData)
     if(this.usersData == null) {
       this.usersData = {};
       this.isCreated = true;

@@ -29,7 +29,6 @@ export class DetailCabangRantingComponent implements OnInit {
   ) {
     Loading.pulse();
     this.crData = sourceData.data;
-    console.log(this.crData)
     if(this.crData == null) {
       this.crData = {};
       this.isCreated = true;

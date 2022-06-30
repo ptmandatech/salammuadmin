@@ -30,7 +30,6 @@ export class DialogDoaDzikirComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'doadzikir/';
     this.doaDzikirData = sourceData.data;
-    console.log(this.doaDzikirData)
     if(this.doaDzikirData == null) {
       this.doaDzikirData = {};
       this.isCreated = true;

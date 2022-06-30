@@ -30,7 +30,6 @@ export class DialogPediamuComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'pediamu/';
     this.pediamuData = sourceData.data;
-    console.log(this.pediamuData)
     if(this.pediamuData == null) {
       this.pediamuData = {};
       this.isCreated = true;

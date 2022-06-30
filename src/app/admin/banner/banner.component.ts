@@ -15,6 +15,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class BannerComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

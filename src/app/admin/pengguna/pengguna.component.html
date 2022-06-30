@@ -39,7 +39,7 @@
                       <mat-chip color="warn" *ngIf="n.is_active == 0" selected>Block</mat-chip>
                     </mat-chip-list>
                   </td>
-                  <td>{{n.role}}</td>
+                  <td>{{allRoles[n.role] == undefined ? '':allRoles[n.role].name}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
