@@ -26,7 +26,6 @@ export class AdminComponent implements OnInit {
       }
     });
     this.getAllRoles();
-    this.cekLogin();
   }
 
   allRoles:any = {};
@@ -45,6 +44,7 @@ export class AdminComponent implements OnInit {
     for(var i=0; i<res.length; i++) {
       this.allRoles[res[i].id] = res[i];
     }
+    this.cekLogin();
   }
 
   userData:any = {};

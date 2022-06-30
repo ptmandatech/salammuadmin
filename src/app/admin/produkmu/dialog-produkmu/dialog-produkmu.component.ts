@@ -16,7 +16,6 @@ export class DialogProdukmuComponent implements OnInit {
   productsData: any = {};
   isCreated:boolean;
   serverImg:any;
-  id:any;
   imageNow:any = [];
   constructor(
     public common: CommonService,
@@ -30,11 +29,10 @@ export class DialogProdukmuComponent implements OnInit {
     if(this.productsData == null) {
       this.productsData = {};
       this.isCreated = true;
-      this.id = new Date().getTime().toString();
+      this.productsData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.productsData.images = [];
     } else {
       this.isCreated = false;
-      this.id = this.productsData.id;
       if(this.productsData.images != '') {
         this.imageNow = this.productsData.images;
       }
@@ -98,7 +96,7 @@ export class DialogProdukmuComponent implements OnInit {
   {
     if(this.images.length > 0) {
       for(var i=0; i<this.images.length; i++) {
-        await this.api.put('products/uploadfoto/'+this.id,{image: this.images[i]}).then(res=>{
+        await this.api.put('products/uploadfoto/'+this.productsData.id,{image: this.images[i]}).then(res=>{
           this.imgUploaded.push(res);
           if(i+1 == this.images.length) {
             this.save();
@@ -159,7 +157,6 @@ export class DialogProdukmuComponent implements OnInit {
       this.productsData.images = JSON.stringify(this.imageNow);
     }
     if(this.isCreated == true) {
-      this.productsData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.productsData.created_by = this.userData.id;
       this.productsData.verified = false
       this.api.post('products', this.productsData).then(res => {
