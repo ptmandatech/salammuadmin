@@ -12,6 +12,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [

@@ -31,6 +31,7 @@ import { DialogUserComponent } from './pengguna/dialog-user/dialog-user.componen
 import { DialogSettingRoleComponent } from './pengguna/dialog-setting-role/dialog-setting-role.component';
 import { DialogUpdatePasswordComponent } from './pengguna/dialog-update-password/dialog-update-password.component';
 import { DialogProdukmuComponent } from './produkmu/dialog-produkmu/dialog-produkmu.component';
+import { QuillModule } from 'ngx-quill';
 const routes: Routes = [
   {
     path: '',
@@ -140,6 +141,7 @@ const routes: Routes = [
     CommonModule,
     AngularMaterialModule,
     RouterModule.forChild(routes),
+    QuillModule.forRoot(),
     RouterModule,
     MatTimepickerModule
   ],

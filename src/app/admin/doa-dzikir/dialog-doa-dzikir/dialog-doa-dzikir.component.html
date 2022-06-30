@@ -13,10 +13,54 @@
   </mat-form-field>
 
   <!-- Disini pake Quill juga yaa -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <!-- <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Isi Doa/Dzikir</mat-label>
     <textarea matInput [(ngModel)]="doaDzikirData.descriptions" required></textarea>
-  </mat-form-field>
+  </mat-form-field> -->
+  
+  <mat-label>Isi Doa/Dzikir</mat-label>
+  <quill-editor [(ngModel)]="doaDzikirData.descriptions" [modules]="modules" placeholder="Tentang">
+    <div quill-editor-toolbar>
+      <span class="ql-formats">
+        <select class="ql-align" [title]="'Aligment'">
+          <option selected></option>
+          <option value="center"></option>
+          <option value="right"></option>
+          <option value="justify"></option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-header">
+          <option value="1">Heading 1</option>
+          <option value="2">Heading 2</option>
+          <option value="3">Heading 3</option>
+          <option value="4">Heading 4</option>
+          <option value="5">Heading 5</option>
+          <option value="6">Heading 6</option>
+          <option selected>Normal</option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-bold" [title]="'Bold'"></button>
+        <button class="ql-italic" [title]="'Italic'"></button>
+        <button class="ql-underline" [title]="'Underline'"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-image" [title]="'Image'"></button>
+      </span>
+
+    </div>
+
+    <div class="ql-container" style="border-width: 0;">
+      <div class="ql-editor" [innerHTML]="byPassedHTMLString">
+      </div>
+    </div>
+  </quill-editor>
+
 
   <mat-form-field>
     <div>
