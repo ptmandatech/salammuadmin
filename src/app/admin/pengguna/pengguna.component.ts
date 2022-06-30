@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class PenggunaComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

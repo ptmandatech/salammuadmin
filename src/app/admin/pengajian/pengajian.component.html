@@ -35,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let n of allPengajian; let idx=index">
+            <tr *ngFor="let n of allPengajian | paginate: { itemsPerPage: 5, currentPage: p }; let idx=index">
                 <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                 <td class="uk-width-1-4">
                   <ul class="uk-list">
@@ -74,7 +74,10 @@
 
     <hr>
 
-    <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+    <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+      <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+    </div>
+    <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
       <li><a href="#"><span uk-pagination-previous></span></a></li>
       <li><a href="#">1</a></li>
       <li class="uk-disabled"><span>...</span></li>
@@ -83,7 +86,7 @@
       <li class="uk-active"><span>7</span></li>
       <li><a href="#">8</a></li>
       <li><a href="#"><span uk-pagination-next></span></a></li>
-  </ul>
+  </ul> -->
 
   </div>
 

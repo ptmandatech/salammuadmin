@@ -25,7 +25,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of allRoles">
+              <tr *ngFor="let n of allRoles | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td>{{n.name}}</td>
                   <td><span *ngFor="let n of n.path">{{n.name}}, </span></td>
                   <td>{{n.user_name}}</td>
@@ -46,7 +46,10 @@
   
       <hr>
   
-      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div>
+      <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
         <li><a href="#"><span uk-pagination-previous></span></a></li>
         <li><a href="#">1</a></li>
         <li class="uk-disabled"><span>...</span></li>
@@ -55,7 +58,7 @@
         <li class="uk-active"><span>7</span></li>
         <li><a href="#">8</a></li>
         <li><a href="#"><span uk-pagination-next></span></a></li>
-    </ul>
+    </ul> -->
   
     </div>
   

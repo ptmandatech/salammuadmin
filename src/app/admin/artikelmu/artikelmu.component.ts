@@ -15,6 +15,7 @@ import { DialogArtikelmuComponent } from './dialog-artikelmu/dialog-artikelmu.co
 })
 export class ArtikelmuComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

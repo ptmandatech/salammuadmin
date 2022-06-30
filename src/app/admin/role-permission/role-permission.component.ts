@@ -15,6 +15,7 @@ import { DialogRolePermissionComponent } from './dialog-role-permission/dialog-r
 })
 export class RolePermissionComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

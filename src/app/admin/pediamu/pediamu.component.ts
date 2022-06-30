@@ -15,6 +15,7 @@ import { DialogPediamuComponent } from './dialog-pediamu/dialog-pediamu.componen
 })
 export class PediamuComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

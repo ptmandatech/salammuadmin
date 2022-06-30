@@ -15,6 +15,7 @@ import { DialogProdukmuComponent } from './dialog-produkmu/dialog-produkmu.compo
 })
 export class ProdukmuComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

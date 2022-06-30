@@ -15,6 +15,7 @@ import { DialogDoaDzikirComponent } from './dialog-doa-dzikir/dialog-doa-dzikir.
 })
 export class DoaDzikirComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,

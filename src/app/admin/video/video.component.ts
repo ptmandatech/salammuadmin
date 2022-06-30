@@ -15,6 +15,7 @@ import { DialogVideoComponent } from './dialog-video/dialog-video.component';
 })
 export class VideoComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,
@@ -55,7 +56,6 @@ export class VideoComponent implements OnInit {
     this.allVideos = [];
     this.api.get('videos').then(res=>{
       this.allVideos = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

@@ -15,6 +15,7 @@ import { DialogKategoriProdukComponent } from './dialog-kategori-produk/dialog-k
 })
 export class KategoriProdukComponent implements OnInit {
 
+  p: number = 1;
   constructor(
     public api: ApiService,
     private router: Router,
