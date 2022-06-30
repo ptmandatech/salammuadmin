@@ -35,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let n of allPengajian | paginate: { itemsPerPage: 5, currentPage: p }; let idx=index">
+            <tr *ngFor="let n of allPengajian | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
                 <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                 <td class="uk-width-1-4">
                   <ul class="uk-list">
