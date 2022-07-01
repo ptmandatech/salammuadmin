@@ -128,6 +128,7 @@ export class DialogArtikelmuComponent implements OnInit {
   {
     if(this.image != undefined) {
       await this.api.put('articles/uploadfoto',{image: this.image}).then(res=>{
+        console.log(res)
         this.articlesData.image = res;
         if(res) {
           this.save();
