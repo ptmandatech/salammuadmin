@@ -9,6 +9,7 @@ import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
+import { FilterPenggunaComponent } from './filter-pengguna/filter-pengguna.component';
 
 @Component({
   selector: 'app-pengguna',
@@ -188,6 +189,16 @@ export class PenggunaComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogUpdatePasswordComponent, {
       width: '650px',
       data: {data:n}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  //Dialog filter
+  openFilter(): void {
+    const dialogRef = this.dialog.open(FilterPenggunaComponent, {
+      width: '550px',
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

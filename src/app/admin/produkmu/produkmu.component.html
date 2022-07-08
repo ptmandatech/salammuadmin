@@ -2,17 +2,27 @@
 
     <div class="border-card">
       <div style="margin: 16px">
-        <div uk-grid>
+
+        <div class="uk-flex-middle" uk-grid >
           <div class="uk-width-1-2">
-            <h1>ProdukMU</h1>
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">ProdukMU</h1>
+              <button mat-stroked-button class="uk-margin-left" (click)="openFilter()" ><mat-icon>filter_list</mat-icon> Filter</button>
+            </div>
+              
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Nama Produk">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Produk</button>
             <button mat-flat-button color="accent" *ngIf="hasSelectedData" class="uk-margin-right" (click)="verifikasiAll()">Setujui</button>
             <button mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="batalVerif()">Batalkan Persetujuan</button>
           </div>
         </div>
-        <div></div>
+
       </div>
       <hr>
 

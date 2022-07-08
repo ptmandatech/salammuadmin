@@ -33,6 +33,9 @@ import { DialogUpdatePasswordComponent } from './pengguna/dialog-update-password
 import { DialogProdukmuComponent } from './produkmu/dialog-produkmu/dialog-produkmu.component';
 import { QuillModule } from 'ngx-quill';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { FilterPengajianComponent } from './pengajian/filter-pengajian/filter-pengajian.component';
+import { FilterProdukComponent } from './produkmu/filter-produk/filter-produk.component';
+import { FilterPenggunaComponent } from './pengguna/filter-pengguna/filter-pengguna.component';
 const routes: Routes = [
   {
     path: '',
@@ -137,6 +140,9 @@ const routes: Routes = [
     DialogSettingRoleComponent,
     DialogUpdatePasswordComponent,
     DialogProdukmuComponent,
+    FilterPengajianComponent,
+    FilterProdukComponent,
+    FilterPenggunaComponent,
   ],
   imports: [
     CommonModule,

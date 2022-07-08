@@ -2,16 +2,20 @@
 
   <div class="border-card">
     <div style="margin: 16px">
-      <div uk-grid>
+      <div class="uk-flex-middle" uk-grid >
         <div class="uk-width-1-2">
-          <h1>Pengajian</h1>
+          <div style="display: flex;">
+            <h1 style="margin-bottom: 0;">Pengajian</h1>
+            <button mat-stroked-button class="uk-margin-left" (click)="openFilter()"><mat-icon>filter_list</mat-icon> Filter</button>
+          </div>
+            
         </div>
         <div class="uk-width-1-2" style="text-align:right;">
-          <!-- <mat-form-field appearance="outline">
+          <mat-form-field appearance="standard" class="uk-margin-right">
             <mat-label>Pencarian</mat-label>
-            <input matInput placeholder="Cari Nama Pemohon" name="searchText">
+            <input matInput placeholder="Nama Pengajian">
             <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field> -->
+          </mat-form-field>
           <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Pengajian</button>
           <button mat-flat-button color="accent" *ngIf="hasSelectedData" class="uk-margin-right" (click)="verifikasi()">Setujui</button>
           <button mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="batalVerif()">Batalkan Persetujuan</button>

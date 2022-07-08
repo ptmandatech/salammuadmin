@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Filter</h1>
+
+  <div mat-dialog-content>      
+
+    <h4>Role</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip>Pengguna</mat-chip>
+        <mat-chip>Admin Produk</mat-chip>
+        <mat-chip color="primary" selected>Superadmin</mat-chip>
+    </mat-chip-list>
+
+    <h4 class="uk-margin-top">Status</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip>Active</mat-chip>
+        <mat-chip color="primary" selected>Block</mat-chip>
+    </mat-chip-list>
+
+  </div>
+  
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-flat-button color="accent">Reset Filter</button>
+      <button mat-flat-button color="primary">Terapkan</button>
+    </mat-dialog-actions>

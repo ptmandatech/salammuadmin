@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Filter</h1>
+
+  <div mat-dialog-content>      
+
+    <h4>Kategori</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip>Pakaian</mat-chip>
+        <mat-chip>Furniture</mat-chip>
+        <mat-chip color="primary" selected>Makanan</mat-chip>
+    </mat-chip-list>
+
+    <h4 class="uk-margin-top">Status</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip>Unverified</mat-chip>
+        <mat-chip color="primary" selected>Verified</mat-chip>
+    </mat-chip-list>
+
+    <h4 class="uk-margin-top">Favorit (Rekomendasi)</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip>Direkomendasikan</mat-chip>
+        <mat-chip color="primary" selected>Tidak direkomendasikan</mat-chip>
+    </mat-chip-list>
+
+  </div>
+  
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-flat-button color="accent">Reset Filter</button>
+      <button mat-flat-button color="primary">Terapkan</button>
+    </mat-dialog-actions>

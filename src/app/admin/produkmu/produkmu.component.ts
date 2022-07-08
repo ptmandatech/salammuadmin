@@ -7,6 +7,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
 import { DialogProdukmuComponent } from './dialog-produkmu/dialog-produkmu.component';
+import { FilterProdukComponent } from './filter-produk/filter-produk.component';
 
 @Component({
   selector: 'app-produkmu',
@@ -99,6 +100,16 @@ export class ProdukmuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getProducts();
+    });
+  }
+
+  //Dialog filter
+  openFilter(): void {
+    const dialogRef = this.dialog.open(FilterProdukComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 

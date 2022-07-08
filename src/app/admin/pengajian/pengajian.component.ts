@@ -8,6 +8,7 @@ import { ApiService } from '../../services/api.service';
 import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
+import { FilterPengajianComponent } from './filter-pengajian/filter-pengajian.component';
 
 @Component({
   selector: 'app-pengajian',
@@ -84,6 +85,16 @@ export class PengajianComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllPengajian();
+    });
+  }
+
+  //Dialog filter
+  openFilter(): void {
+    const dialogRef = this.dialog.open(FilterPengajianComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 

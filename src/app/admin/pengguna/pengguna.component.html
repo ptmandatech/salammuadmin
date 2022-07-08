@@ -2,15 +2,25 @@
 
     <div class="border-card">
       <div style="margin: 16px">
-        <div uk-grid>
+
+        <div class="uk-flex-middle" uk-grid >
           <div class="uk-width-1-2">
-            <h1>Pengguna</h1>
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">Pengguna</h1>
+              <button mat-stroked-button class="uk-margin-left" (click)="openFilter()"><mat-icon>filter_list</mat-icon> Filter</button>
+            </div>
+              
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Nama pengguna">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna(null)">Tambah Pengguna</button>
           </div>
         </div>
-        <div></div>
+
       </div>
       <hr>
 
