@@ -1,1 +1,76 @@
-<p>ustadz works!</p>
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div class="uk-flex-middle" uk-grid >
+          <div class="uk-width-1-2">
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">UstadzMU</h1>
+                <button mat-stroked-button class="uk-margin-left"><mat-icon>filter_list</mat-icon> Filter</button>
+            </div>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Cari ustadz">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah Ustadz</button>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Nama</th>
+                  <th>Keilmuan</th>
+                  <th>No Whatsapp</th>
+                  <th>Alamat</th>
+                  <th>Dibuat Oleh </th>
+                  <th>Tanggal Input</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of [1,2,3,4,5]">
+              <td>Ali Murtado, LC, MSC</td>
+              <td>Fiqih</td>
+              <td>0877765713</td>
+              <td>Prov Jawa Tengah, Kab Tegal, Kec adiwerna</td>
+              <td>Admin Salammu</td>
+              <td>21 Juli 2022</td>
+              <td class="uk-table-shrink uk-text-nowrap">
+                <button mat-mini-fab color="primary" (click)="openDialog()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

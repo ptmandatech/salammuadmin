@@ -41,6 +41,7 @@ import { KhutbahComponent } from './khutbah/khutbah.component';
 import { KeilmuanUstadzComponent } from './keilmuan-ustadz/keilmuan-ustadz.component';
 import { DialogKeilmuanUstadzComponent } from './keilmuan-ustadz/dialog-keilmuan-ustadz/dialog-keilmuan-ustadz.component';
 import { DialogKhutbahComponent } from './khutbah/dialog-khutbah/dialog-khutbah.component';
+import { DialogUstadzComponent } from './ustadz/dialog-ustadz/dialog-ustadz.component';
 const routes: Routes = [
   {
     path: '',
@@ -168,6 +169,7 @@ const routes: Routes = [
     KeilmuanUstadzComponent,
     DialogKeilmuanUstadzComponent,
     DialogKhutbahComponent,
+    DialogUstadzComponent,
   ],
   imports: [
     CommonModule,

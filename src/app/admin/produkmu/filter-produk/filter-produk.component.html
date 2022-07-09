@@ -2,13 +2,30 @@
 
   <div mat-dialog-content>      
 
-    <h4>Kategori</h4>
-    <!-- Jika diaktifkan, maka color chip ditambah primary -->
-    <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Pakaian</mat-chip>
-        <mat-chip>Furniture</mat-chip>
-        <mat-chip color="primary" selected>Makanan</mat-chip>
-    </mat-chip-list>
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Kategori Produk</mat-label>
+      <mat-chip-list #chipList aria-label="Kategori selection">
+        <mat-chip
+          *ngFor="let k of kat"
+          (removed)="remove(k)">
+          {{k}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="Pilih Kategori"
+          #fruitInput
+          [formControl]="katCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let k of filteredKat | async" [value]="k">
+          {{k}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 
     <h4 class="uk-margin-top">Status</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->

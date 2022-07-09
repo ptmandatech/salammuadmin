@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>Tambah/Perbarui Ustadz</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Nama Ustadz</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Kategori</mat-label>
+    <mat-select required>
+        <mat-option *ngFor="let n of ['Fiqih', 'Aqidah']" value="{{n}}">{{n}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>No Whatsapp</mat-label>
+    <input matInput required type="number">
+  </mat-form-field>
+
+  <div class="border-card" style="padding: 16px;">
+    <h4>Alamat</h4>
+
+    <!-- Menggunakan data lokasi sesuai seluruh Indonesia -->
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Provinsi</mat-label>
+        <input type="text"
+               placeholder="Pilih Provinsi"
+               matInput
+               [formControl]="prov"
+               [matAutocomplete]="autoProv">
+        <mat-autocomplete autoActiveFirstOption #autoProv="matAutocomplete">
+          <mat-option *ngFor="let p of filteredOptionsProv | async" [value]="p">
+            {{p}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Kabupaten</mat-label>
+        <input type="text"
+               placeholder="Pilih Kabupaten"
+               matInput
+               [formControl]="kab"
+               [matAutocomplete]="autoKab">
+        <mat-autocomplete autoActiveFirstOption #autoKab="matAutocomplete">
+          <mat-option *ngFor="let ka of filteredOptionsKab | async" [value]="ka">
+            {{ka}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Kecamatan</mat-label>
+        <input type="text"
+               placeholder="Pilih Kecamatan"
+               matInput
+               [formControl]="kec"
+               [matAutocomplete]="autoKec">
+        <mat-autocomplete autoActiveFirstOption #autoKec="matAutocomplete">
+          <mat-option *ngFor="let ke of filteredOptionsKec | async" [value]="ke">
+            {{ke}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary">Simpan</button>
+</mat-dialog-actions>
