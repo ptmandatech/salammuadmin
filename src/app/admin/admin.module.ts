@@ -36,6 +36,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FilterPengajianComponent } from './pengajian/filter-pengajian/filter-pengajian.component';
 import { FilterProdukComponent } from './produkmu/filter-produk/filter-produk.component';
 import { FilterPenggunaComponent } from './pengguna/filter-pengguna/filter-pengguna.component';
+import { UstadzComponent } from './ustadz/ustadz.component';
+import { KhutbahComponent } from './khutbah/khutbah.component';
+import { KeilmuanUstadzComponent } from './keilmuan-ustadz/keilmuan-ustadz.component';
+import { DialogKeilmuanUstadzComponent } from './keilmuan-ustadz/dialog-keilmuan-ustadz/dialog-keilmuan-ustadz.component';
+import { DialogKhutbahComponent } from './khutbah/dialog-khutbah/dialog-khutbah.component';
 const routes: Routes = [
   {
     path: '',
@@ -100,6 +105,21 @@ const routes: Routes = [
         path: 'role-permission',
         component: RolePermissionComponent,
         data:{title:'Role Permission'}
+      },
+      {
+        path: 'ustadz',
+        component: UstadzComponent,
+        data:{title:'UstadzMU'}
+      },
+      {
+        path: 'khutbah',
+        component: KhutbahComponent,
+        data:{title:'Khutbah'}
+      },
+      {
+        path: 'keilmuan-ustadz',
+        component: KeilmuanUstadzComponent,
+        data: {title: 'Keilmuan Ustadz'}
       }
     ]
   },
@@ -143,6 +163,11 @@ const routes: Routes = [
     FilterPengajianComponent,
     FilterProdukComponent,
     FilterPenggunaComponent,
+    UstadzComponent,
+    KhutbahComponent,
+    KeilmuanUstadzComponent,
+    DialogKeilmuanUstadzComponent,
+    DialogKhutbahComponent,
   ],
   imports: [
     CommonModule,

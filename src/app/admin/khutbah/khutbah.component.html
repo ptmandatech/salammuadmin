@@ -1,0 +1,73 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div class="uk-flex-middle" uk-grid >
+          <div class="uk-width-1-2">
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">Khutbah</h1>
+            </div>
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Cari Judul">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog()">Tambah Khutbah</button>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Sampul</th>
+                  <th>Judul</th>
+                  <th>Ringkasan</th>
+                  <th>Oleh</th>
+                  <th>Dibuat</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of [1,2,3,4,5]">
+              <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
+              <td>Judul Khutbah</td>
+              <td>Summary dari khutbah</td>
+              <td>Admin salammu</td>
+              <td>21 Juli 2022</td>
+              <td class="uk-table-shrink uk-text-nowrap">
+                <button mat-mini-fab color="primary" (click)="openDialog()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

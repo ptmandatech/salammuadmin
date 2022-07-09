@@ -62,11 +62,26 @@
             <h3 matLine class="light">ProdukMU</h3>
           </mat-list-item>
 
+          <mat-list-item *ngIf="accessMenu['/admin/ustadz']" routerLink="/admin/ustadz" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">diversity_1</mat-icon>
+            <h3 matLine class="light">UstadzMU</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/khutbah']" routerLink="/admin/khutbah" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">connect_without_contact</mat-icon>
+            <h3 matLine class="light">Khutbah</h3>
+          </mat-list-item>
+
           <p mat-subheader style="color: white;">Settings</p>
 
           <mat-list-item *ngIf="accessMenu['/admin/kategori-produk']" routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">category</mat-icon>
             <h3 matLine class="light">Kategori Produk</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/keilmuan-ustadz']" routerLink="/admin/keilmuan-ustadz" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">psychology</mat-icon>
+            <h3 matLine class="light">Keilmuan Ustadz</h3>
           </mat-list-item>
 
           <mat-list-item *ngIf="accessMenu['/admin/pengguna']" routerLink="/admin/pengguna" routerLinkActive="active-list-item" >

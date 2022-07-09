@@ -1,0 +1,90 @@
+<h1 mat-dialog-title>Tambah/Perbarui Khutbah</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Judul</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Ringkasan Khutbah</mat-label>
+    <textarea matInput required></textarea>
+  </mat-form-field>
+
+  <!-- Disini pake Quill juga yaa -->
+  <mat-label>Isi Khutbah</mat-label>
+  <quill-editor placeholder="Deskripsi">
+    <div quill-editor-toolbar>
+      <span class="ql-formats">
+        <select class="ql-align" [title]="'Aligment'">
+          <option selected></option>
+          <option value="center"></option>
+          <option value="right"></option>
+          <option value="justify"></option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-header">
+          <option value="1">Heading 1</option>
+          <option value="2">Heading 2</option>
+          <option value="3">Heading 3</option>
+          <option value="4">Heading 4</option>
+          <option value="5">Heading 5</option>
+          <option value="6">Heading 6</option>
+          <option selected>Normal</option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-bold" [title]="'Bold'"></button>
+        <button class="ql-italic" [title]="'Italic'"></button>
+        <button class="ql-underline" [title]="'Underline'"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-image" [title]="'Image'"></button>
+      </span>
+
+    </div>
+
+    <div class="ql-container" style="border-width: 0;">
+      <div class="ql-editor">
+      </div>
+    </div>
+  </quill-editor>
+
+  <mat-form-field>
+    <div>
+      <div class="uk-flex">
+        <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
+        <!-- Display files names -->
+        <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+      <!-- Fetch selected filed on change -->
+      <input
+        type="file"
+        #fileInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+        multiple="multiple"
+        accept="image/*"
+      />
+      </div>
+      <!-- image preview setelah file terpilih -->
+      <img class="uk-margin-top" src="../../../../assets/imgs/no-image.png">
+    </div>
+  </mat-form-field>
+  <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
+
+
+
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary">Simpan</button>
+</mat-dialog-actions>

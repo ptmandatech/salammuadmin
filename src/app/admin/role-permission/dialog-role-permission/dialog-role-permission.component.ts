@@ -75,6 +75,21 @@ export class DialogRolePermissionComponent implements OnInit {
       path: '/admin/role-permission',
       checked: false,
       name: 'Role Permission'
+    },
+    {
+      path: '/admin/ustadz',
+      checked: false,
+      name: 'UstadzMU'
+    },
+    {
+      path: '/admin/khutbah',
+      checked: false,
+      name: 'Khutbah'
+    },
+    {
+      path: '/admin/keilmuan-ustadz',
+      checked: false,
+      name: 'Keilmuan Ustadz'
     }
   ];
   constructor(
