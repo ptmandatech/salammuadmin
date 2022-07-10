@@ -130,3 +130,132 @@
   </mat-sidenav-container>
 
   </ng-container>
+
+<!-- <ng-container>
+
+  <mat-sidenav-container class="example-container shadow">
+      <mat-sidenav #left mode="side" opened autosize position="start" class="{{isExpanded ? 'mat-sidenav':'mat-sidenav-close'}}">
+
+        <div style="position: absolute; top:0px; width: 100%; overflow-x: hidden;">
+
+          <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+            <nav class="uk-navbar-container logo-content" uk-navbar >
+              <div class="uk-text-center" style="padding: 20px">
+                <img src="{{isExpanded ? '../../assets/imgs/logo.svg':'../../assets/icon/logo.svg'}}" [ngStyle]="{'width': isExpanded ? '80%':'80%'}">
+              </div>
+            </nav>
+          </div>
+
+        <mat-nav-list>
+          <mat-list-item *ngIf="accessMenu['/admin/dashboard']" routerLink="/admin/dashboard" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">donut_small</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Dashboard</h3>
+          </mat-list-item>
+
+          <p mat-subheader style="color: white;">Apps</p>
+
+          <mat-list-item *ngIf="accessMenu['/admin/banner']" routerLink="/admin/banner" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">photo_library</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Banner</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/pengajian']" routerLink="/admin/pengajian" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">campaign</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Pengajian</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/abang-ranting']" routerLink="/admin/cabang-ranting" routerLinkActive="active-list-item" hidden>
+            <mat-icon matListIcon class="light">grass</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Cabang dan Ranting</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/video']" routerLink="/admin/video" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">videocam</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Video</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/doa-dzikir']" routerLink="/admin/doa-dzikir" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">menu_book</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Doa dan Dzikir</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/artikelmu']" routerLink="/admin/artikelmu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">article</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">ArtikelMU</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/pediamu']" routerLink="/admin/pediamu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">collections_bookmark</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">PediaMU</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/produkmu']" routerLink="/admin/produkmu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">inventory_2</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">ProdukMU</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/ustadz']" routerLink="/admin/ustadz" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">diversity_1</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">UstadzMU</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/khutbah']" routerLink="/admin/khutbah" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">connect_without_contact</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Khutbah</h3>
+          </mat-list-item>
+
+          <p mat-subheader style="color: white;">Settings</p>
+
+          <mat-list-item *ngIf="accessMenu['/admin/kategori-produk']" routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">category</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Kategori Produk</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/keilmuan-ustadz']" routerLink="/admin/keilmuan-ustadz" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">psychology</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Keilmuan Ustadz</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/pengguna']" routerLink="/admin/pengguna" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">group</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Pengguna</h3>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="accessMenu['/admin/role-permission']" routerLink="/admin/role-permission" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">manage_accounts</mat-icon>
+            <h3 matLine class="light" *ngIf="isExpanded">Role Permission</h3>
+          </mat-list-item>
+
+        </mat-nav-list>
+
+      </div>
+
+
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div class="uk-flex">
+          <div class="spacer">
+            <mat-toolbar color="primary" class="border-bottom shadow"  uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+              <button mat-icon-button (click)="isExpanded = !isExpanded">
+                <mat-icon>menu</mat-icon>
+              </button>
+              <div class="spacer"></div>
+              <div style="text-align: right; padding-right: 10px;">
+                <small>{{userData == undefined ? '':userData.name}}</small>
+              </div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>account_circle</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+
+                <button mat-menu-item routerLink="/auth/login"><mat-icon>logout</mat-icon>Keluar</button>
+              </mat-menu>
+            </mat-toolbar>
+          </div>
+        </div>
+       <router-outlet></router-outlet>
+      </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  </ng-container> -->

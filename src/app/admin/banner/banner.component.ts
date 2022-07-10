@@ -51,6 +51,11 @@ export class BannerComponent implements OnInit {
     })
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allBanners:any = [];
   getAllBanners() {
     this.api.get('banners').then(res=>{

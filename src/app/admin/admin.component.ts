@@ -10,6 +10,7 @@ import * as Notiflix from 'notiflix';
 })
 export class AdminComponent implements OnInit {
 
+  isExpanded:boolean = true;
   constructor(
     public api: ApiService,
     private router: Router,

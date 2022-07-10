@@ -2,7 +2,7 @@
 
   <div class="uk-child-width-1-3@s uk-text-center uk-margin-top uk-margin-bottom" uk-grid>
     <div>
-        <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/pengguna')">
           <img src="../../../assets/imgs/user.svg" class="uk-margin-bottom">
           <h2 class="color-primary">PENGGUNA</h2>
           <p>{{statisticsData == undefined ? 0:statisticsData.users_active}} User Aktif</p>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div>
-      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+      <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/pengajian')">
         <img src="../../../assets/imgs/pengajian.svg" class="uk-margin-bottom">
         <h2 class="color-primary">PENGAJIAN</h2>
         <p>{{statisticsData == undefined ? 0:statisticsData.pengajian}} Divalidasi</p>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div>
-      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+      <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/produkmu')">
         <img src="../../../assets/imgs/produk.svg" class="uk-margin-bottom">
         <h2 class="color-primary">PRODUK</h2>
         <p>{{statisticsData == undefined ? 0:statisticsData.products}} Produk Divalidasi</p>
@@ -26,24 +26,24 @@
       </div>
     </div>
     <div>
-      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+      <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/video')">
         <img src="../../../assets/imgs/video.svg" class="uk-margin-bottom">
         <h2 class="color-primary">VIDEO</h2>
-        <p>20 Video</p>
+        <p>{{statisticsData == undefined ? 0:statisticsData.videos}} Video</p>
       </div>
     </div>
     <div>
-      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+      <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/artikelmu')">
         <img src="../../../assets/imgs/artikel.svg" class="uk-margin-bottom">
         <h2 class="color-primary">Artikel</h2>
-        <p>120 Artikel</p>
+        <p>{{statisticsData == undefined ? 0:statisticsData.articles}} Artikel</p>
       </div>
     </div>
     <div>
-      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+      <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="goToPage('/admin/ustadz')">
         <img src="../../../assets/imgs/ustadz.svg" class="uk-margin-bottom">
         <h2 class="color-primary">Ustadz</h2>
-        <p>1005 Ustadz</p>
+        <p>{{statisticsData == undefined ? 0:statisticsData.ustadzmu}} Ustadz</p>
       </div>
     </div>
   </div>

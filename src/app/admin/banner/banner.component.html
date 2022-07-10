@@ -7,6 +7,11 @@
           <h1>Banner</h1>
         </div>
         <div class="uk-width-1-2" style="text-align:right;">
+          <mat-form-field appearance="standard" class="uk-margin-right">
+            <mat-label>Pencarian</mat-label>
+            <input matInput placeholder="Cari Tautan" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
           <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Banner</button>
         </div>
       </div>
@@ -18,14 +23,14 @@
         <thead>
             <tr>
                 <th>Gambar</th>
-                <th>Link</th>
+                <th>Tautan</th>
                 <th>Oleh</th>
                 <th>Dibuat</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let n of allBanners | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let n of allBanners | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                 <td>
                   <img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImgBanner+n.image)}}" width="120" height="120">
                 </td>

@@ -54,4 +54,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  goToPage(to:any) {
+    this.router.navigate([to]);
+  }
+
 }

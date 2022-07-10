@@ -61,7 +61,6 @@ export class KhutbahComponent implements OnInit {
     this.allKhutbah = [];
     this.api.get('khutbah').then(res=>{
       this.allKhutbah = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
