@@ -64,6 +64,11 @@ export class PengajianComponent implements OnInit {
     });
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   //Dialog tambah/edit banner
   openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogPengajianComponent, {

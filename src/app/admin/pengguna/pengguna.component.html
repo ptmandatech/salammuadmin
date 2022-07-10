@@ -14,7 +14,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Nama pengguna">
+              <input matInput placeholder="Nama pengguna" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna(null)">Tambah Pengguna</button>
@@ -38,7 +38,7 @@
               </tr>
           </thead>
           <tbody>
-                <tr *ngFor="let n of allUsers | paginate: { itemsPerPage: 10, currentPage: p }">
+                <tr *ngFor="let n of allUsers | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td><img class="uk-preserve-width uk-border-circle" src="{{n.image == null ? '../../../assets/imgs/user.svg':(serverImg+n.image)}}" width="40" height="40" alt=""></td>
                   <td>{{n.name}}</td>
                   <td>{{n.email}}</td>

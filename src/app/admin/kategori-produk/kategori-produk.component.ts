@@ -51,6 +51,11 @@ export class KategoriProdukComponent implements OnInit {
     })
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allCategories:any = [];
   getCategories() {
     this.allCategories = [];

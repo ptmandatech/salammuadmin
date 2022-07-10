@@ -12,7 +12,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Cari Kategori">
+              <input matInput placeholder="Cari Kategori" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Kategori</button>
@@ -31,7 +31,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of allCategories | paginate: { itemsPerPage: 10, currentPage: p }">
+              <tr *ngFor="let n of allCategories | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td>{{n.name}}</td>
                   <td>{{n.user_name}}</td>
                   <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>

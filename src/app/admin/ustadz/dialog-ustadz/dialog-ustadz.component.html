@@ -4,19 +4,19 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Ustadz</mat-label>
-    <input matInput required>
+    <input matInput [(ngModel)]="ustadzmuData.name" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Kategori</mat-label>
-    <mat-select required>
-        <mat-option *ngFor="let n of ['Fiqih', 'Aqidah']" value="{{n}}">{{n}}</mat-option>
+    <mat-label>Keilmuan</mat-label>
+    <mat-select [(ngModel)]="ustadzmuData.science" required>
+        <mat-option *ngFor="let n of allSciences" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>No Whatsapp</mat-label>
-    <input matInput required type="number">
+    <input matInput [(ngModel)]="ustadzmuData.phone" required type="tel">
   </mat-form-field>
 
   <div class="border-card" style="padding: 16px;">
@@ -30,9 +30,9 @@
                matInput
                [formControl]="prov"
                [matAutocomplete]="autoProv">
-        <mat-autocomplete autoActiveFirstOption #autoProv="matAutocomplete">
-          <mat-option *ngFor="let p of filteredOptionsProv | async" [value]="p">
-            {{p}}
+        <mat-autocomplete autoActiveFirstOption #autoProv="matAutocomplete" [displayWith]="getTitle.bind(this)" (optionSelected)="onChangeProv($event)">
+          <mat-option *ngFor="let p of filteredOptionsProv | async" [value]="p.prov_id">
+            {{p.prov_nama}}
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
@@ -44,9 +44,9 @@
                matInput
                [formControl]="kab"
                [matAutocomplete]="autoKab">
-        <mat-autocomplete autoActiveFirstOption #autoKab="matAutocomplete">
-          <mat-option *ngFor="let ka of filteredOptionsKab | async" [value]="ka">
-            {{ka}}
+        <mat-autocomplete autoActiveFirstOption #autoKab="matAutocomplete" [displayWith]="getTitleKab.bind(this)" (optionSelected)="onChangeKab($event)">
+          <mat-option *ngFor="let ka of filteredOptionsKab | async" [value]="ka.kab_id">
+            {{ka.kab_nama}}
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
@@ -58,9 +58,9 @@
                matInput
                [formControl]="kec"
                [matAutocomplete]="autoKec">
-        <mat-autocomplete autoActiveFirstOption #autoKec="matAutocomplete">
-          <mat-option *ngFor="let ke of filteredOptionsKec | async" [value]="ke">
-            {{ke}}
+        <mat-autocomplete autoActiveFirstOption #autoKec="matAutocomplete" [displayWith]="getTitleKec.bind(this)">
+          <mat-option *ngFor="let ke of filteredOptionsKec | async" [value]="ke.kec_id">
+            {{ke.kec_nama}}
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
@@ -71,5 +71,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="primary">Simpan</button>
+  <button mat-flat-button (click)="save()" color="primary">Simpan</button>
 </mat-dialog-actions>

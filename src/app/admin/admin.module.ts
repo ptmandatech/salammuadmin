@@ -42,6 +42,7 @@ import { KeilmuanUstadzComponent } from './keilmuan-ustadz/keilmuan-ustadz.compo
 import { DialogKeilmuanUstadzComponent } from './keilmuan-ustadz/dialog-keilmuan-ustadz/dialog-keilmuan-ustadz.component';
 import { DialogKhutbahComponent } from './khutbah/dialog-khutbah/dialog-khutbah.component';
 import { DialogUstadzComponent } from './ustadz/dialog-ustadz/dialog-ustadz.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 const routes: Routes = [
   {
     path: '',
@@ -178,7 +179,8 @@ const routes: Routes = [
     QuillModule.forRoot(),
     RouterModule,
     MatTimepickerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   entryComponents: [
     DashboardComponent,

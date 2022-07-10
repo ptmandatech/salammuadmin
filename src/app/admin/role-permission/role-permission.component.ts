@@ -51,6 +51,11 @@ export class RolePermissionComponent implements OnInit {
     })
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allRoles:any = [];
   getAllRoles() {
     this.api.get('roles?all').then(res=>{

@@ -13,7 +13,7 @@
         <div class="uk-width-1-2" style="text-align:right;">
           <mat-form-field appearance="standard" class="uk-margin-right">
             <mat-label>Pencarian</mat-label>
-            <input matInput placeholder="Nama Pengajian">
+            <input matInput placeholder="Nama Pengajian" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
           <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Pengajian</button>
@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let n of allPengajian | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
+            <tr *ngFor="let n of allPengajian | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
                 <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                 <td class="uk-width-1-4">
                   <ul class="uk-list">

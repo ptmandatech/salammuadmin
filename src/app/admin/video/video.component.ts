@@ -39,6 +39,11 @@ export class VideoComponent implements OnInit {
     this.getAllVideos();
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+  
   userData:any;
   cekLogin()
   {    

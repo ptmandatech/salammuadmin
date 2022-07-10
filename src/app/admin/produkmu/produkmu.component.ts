@@ -53,6 +53,11 @@ export class ProdukmuComponent implements OnInit {
     })
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allProducts:any = [];
   getProducts() {
     Loading.pulse();

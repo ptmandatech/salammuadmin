@@ -12,10 +12,10 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Cari Keilmuan">
+              <input matInput placeholder="Cari Keilmuan" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Keilmuan</button>
+            <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Keilmuan</button>
           </div>
         </div>
       </div>
@@ -31,15 +31,15 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of ['Fiqih', 'Aqidah', 'Thoharoh']">
-                  <td>{{n}}</td>
-                  <td>Admin Salammu</td>
-                  <td>12 Juli 2022</td>
+              <tr *ngFor="let n of allSciences | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td>{{n.name}}</td>
+                  <td>{{n.user_name}}</td>
+                  <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" (click)="openDialog()">
+                    <button mat-mini-fab color="primary" (click)="openDialog(n)">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-mini-fab color="warn" >
+                    <button mat-mini-fab color="warn" (click)="delete(n)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </td>
@@ -50,7 +50,10 @@
       
   
       <hr>
-      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div>
+      <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
         <li><a href="#"><span uk-pagination-previous></span></a></li>
         <li><a href="#">1</a></li>
         <li class="uk-disabled"><span>...</span></li>
@@ -59,7 +62,7 @@
         <li class="uk-active"><span>7</span></li>
         <li><a href="#">8</a></li>
         <li><a href="#"><span uk-pagination-next></span></a></li>
-        </ul>
+        </ul> -->
   
     </div>
   

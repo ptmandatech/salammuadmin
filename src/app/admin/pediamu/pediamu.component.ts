@@ -39,6 +39,11 @@ export class PediamuComponent implements OnInit {
     this.getPediamu();
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   userData:any;
   cekLogin()
   {    

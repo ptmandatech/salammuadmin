@@ -12,7 +12,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Cari Judul">
+              <input matInput placeholder="Cari Judul" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah</button>
@@ -35,7 +35,7 @@
               </tr>
           </thead>
           <tbody>
-                <tr *ngFor="let n of allDoaDzikir | paginate: { itemsPerPage: 10, currentPage: p }">
+                <tr *ngFor="let n of allDoaDzikir | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td><img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImg+n.image)}}" width="120" height="120" alt=""></td>
                   <td>{{n.title}}</td>
                   <td>{{n.summary}}</td>

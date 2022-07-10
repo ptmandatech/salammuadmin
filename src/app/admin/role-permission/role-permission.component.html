@@ -7,6 +7,11 @@
             <h1>Role Permission</h1>
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Nama pengguna" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
             <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Role</button>
           </div>
         </div>
@@ -25,7 +30,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of allRoles | paginate: { itemsPerPage: 10, currentPage: p }">
+              <tr *ngFor="let n of allRoles | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td>{{n.name}}</td>
                   <td><span *ngFor="let n of n.path">{{n.name}}, </span></td>
                   <td>{{n.user_name}}</td>

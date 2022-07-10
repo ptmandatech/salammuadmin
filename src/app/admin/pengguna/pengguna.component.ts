@@ -70,6 +70,11 @@ export class PenggunaComponent implements OnInit {
     }
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allUsers:any = [];
   getAllUsers() {
     Loading.pulse();

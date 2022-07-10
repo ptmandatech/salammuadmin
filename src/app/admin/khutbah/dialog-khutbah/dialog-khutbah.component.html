@@ -1,20 +1,20 @@
-<h1 mat-dialog-title>Tambah/Perbarui Khutbah</h1>
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Khutbah</h1>
 
 <div mat-dialog-content>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Judul</mat-label>
-    <input matInput required>
+    <input matInput [(ngModel)]="khutbahData.title" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Ringkasan Khutbah</mat-label>
-    <textarea matInput required></textarea>
+    <textarea matInput [(ngModel)]="khutbahData.summary" required></textarea>
   </mat-form-field>
 
   <!-- Disini pake Quill juga yaa -->
   <mat-label>Isi Khutbah</mat-label>
-  <quill-editor placeholder="Deskripsi">
+  <quill-editor placeholder="Deskripsi" [(ngModel)]="khutbahData.descriptions" [modules]="modules">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">
@@ -51,7 +51,7 @@
     </div>
 
     <div class="ql-container" style="border-width: 0;">
-      <div class="ql-editor">
+      <div class="ql-editor" [innerHTML]="byPassedHTMLString">
       </div>
     </div>
   </quill-editor>
@@ -74,7 +74,8 @@
       />
       </div>
       <!-- image preview setelah file terpilih -->
-      <img class="uk-margin-top" src="../../../../assets/imgs/no-image.png">
+      <img *ngIf="image != undefined && khutbahData.image != ''" class="uk-margin-top" [src]="image">
+      <img *ngIf="khutbahData.image != undefined && image == undefined || khutbahData.image == ''" class="uk-margin-top" src="{{serverImg+khutbahData.image}}">
     </div>
   </mat-form-field>
   <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
@@ -86,5 +87,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="primary">Simpan</button>
+  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
 </mat-dialog-actions>

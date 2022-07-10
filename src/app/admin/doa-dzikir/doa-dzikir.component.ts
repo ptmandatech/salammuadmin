@@ -51,6 +51,11 @@ export class DoaDzikirComponent implements OnInit {
     })
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   allDoaDzikir:any = [];
   getAllDoaDzikir() {
     this.allDoaDzikir = [];

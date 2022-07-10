@@ -39,6 +39,11 @@ export class ArtikelmuComponent implements OnInit {
     this.getArticles();
   }
 
+  searchText = '';
+  onSearch() {
+    this.p = 1;
+  }
+
   userData:any;
   cekLogin()
   {    
