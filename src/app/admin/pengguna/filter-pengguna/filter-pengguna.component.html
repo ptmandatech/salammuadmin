@@ -5,22 +5,21 @@
     <h4>Role</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Pengguna</mat-chip>
-        <mat-chip>Admin Produk</mat-chip>
-        <mat-chip color="primary" selected>Superadmin</mat-chip>
+        <mat-chip *ngFor="let n of allRoles" color="{{filterData.role == n.id ? 'primary':''}}" [selected]="filterData.role == n.id" (click)="selectRole(n.id)">{{n.name}}</mat-chip>
     </mat-chip-list>
 
     <h4 class="uk-margin-top">Status</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Active</mat-chip>
-        <mat-chip color="primary" selected>Block</mat-chip>
+        <mat-chip color="{{filterData.status == 'all' ? 'primary':''}}" [selected]="filterData.status == 'all'" (click)="selectStatus('all')">Semua</mat-chip>
+        <mat-chip color="{{filterData.status == '1' ? 'primary':''}}" [selected]="filterData.status == '1'" (click)="selectStatus('1')">Active</mat-chip>
+        <mat-chip color="{{filterData.status == '0' ? 'primary':''}}" [selected]="filterData.status == '0'" (click)="selectStatus('0')">Block</mat-chip>
     </mat-chip-list>
 
   </div>
   
   <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button color="accent">Reset Filter</button>
-      <button mat-flat-button color="primary">Terapkan</button>
+      <button mat-flat-button color="accent" (click)="reset()">Reset Filter</button>
+      <button mat-flat-button color="primary" (click)="save()">Terapkan</button>
     </mat-dialog-actions>

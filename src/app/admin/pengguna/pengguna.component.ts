@@ -76,11 +76,13 @@ export class PenggunaComponent implements OnInit {
   }
 
   allUsers:any = [];
+  allUsersTemp:any = [];
   getAllUsers() {
     Loading.pulse();
     this.allUsers = [];
     this.api.get('users/'+this.userData.id).then(res=>{
       this.allUsers = res;
+      this.allUsersTemp = res;
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -201,13 +203,51 @@ export class PenggunaComponent implements OnInit {
   }
 
   //Dialog filter
+  selectedFiltered:any;
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterPenggunaComponent, {
       width: '550px',
+      data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
+        this.selectedFiltered = result;
+        this.filterUsers();
+      }
     });
+  }
+
+  filterUsers() {
+    this.allUsers = [];
+    this.allUsers = this.allUsersTemp;
+    let role = '';
+    let status = '';
+    if(this.selectedFiltered.role != 'all' && this.selectedFiltered.status != 'all') {
+      role = this.selectedFiltered.role;
+      status = this.selectedFiltered.status;
+    } else if(this.selectedFiltered.role == 'all' && this.selectedFiltered.status != 'all') {
+      role = "all";
+      status = this.selectedFiltered.status;
+    } else if(this.selectedFiltered.role != 'all' && this.selectedFiltered.status == 'all') {
+      role = this.selectedFiltered.role;
+      status = "all";
+    } else {
+      role = 'all';
+      status = 'all';
+    }
+    
+    if(role != 'all' && status != 'all' && role != '0' && status != '0') {
+      this.allUsers = this.allUsers.filter((e:any) => e.role == role && e.is_active == status);
+    } else if(role != 'all' && status != 'all' && role != '1' && status != '1') {
+      this.allUsers = this.allUsers.filter((e:any) => e.role == role && e.is_active == status);
+    } else if(role == 'all' && status != 'all') {
+      this.allUsers = this.allUsers.filter((e:any) => e.is_active == status);
+    } else if(role != 'all' && status == 'all') {
+      this.allUsers = this.allUsers.filter((e:any) => e.role == role);
+    } else if(role == '0' && status != '0' || role == '1' && status != '1') {
+      this.allUsers = this.allUsers.filter((e:any) => e.role == role && e.is_active == status);
+    }
+    this.p = 1;
   }
 
 }

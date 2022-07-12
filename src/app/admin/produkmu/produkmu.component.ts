@@ -59,6 +59,7 @@ export class ProdukmuComponent implements OnInit {
   }
 
   allProducts:any = [];
+  allProductsTemp:any = [];
   getProducts() {
     Loading.pulse();
     this.allProducts = [];
@@ -67,6 +68,7 @@ export class ProdukmuComponent implements OnInit {
         e.images = JSON.parse(e.images)
       });
       this.allProducts = res;
+      this.allProductsTemp = res;
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -109,13 +111,51 @@ export class ProdukmuComponent implements OnInit {
   }
 
   //Dialog filter
+  selectedFiltered:any;
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterProdukComponent, {
       width: '550px',
+      data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
+        this.selectedFiltered = result;
+        this.filterProducts();
+      }
     });
+  }
+
+  filterProducts() {
+    this.allProducts = [];
+    this.allProducts = this.allProductsTemp;
+    let fav = '';
+    let status = '';
+    if(this.selectedFiltered.fav != 'all' && this.selectedFiltered.status != 'all') {
+      fav = this.selectedFiltered.fav == 'nofav' ? "0":"1";
+      status = this.selectedFiltered.status == 'unverified' ? "0":"1";
+    } else if(this.selectedFiltered.fav == 'all' && this.selectedFiltered.status != 'all') {
+      fav = "all";
+      status = this.selectedFiltered.status == 'unverified' ? "0":"1";
+    } else if(this.selectedFiltered.fav != 'all' && this.selectedFiltered.status == 'all') {
+      fav = this.selectedFiltered.fav == 'nofav' ? "0":"1";
+      status = "all";
+    } else {
+      fav = 'all';
+      status = 'all';
+    }
+    
+    if(fav != 'all' && status != 'all' && fav != '0' && status != '0') {
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+    } else if(fav != 'all' && status != 'all' && fav != '1' && status != '1') {
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+    } else if(fav == 'all' && status != 'all') {
+      this.allProducts = this.allProducts.filter((e:any) => e.verified == status);
+    } else if(fav != 'all' && status == 'all') {
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav);
+    } else if(fav == '0' && status != '0' || fav == '1' && status != '1') {
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+    }
+    this.p = 1;
   }
 
   verifikasi(n:any, status:any) {

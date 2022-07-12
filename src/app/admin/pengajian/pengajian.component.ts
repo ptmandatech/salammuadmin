@@ -9,6 +9,7 @@ import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import { FilterPengajianComponent } from './filter-pengajian/filter-pengajian.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pengajian',
@@ -23,6 +24,7 @@ export class PengajianComponent implements OnInit {
     private router: Router,
     public common: CommonService,
     public routes: ActivatedRoute,
+    private datePipe: DatePipe,
     public dialog: MatDialog,
   ) { }
 
@@ -54,9 +56,11 @@ export class PengajianComponent implements OnInit {
   }
 
   allPengajian:any = [];
+  allPengajianTemp:any = [];
   getAllPengajian() {
     this.api.get('pengajian?all').then(res=>{
       this.allPengajian = res;
+      this.allPengajianTemp = res;
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -94,13 +98,69 @@ export class PengajianComponent implements OnInit {
   }
 
   //Dialog filter
+  selectedFiltered:any;
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterPengajianComponent, {
       width: '550px',
+      data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
+        this.selectedFiltered = result;
+        this.filterPengajian();
+      }
     });
+  }
+
+  async filterPengajian() {
+    this.allPengajian = [];
+    this.allPengajian = this.allPengajianTemp;
+    
+    let dateCreated = this.datePipe.transform(this.selectedFiltered.created_at, 'dd-MM-yyyy');
+    if(this.selectedFiltered.created_at != undefined) {
+      this.allPengajian = this.allPengajian.filter((item: any) => {
+        let created_at = this.datePipe.transform(item.created_at, 'dd-MM-yyyy');
+        return created_at == dateCreated;
+      });
+
+      if(this.selectedFiltered.tglPengajian != undefined) {
+        let datePengajian = this.datePipe.transform(this.selectedFiltered.tglPengajian, 'dd-MM-yyyy');
+        this.allPengajian = this.allPengajian.filter((item: any) => {
+          let tglPengajian = this.datePipe.transform(item.datetime, 'dd-MM-yyyy');
+          return tglPengajian == datePengajian;
+        });
+        this.filterStatus();
+      } else {
+        this.filterStatus();
+      }
+    } else if(this.selectedFiltered.tglPengajian != undefined) {
+      let datePengajian = this.datePipe.transform(this.selectedFiltered.tglPengajian, 'dd-MM-yyyy');
+        this.allPengajian = this.allPengajian.filter((item: any) => {
+          let tglPengajian = this.datePipe.transform(item.datetime, 'dd-MM-yyyy');
+          return tglPengajian == datePengajian;
+        });
+        this.filterStatus();
+    } else {
+      this.filterStatus();
+    }
+    this.p = 1;
+  }
+
+  filterStatus() {
+    let status = '';
+    if(this.selectedFiltered.status != 'all') {
+      status = this.selectedFiltered.status == 'unverified' ? "0":"1";
+    } else if(this.selectedFiltered.status != 'all') {
+      status = this.selectedFiltered.status == 'unverified' ? "0":"1";
+    } else if(this.selectedFiltered.status == 'all') {
+      status = "all";
+    } else {
+      status = 'all';
+    }
+    
+    if(status != 'all') {
+      this.allPengajian = this.allPengajian.filter((e:any) => e.verified == status);
+    }
   }
 
   hasSelectedData:boolean = false;

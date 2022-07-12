@@ -3,14 +3,14 @@
   <div mat-dialog-content>      
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Tanggal Pengajian</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [(ngModel)]="filterData.tglPengajian" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Tanggal Dibuat</mat-label>
-        <input matInput [matDatepicker]="picker2">
+        <input matInput [(ngModel)]="filterData.created_at" [matDatepicker]="picker2">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -19,14 +19,15 @@
     <h4>Status</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Unverified</mat-chip>
-        <mat-chip color="primary" selected>Verified</mat-chip>
+      <mat-chip color="{{filterData.status == 'all' ? 'primary':''}}" [selected]="filterData.status == 'all'" (click)="selectStatus('all')">Semua</mat-chip>
+      <mat-chip color="{{filterData.status == 'unverified' ? 'primary':''}}" [selected]="filterData.status == 'unverified'" (click)="selectStatus('unverified')">Unverified</mat-chip>
+      <mat-chip color="{{filterData.status == 'verified' ? 'primary':''}}" [selected]="filterData.status == 'verified'" (click)="selectStatus('verified')">Verified</mat-chip>
     </mat-chip-list>
 
   </div>
   
   <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button color="accent">Reset Filter</button>
-      <button mat-flat-button color="primary">Terapkan</button>
+      <button mat-flat-button color="accent" (click)="reset()">Reset Filter</button>
+      <button mat-flat-button color="primary" (click)="save()">Terapkan</button>
     </mat-dialog-actions>

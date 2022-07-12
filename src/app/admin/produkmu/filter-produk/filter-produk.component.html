@@ -30,21 +30,23 @@
     <h4 class="uk-margin-top">Status</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Unverified</mat-chip>
-        <mat-chip color="primary" selected>Verified</mat-chip>
+        <mat-chip color="{{filterData.status == 'all' ? 'primary':''}}" [selected]="filterData.status == 'all'" (click)="selectStatus('all')">Semua</mat-chip>
+        <mat-chip color="{{filterData.status == 'unverified' ? 'primary':''}}" [selected]="filterData.status == 'unverified'" (click)="selectStatus('unverified')">Unverified</mat-chip>
+        <mat-chip color="{{filterData.status == 'verified' ? 'primary':''}}" [selected]="filterData.status == 'verified'" (click)="selectStatus('verified')">Verified</mat-chip>
     </mat-chip-list>
 
     <h4 class="uk-margin-top">Favorit (Rekomendasi)</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Direkomendasikan</mat-chip>
-        <mat-chip color="primary" selected>Tidak direkomendasikan</mat-chip>
+        <mat-chip color="{{filterData.fav == 'all' ? 'primary':''}}" [selected]="filterData.fav == 'all'" (click)="selectFav('all')">Semua</mat-chip>
+        <mat-chip color="{{filterData.fav == 'fav' ? 'primary':''}}" [selected]="filterData.fav == 'fav'" (click)="selectFav('fav')">Direkomendasikan</mat-chip>
+        <mat-chip color="{{filterData.fav == 'nofav' ? 'primary':''}}" [selected]="filterData.fav == 'nofav'" (click)="selectFav('nofav')">Tidak direkomendasikan</mat-chip>
     </mat-chip-list>
 
   </div>
   
   <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button color="accent">Reset Filter</button>
-      <button mat-flat-button color="primary">Terapkan</button>
+      <button mat-flat-button color="accent" (click)="reset()">Reset Filter</button>
+      <button mat-flat-button color="primary" (click)="save()">Terapkan</button>
     </mat-dialog-actions>
