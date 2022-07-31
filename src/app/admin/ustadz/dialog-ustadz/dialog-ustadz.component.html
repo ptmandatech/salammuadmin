@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Tambah/Perbarui Ustadz</h1>
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Ustadz</h1>
 
 <div mat-dialog-content>
 
@@ -17,6 +17,11 @@
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>No Whatsapp</mat-label>
     <input matInput [(ngModel)]="ustadzmuData.phone" required type="tel">
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Profil/Biodata Ustadz</mat-label>
+    <textarea rows="5" cols="40" matInput [(ngModel)]="ustadzmuData.biodata" required type="text"></textarea>
   </mat-form-field>
 
   <div class="border-card" style="padding: 16px;">
