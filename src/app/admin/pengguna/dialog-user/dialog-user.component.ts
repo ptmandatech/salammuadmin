@@ -61,9 +61,9 @@ export class DialogUserComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         if(this.isCreated == true) {
-          this.userData.is_active = 1;
-          this.userData.date_created = new Date();
-          this.userData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
+          this.usersData.is_active = 1;
+          this.usersData.date_created = new Date();
+          this.usersData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
           this.usersData.role = 'user';
           this.usersData.password = this.usersData.phone;
           this.api.post('auth/register/', this.usersData).then(res => {
