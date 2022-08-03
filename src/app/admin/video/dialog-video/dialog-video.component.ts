@@ -24,7 +24,6 @@ export class DialogVideoComponent implements OnInit {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'videos/';
     this.videosData = sourceData.data;
-    console.log(this.videosData)
     if(this.videosData == null) {
       this.videosData = {};
       this.isCreated = true;
@@ -91,6 +90,7 @@ export class DialogVideoComponent implements OnInit {
 
   save() {
     if(this.isCreated == true) {
+      this.videosData.url = 'https://www.youtube.com/embed/'+this.videosData.url;
       this.videosData.created_by = this.userData.id;
       this.videosData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('videos', this.videosData).then(res => {
@@ -100,6 +100,10 @@ export class DialogVideoComponent implements OnInit {
         }
       })
     } else {
+      let check = this.videosData.url.includes('https://www.youtube.com/embed/');
+      if(!check) {
+        this.videosData.url = 'https://www.youtube.com/embed/'+this.videosData.url;
+      }
       this.api.put('videos/'+this.videosData.id, this.videosData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
