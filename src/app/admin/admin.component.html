@@ -67,6 +67,11 @@
             <h3 matLine class="light">UstadzMU</h3>
           </mat-list-item>
 
+          <mat-list-item *ngIf="accessMenu['/admin/tanya-ustadz']" routerLink="/admin/tanya-ustadz" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">chat</mat-icon>
+            <h3 matLine class="light">Tanya UstadzMU</h3>
+          </mat-list-item>
+
           <mat-list-item *ngIf="accessMenu['/admin/khutbah']" routerLink="/admin/khutbah" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">connect_without_contact</mat-icon>
             <h3 matLine class="light">Khutbah</h3>

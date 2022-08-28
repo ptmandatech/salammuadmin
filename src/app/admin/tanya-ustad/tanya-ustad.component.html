@@ -1,0 +1,74 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+
+        <div class="uk-flex-middle" uk-grid >
+          <div class="uk-width-1-2">
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">Tanya Ustad</h1>
+            </div>
+
+          </div>
+          <div class="uk-width-1-2" style="text-align:right;">
+            <mat-form-field appearance="standard" class="uk-margin-right">
+              <mat-label>Pencarian</mat-label>
+              <input matInput placeholder="Cari Pengguna" name="searchText">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button mat-flat-button class="tambah"><mat-icon class="light">sync</mat-icon>Sync</button>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-divider uk-table-middle">
+          <thead>
+              <tr>
+                  <th>Nama Pengguna</th>
+                  <th>Pesan Terakhir</th>
+                  <th>Status</th>
+                  <th>Dibuat</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let n of listRoomChats">
+                  <td class="fw-bold">{{n.user_name}}</td>
+                  <td>{{n.lastMessages}}</td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip color="primary" *ngIf="n.ustad_already_read == '1'" selected>Sudah Dibaca</mat-chip>
+                        <mat-chip color="warn" *ngIf="n.ustad_already_read == '0'" selected>Belum Dibaca</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                  <td>{{n.created_at | date:'dd MMMM yyyy HH:mm'}}</td>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-mini-fab (click)="openChats(n)">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul>
+  
+    </div>
+  
+  </div>
+  

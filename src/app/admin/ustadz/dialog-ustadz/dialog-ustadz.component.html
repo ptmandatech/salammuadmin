@@ -4,7 +4,12 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Ustadz</mat-label>
-    <input matInput [(ngModel)]="ustadzmuData.name" required>
+    <input matInput [(ngModel)]="ustadzmuData.name" #name="ngModel" required>
+  </mat-form-field>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Email Ustadz</mat-label>
+    <input matInput [(ngModel)]="ustadzmuData.email" #email="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
@@ -16,7 +21,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>No Whatsapp</mat-label>
-    <input matInput [(ngModel)]="ustadzmuData.phone" required type="tel">
+    <input matInput [(ngModel)]="ustadzmuData.phone" #phone="ngModel" required type="tel">
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
@@ -76,5 +81,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="save()" color="primary">Simpan</button>
+  <button mat-flat-button (click)="save()" [disabled]="name.invalid || email.invalid || phone.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>

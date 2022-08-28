@@ -172,6 +172,7 @@ export class DialogUstadzComponent implements OnInit {
     return this.allKec.filter((kec: any) => kec.kec_nama.toLowerCase().includes(filterValue));
   }
 
+  dt:any;
   save() {
     this.ustadzmuData.prov_id = this.prov.value;
     this.ustadzmuData.kab_id = this.kab.value;
@@ -179,16 +180,22 @@ export class DialogUstadzComponent implements OnInit {
     if(this.isCreated == true) {
       this.ustadzmuData.created_by = this.userData.id;
       this.api.post('ustadzmu', this.ustadzmuData).then(res => {
-        if(res) {
+        this.dt = res;
+        if(this.dt != 'user_exist') {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
+        } else {
+          Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
         }
       })
     } else {
       this.api.put('ustadzmu/'+this.ustadzmuData.id, this.ustadzmuData).then(res => {
-        if(res) {
+        this.dt = res;
+        if(this.dt != 'user_exist') {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
+        } else {
+          Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
         }
       })
     }

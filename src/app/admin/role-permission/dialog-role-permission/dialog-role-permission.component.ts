@@ -82,6 +82,11 @@ export class DialogRolePermissionComponent implements OnInit {
       name: 'UstadzMU'
     },
     {
+      path: '/admin/tanya-ustadz',
+      checked: false,
+      name: 'Tanya UstadzMU'
+    },
+    {
       path: '/admin/khutbah',
       checked: false,
       name: 'Khutbah'

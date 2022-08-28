@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{roomData.user_name}}</h1>
+
+<div mat-dialog-content class="content" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+
+    <div class="uk-flex uk-flex-column" style="margin-top: 20px;">
+        <div *ngFor="let message of listChats">
+            <div *ngIf="message.created_by !== userData.id" class="message other-message">
+                <span style="font-size: 15px;">{{ message.messages }}</span>
+                <div class="time-other" style="text-align: right;">{{ message.created_at | date:'short' }}</div>
+            </div>
+
+            <div *ngIf="message.created_by === userData.id" class="message my-message">
+                <span style="font-size: 15px;">{{ message.messages }}</span>
+                <div class="time" style="text-align: right;">{{ message.created_at | date:'short' }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions align="center" style="box-sizing: border-box">
+    <div class="uk-flex" style="width: 100%;">
+        <div style="padding: 10px;" class="uk-flex uk-flex-bottom uk-width-1-1">
+            <textarea class="uk-textarea" (keyup)="pressEnter($event)" style="border-radius: 25px; min-height: 40px; padding-top: 10px;" [(ngModel)]="message" autosize placeholder="Tulis pesan.."></textarea>
+            <button mat-icon-button color="light" (click)="sendMessage()">
+                <mat-icon style="color: grey;">send</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

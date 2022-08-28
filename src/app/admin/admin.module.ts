@@ -51,6 +51,8 @@ import { CabangComponent } from './sicara/cabang/cabang.component';
 import { RantingComponent } from './sicara/ranting/ranting.component';
 import { DialogCabangComponent } from './sicara/cabang/dialog-cabang/dialog-cabang.component';
 import { DialogRantingComponent } from './sicara/ranting/dialog-ranting/dialog-ranting.component';
+import { TanyaUstadComponent } from './tanya-ustad/tanya-ustad.component';
+import { DialogChatsComponent } from './tanya-ustad/dialog-chats/dialog-chats.component';
 const routes: Routes = [
   {
     path: '',
@@ -120,6 +122,11 @@ const routes: Routes = [
         path: 'ustadz',
         component: UstadzComponent,
         data:{title:'UstadzMU'}
+      },
+      {
+        path: 'tanya-ustadz',
+        component: TanyaUstadComponent,
+        data:{title:'Tanya UstadzMU'}
       },
       {
         path: 'khutbah',
@@ -212,6 +219,8 @@ const routes: Routes = [
     RantingComponent,
     DialogCabangComponent,
     DialogRantingComponent,
+    TanyaUstadComponent,
+    DialogChatsComponent,
   ],
   imports: [
     CommonModule,

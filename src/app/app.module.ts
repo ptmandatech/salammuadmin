@@ -13,12 +13,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
+import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LupaPasswordComponent,
+    ScrollToBottomDirective,
   ],
   imports: [
     BrowserModule,
