@@ -6,16 +6,17 @@
         <div class="uk-flex-middle" uk-grid >
           <div class="uk-width-1-2">
             <div style="display: flex;">
-              <h1 style="margin-bottom: 0;">RadioMu</h1>
+              <h1 style="margin-bottom: 0;">Sicara</h1>
             </div>
+
           </div>
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Judul Nama Radio" name="searchText">
+              <input matInput placeholder="Cari Wilayah" name="searchText">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            <button mat-flat-button class="tambah" (click)="openDialog()">Tambah Radio</button>
+            <button mat-flat-button class="tambah"><mat-icon class="light">sync</mat-icon>Sync</button>
           </div>
         </div>
 
@@ -25,27 +26,20 @@
         <table class="uk-table uk-table-divider uk-table-middle">
           <thead>
               <tr>
-                  <th>Thumbnail</th>
-                  <th>Nama</th>
-                  <th>Link</th>
-                  <th>Oleh</th>
-                  <th>Dibuat</th>
+                  <th>Nama Wilayah</th>
+                  <th>Jumlah Daerah</th>
+                  <th>Tanggal Terakhir Sync</th>
                   <th>Aksi</th>
               </tr>
           </thead>
           <tbody>
               <tr *ngFor="let n of [1,2,3,4]">
-                  <td><img class="uk-thumbnail" src="../../../assets/imgs/no-image.png" width="120" height="120" alt=""></td>
-                  <td>RadioMu Pusat</td>
-                  <td>https://example.com</td>
-                  <td>Admin Salammu</td>
+                  <td class="fw-bold">PWM Jakarta Pusat</td>
+                  <td>3</td>
                   <td>21 Januari 2022</td>
                   <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" >
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab color="warn">
-                      <mat-icon>delete</mat-icon>
+                    <button mat-mini-fab routerLink="/sicara/daerah">
+                      <mat-icon>visibility</mat-icon>
                     </button>
                   </td>
               </tr>

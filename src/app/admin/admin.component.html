@@ -77,6 +77,11 @@
             <h3 matLine class="light">RadioMu</h3>
           </mat-list-item>
 
+          <mat-list-item *ngIf="accessMenu['/admin/sicara']" routerLink="/admin/sicara" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">account_tree</mat-icon>
+            <h3 matLine class="light">Sicara</h3>
+          </mat-list-item>
+
           <p mat-subheader style="color: white;">Settings</p>
 
           <mat-list-item *ngIf="accessMenu['/admin/kategori-produk']" routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >

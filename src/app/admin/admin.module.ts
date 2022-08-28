@@ -45,6 +45,12 @@ import { DialogUstadzComponent } from './ustadz/dialog-ustadz/dialog-ustadz.comp
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RadiomuComponent } from './radiomu/radiomu.component';
 import { DialogRadioComponent } from './radiomu/dialog-radio/dialog-radio.component';
+import { SicaraComponent } from './sicara/sicara.component';
+import { DaerahComponent } from './sicara/daerah/daerah.component';
+import { CabangComponent } from './sicara/cabang/cabang.component';
+import { RantingComponent } from './sicara/ranting/ranting.component';
+import { DialogCabangComponent } from './sicara/cabang/dialog-cabang/dialog-cabang.component';
+import { DialogRantingComponent } from './sicara/ranting/dialog-ranting/dialog-ranting.component';
 const routes: Routes = [
   {
     path: '',
@@ -129,6 +135,26 @@ const routes: Routes = [
         path: 'radiomu',
         component: RadiomuComponent,
         data: {title: 'Radiomu'}
+      },
+      {
+        path: 'sicara',
+        component: SicaraComponent,
+        data: {title: 'Sicara'}
+      },
+      {
+        path: 'sicara/daerah',
+        component: DaerahComponent,
+        data: {title: 'Daerah'}
+      },
+      {
+        path: 'sicara/cabang',
+        component: CabangComponent,
+        data: {title: 'Cabang'}
+      },
+      {
+        path: 'sicara/ranting',
+        component: RantingComponent,
+        data: {title: 'Ranting'}
       }
     ]
   },
@@ -180,6 +206,12 @@ const routes: Routes = [
     DialogUstadzComponent,
     RadiomuComponent,
     DialogRadioComponent,
+    SicaraComponent,
+    DaerahComponent,
+    CabangComponent,
+    RantingComponent,
+    DialogCabangComponent,
+    DialogRantingComponent,
   ],
   imports: [
     CommonModule,
