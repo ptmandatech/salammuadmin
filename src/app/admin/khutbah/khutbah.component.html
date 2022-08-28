@@ -15,6 +15,8 @@
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah Khutbah</button>
+            <button mat-flat-button color="accent" class="uk-margin-right" >Setujui</button>
+            <button mat-flat-button color="warn" >Batalkan Persetujuan</button>
           </div>
         </div>
 
@@ -25,6 +27,7 @@
         <table class="uk-table uk-table-middle uk-table-divider">
           <thead>
               <tr>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
                   <th>Sampul</th>
                   <th>Judul</th>
                   <th>Ringkasan</th>
@@ -35,6 +38,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let n of allKhutbah | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td><input class="uk-checkbox" type="checkbox"></td>
               <td><img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImg+n.image)}}" width="120" height="120" alt=""></td>
               <td>{{n.title}}</td>
               <td>{{n.summary}}</td>
