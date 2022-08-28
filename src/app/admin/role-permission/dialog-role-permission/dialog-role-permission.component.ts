@@ -90,6 +90,11 @@ export class DialogRolePermissionComponent implements OnInit {
       path: '/admin/keilmuan-ustadz',
       checked: false,
       name: 'Keilmuan Ustadz'
+    },
+    {
+      path: '/admin/radiomu',
+      checked: false,
+      name: 'RadioMu'
     }
   ];
   constructor(

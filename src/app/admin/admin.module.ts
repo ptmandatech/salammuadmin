@@ -43,6 +43,8 @@ import { DialogKeilmuanUstadzComponent } from './keilmuan-ustadz/dialog-keilmuan
 import { DialogKhutbahComponent } from './khutbah/dialog-khutbah/dialog-khutbah.component';
 import { DialogUstadzComponent } from './ustadz/dialog-ustadz/dialog-ustadz.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { RadiomuComponent } from './radiomu/radiomu.component';
+import { DialogRadioComponent } from './radiomu/dialog-radio/dialog-radio.component';
 const routes: Routes = [
   {
     path: '',
@@ -122,6 +124,11 @@ const routes: Routes = [
         path: 'keilmuan-ustadz',
         component: KeilmuanUstadzComponent,
         data: {title: 'Keilmuan Ustadz'}
+      },
+      {
+        path: 'radiomu',
+        component: RadiomuComponent,
+        data: {title: 'Radiomu'}
       }
     ]
   },
@@ -171,6 +178,8 @@ const routes: Routes = [
     DialogKeilmuanUstadzComponent,
     DialogKhutbahComponent,
     DialogUstadzComponent,
+    RadiomuComponent,
+    DialogRadioComponent,
   ],
   imports: [
     CommonModule,

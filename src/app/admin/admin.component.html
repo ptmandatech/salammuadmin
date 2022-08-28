@@ -72,6 +72,11 @@
             <h3 matLine class="light">Khutbah</h3>
           </mat-list-item>
 
+          <mat-list-item *ngIf="accessMenu['/admin/radiomu']" routerLink="/admin/radiomu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">radio</mat-icon>
+            <h3 matLine class="light">RadioMu</h3>
+          </mat-list-item>
+
           <p mat-subheader style="color: white;">Settings</p>
 
           <mat-list-item *ngIf="accessMenu['/admin/kategori-produk']" routerLink="/admin/kategori-produk" routerLinkActive="active-list-item" >
