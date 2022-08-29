@@ -13,7 +13,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Cari Pengguna" name="searchText">
+              <input matInput placeholder="Cari Pengguna" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah"><mat-icon class="light">sync</mat-icon>Sync</button>
@@ -34,7 +34,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of listRoomChats">
+              <tr *ngFor="let n of listRoomChats | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td class="fw-bold">{{n.user_name}}</td>
                   <td>{{n.lastMessages}}</td>
                   <td>
@@ -57,16 +57,9 @@
   
       <hr>
   
-      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
-        <li><a href="#"><span uk-pagination-previous></span></a></li>
-        <li><a href="#">1</a></li>
-        <li class="uk-disabled"><span>...</span></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li class="uk-active"><span>7</span></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#"><span uk-pagination-next></span></a></li>
-    </ul>
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div>
   
     </div>
   
