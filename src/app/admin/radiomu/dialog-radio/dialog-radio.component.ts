@@ -90,22 +90,37 @@ export class DialogRadioComponent implements OnInit {
     }
   }
 
+  urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
   save() {
-    if(this.isCreated == true) {
-      this.radiomuData.created_by = this.userData.id;
-      this.api.post('radiomu', this.radiomuData).then(res => {
-        if(res) {
-          Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
-          this.dialogRef.close();
-        }
-      })
+    if(this.isValidUrl(this.radiomuData.url)) {
+      if(this.isCreated == true) {
+        this.radiomuData.created_by = this.userData.id;
+        this.api.post('radiomu', this.radiomuData).then(res => {
+          if(res) {
+            Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
+            this.dialogRef.close();
+          }
+        })
+      } else {
+        this.api.put('radiomu/'+this.radiomuData.id, this.radiomuData).then(res => {
+          if(res) {
+            Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
+            this.dialogRef.close();
+          }
+        })
+      }
     } else {
-      this.api.put('radiomu/'+this.radiomuData.id, this.radiomuData).then(res => {
-        if(res) {
-          Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
-          this.dialogRef.close();
-        }
-      })
+      Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+    }
+  }
+
+  isValidUrl(urlString: string): boolean {
+    try {
+      let pattern = new RegExp(this.urlRegEx);
+      let valid = pattern.test(urlString);
+      return valid;
+    } catch (TypeError) {
+      return false;
     }
   }
 
