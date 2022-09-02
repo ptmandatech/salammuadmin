@@ -58,7 +58,7 @@ export class PengajianComponent implements OnInit {
   allPengajian:any = [];
   allPengajianTemp:any = [];
   getAllPengajian() {
-    this.api.get('pengajian?all').then(res=>{
+    this.api.get('pengajian/getAsAdmin').then(res=>{
       this.allPengajian = res;
       this.allPengajianTemp = res;
       Loading.remove();

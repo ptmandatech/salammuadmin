@@ -101,4 +101,98 @@ export class DoaDzikirComponent implements OnInit {
     })
   }
 
+  hasSelectedData:boolean = false;
+  selectAll(evt:any, n:any) {
+    if(n == 'all') {
+      if(evt.target.checked) {
+        this.allDoaDzikir.forEach((e:any) => {
+          e.checked = true;
+        });
+      } else {
+        this.allDoaDzikir.forEach((e:any) => {
+          e.checked = false;
+        });
+      }
+    } else {
+      if(evt.target.checked) {
+        this.allDoaDzikir[n].checked = true;
+      } else {
+        this.allDoaDzikir[n].checked = false;
+      }
+    }
+    let checkData = this.allDoaDzikir.filter((e:any) => e.checked == true);
+    checkData.length > 0 ? this.hasSelectedData = true : this.hasSelectedData = false;
+  }
+
+  batalVerif() {
+    let checkData = this.allDoaDzikir.filter((e:any) => e.verified == 1 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data doa dan dzikir?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Batalkan!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = false;
+          e.images = JSON.stringify(e.images);
+          this.api.put('Doadzikir/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                this.getAllDoaDzikir();
+                Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
+                this.allDoaDzikir.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
+  allData:any = {};
+  verifikasiAll() {
+    let checkData = this.allDoaDzikir.filter((e:any) => e.verified == 0 && e.checked == true);
+    Swal.fire({
+      title: 'Anda yakin ingin melanjutkan verifikasi data doa dan dzikir?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2196F3',
+      cancelButtonColor: '#F44336',
+      confirmButtonText: 'Ya, Verifikasi!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Loading.pulse();
+        checkData.forEach((e:any, idx:any) => {
+          e.verified = true;
+          e.images = JSON.stringify(e.images);
+          this.api.put('Doadzikir/'+ e.id, e).then(res => {
+            if(res) {
+              if(idx+1 == checkData.length) {
+                this.getAllDoaDzikir();
+                Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
+                this.allDoaDzikir.forEach((e:any) => {
+                  e.checked = false;
+                });
+                this.allData.checked = false;
+                this.hasSelectedData = false;
+              }
+            }
+          }, err => {
+            Loading.remove();
+          })
+        });
+      }
+    })
+  }
+
 }

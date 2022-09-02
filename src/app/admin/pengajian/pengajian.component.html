@@ -57,6 +57,7 @@
                 <td class="uk-table-shrink">
                   <mat-chip-list aria-label="Fish selection">
                     <mat-chip color="{{n.verified == '1' ? 'primary':'warn'}}" selected>{{n.verified == '1' ? 'Verified':'Unverified'}}</mat-chip>
+                    <mat-chip color="{{n.status == 'soon' ? '':'primary'}}" selected>{{n.status == 'soon' ? 'Mendatang':'Selesai'}}</mat-chip>
                   </mat-chip-list>
                 </td>
                 <td class="uk-table-shrink uk-text-nowrap">

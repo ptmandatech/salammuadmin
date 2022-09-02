@@ -16,8 +16,8 @@
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah</button>
-            <button mat-flat-button color="accent" class="uk-margin-right" >Setujui</button>
-            <button mat-flat-button color="warn" >Batalkan Persetujuan</button>
+            <button mat-flat-button color="accent" *ngIf="hasSelectedData" class="uk-margin-right" (click)="verifikasiAll()">Setujui</button>
+            <button mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="batalVerif()">Batalkan Persetujuan</button>
           </div>
         </div>
 
@@ -28,23 +28,30 @@
         <table class="uk-table uk-table-middle uk-table-divider">
           <thead>
               <tr>
-                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" [(ngModel)]="allData.checked" (change)="selectAll($event, 'all')"></th>
                   <th>Sampul</th>
                   <th>Judul</th>
                   <th>Ringkasan</th>
                   <th>Oleh</th>
                   <th>Dibuat</th>
+                  <th>Status</th>
                   <th>Aksi</th>
               </tr>
           </thead>
           <tbody>
-                <tr *ngFor="let n of allDoaDzikir | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
-                  <td><input class="uk-checkbox" type="checkbox"></td>
+                <tr *ngFor="let n of allDoaDzikir | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
+                  <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
                   <td><img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImg+n.image)}}" width="120" height="120" alt=""></td>
                   <td>{{n.title}}</td>
                   <td>{{n.summary}}</td>
                   <td>{{n.user_name}}</td>
                   <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip color="primary" *ngIf="n.verified == 1" selected>Verified</mat-chip>
+                        <mat-chip color="accent" *ngIf="n.verified == 0" selected>Unverified</mat-chip>
+                    </mat-chip-list>
+                  </td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-mini-fab color="primary" (click)="openDialog(n)">
                       <mat-icon>edit</mat-icon>
