@@ -149,17 +149,17 @@ const routes: Routes = [
         data: {title: 'Sicara'}
       },
       {
-        path: 'sicara/daerah',
+        path: 'sicara/daerah/:id',
         component: DaerahComponent,
         data: {title: 'Daerah'}
       },
       {
-        path: 'sicara/cabang',
+        path: 'sicara/cabang/:id',
         component: CabangComponent,
         data: {title: 'Cabang'}
       },
       {
-        path: 'sicara/ranting',
+        path: 'sicara/ranting/:id',
         component: RantingComponent,
         data: {title: 'Ranting'}
       }

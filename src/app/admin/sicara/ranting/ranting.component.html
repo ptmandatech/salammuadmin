@@ -6,13 +6,13 @@
         <div class="uk-flex-middle" uk-grid >
           <div class="uk-width-1-2">
             <div style="display: flex;">
-              <h1 style="margin-bottom: 0;">Nama Ranting</h1>
+              <h1 style="margin-bottom: 0;">{{dataPcm.nama}}</h1>
             </div>
             <div>
                 <ul class="uk-breadcrumb">
                     <li><a href="/admin/sicara">List Wilayah</a></li>
-                    <li><a href="/admin/sicara/daerah">List Daerah</a></li>
-                    <li><a href="/admin/sicara/ranting">List Ranting</a></li>
+                    <li><a [routerLink]="['/admin/sicara/daerah/',dataPcm.pwm_id]">List Daerah</a></li>
+                    <li><a [routerLink]="['/admin/sicara/cabang/',dataPcm.pdm_id]">List Cabang</a></li>
                     <li><span>Pilihan Ranting</span></li>
                 </ul>
             </div>
@@ -21,7 +21,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Cari Ranting" name="searchText">
+              <input matInput placeholder="Cari Judul" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
@@ -38,21 +38,21 @@
                   <th>Nama Cabang</th>
                   <th>Nama Ranting</th>
                   <th>Tanggal Terakhir Sync</th>
-                  <th>Aksi</th>
+                  <!-- <th>Aksi</th> -->
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let n of [1,2,3,4]">
-                  <td>PWM Jakarta Pusat</td>
-                  <td>PDM Cilandak</td>
-                  <td>PCM Pasar Minggu</td>
-                  <td class="fw-bold">PRM Kebagusan</td>
-                  <td>21 Januari 2022</td>
-                  <td class="uk-table-shrink uk-text-nowrap">
+              <tr *ngFor="let n of allPrm | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
+                  <td>{{n.pwm_nama}}</td>
+                  <td>{{n.pdm_nama}}</td>
+                  <td>{{n.pcm_nama}}</td>
+                  <td class="fw-bold">{{n.nama}}</td>
+                  <td>{{n.created_at | date:'dd MMMM yyyy'}}</td>
+                  <!-- <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-mini-fab color="primary" >
                         <mat-icon>edit</mat-icon>
                     </button>
-                  </td>
+                  </td> -->
               </tr>
           </tbody>
         </table>
@@ -61,7 +61,10 @@
   
       <hr>
   
-      <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div>
+      <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
         <li><a href="#"><span uk-pagination-previous></span></a></li>
         <li><a href="#">1</a></li>
         <li class="uk-disabled"><span>...</span></li>
@@ -70,7 +73,7 @@
         <li class="uk-active"><span>7</span></li>
         <li><a href="#">8</a></li>
         <li><a href="#"><span uk-pagination-next></span></a></li>
-    </ul>
+    </ul> -->
   
     </div>
   
