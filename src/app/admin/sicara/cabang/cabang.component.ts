@@ -6,6 +6,7 @@ import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
+import { DialogCabangComponent } from './dialog-cabang/dialog-cabang.component';
 
 @Component({
   selector: 'app-cabang',
@@ -23,6 +24,7 @@ export class CabangComponent implements OnInit {
     public common: CommonService,
     public router:Router,
     public routes:ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +79,16 @@ export class CabangComponent implements OnInit {
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       Loading.remove();
+    });
+  }
+
+  //Dialog detail Cabang
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCabangComponent, {
+      width: '650px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

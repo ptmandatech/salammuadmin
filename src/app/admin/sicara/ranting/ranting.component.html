@@ -48,11 +48,11 @@
                   <td>{{n.pcm_nama}}</td>
                   <td class="fw-bold">{{n.nama}}</td>
                   <td>{{n.created_at | date:'dd MMMM yyyy'}}</td>
-                  <!-- <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" >
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-mini-fab color="primary" (click)="openDialog()">
                         <mat-icon>edit</mat-icon>
                     </button>
-                  </td> -->
+                  </td>
               </tr>
           </tbody>
         </table>
