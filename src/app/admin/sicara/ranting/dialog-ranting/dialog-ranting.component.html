@@ -5,7 +5,7 @@
 
   <!-- Disini pake Quill juga yaa -->
   <mat-label>Deskripsi ranting</mat-label>
-  <quill-editor placeholder="Deskripsi">
+  <quill-editor [(ngModel)]="dataRanting.deskripsi" placeholder="Deskripsi">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">
@@ -51,15 +51,19 @@
 
   <mat-form-field class="uk-width-1-1 uk-margin top " appearance="fill">
     <mat-label>Lokasi Sesuai Peta (Terisi Otomatis)</mat-label>
-    <input matInput [disabled]="true">
+    <input matInput [disabled]="true">{{detailLocSelected == undefined ? '':detailLocSelected.display_name}}
   </mat-form-field>
   
+  <div id="map" style="width: auto; height: 300px;"></div>
+  <div id="info">&nbsp;</div>
+  <div id="geolocation"></div>
 
+  <div style="margin-top: 100px;"></div>
   
 
 </div>
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="primary">Simpan</button>
+  <button mat-flat-button (click)="save()" color="primary">Simpan</button>
 </mat-dialog-actions>

@@ -44,7 +44,7 @@
     <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Cabang</mat-label>
       <mat-select [(ngModel)]="pengajianData.branch" required>
-        <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.name}}</mat-option>
+        <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -55,7 +55,7 @@
     <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Ranting</mat-label>
       <mat-select [(ngModel)]="pengajianData.twig" required>
-        <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.name}}</mat-option>
+        <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

@@ -63,7 +63,6 @@ export class CabangComponent implements OnInit {
   getDetailPdm() {
     this.api.get('sicara/find/sicara_pdm/'+this.id).then(res=>{
       this.dataPdm = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       console.log(err)
@@ -85,9 +84,10 @@ export class CabangComponent implements OnInit {
   }
 
   //Dialog detail Cabang
-  openDialog(): void {
+  openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogCabangComponent, {
-      width: '650px'
+      width: '650px',
+      data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

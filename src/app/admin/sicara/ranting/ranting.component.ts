@@ -84,9 +84,10 @@ export class RantingComponent implements OnInit {
   }
 
   //Dialog detail Cabang
-  openDialog(): void {
+  openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogRantingComponent, {
-      width: '650px'
+      width: '650px',
+      data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

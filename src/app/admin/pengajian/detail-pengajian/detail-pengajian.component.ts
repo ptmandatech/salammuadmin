@@ -282,10 +282,26 @@ export class DetailPengajianComponent implements OnInit {
 
   listCabang:any = [];
   listRanting:any = [];
-  getAllCr() {
-    this.api.get('cr').then(res => {
-      this.parseData(res);
-    })
+  async getAllCr() {
+    // this.api.get('cr').then(res => {
+    //   this.parseData(res);
+    // })
+    try {
+      await this.api.get('sicara/getAllPCM').then(res=>{ 
+        this.listCabang = res;
+      }, err => {
+      });
+    } catch {
+
+    }
+    try {
+      await this.api.get('sicara/getAllPRM').then(res=>{
+        this.listRanting = res;
+      }, err => {
+      });
+    } catch {
+
+    }
   }
 
   parseData(res:any) {

@@ -49,7 +49,7 @@
                   <td class="fw-bold">{{n.nama}}</td>
                   <td>{{n.created_at | date:'dd MMMM yyyy'}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
-                    <button mat-mini-fab color="primary" (click)="openDialog()">
+                    <button mat-mini-fab color="primary" (click)="openDialog(n)">
                         <mat-icon>edit</mat-icon>
                     </button>
                   </td>
