@@ -63,8 +63,10 @@ export class CabangComponent implements OnInit {
   getDetailPdm() {
     this.api.get('sicara/find/sicara_pdm/'+this.id).then(res=>{
       this.dataPdm = res;
+      console.log(res)
       Loading.remove();
     }, err => {
+      console.log(err)
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       Loading.remove();
     });

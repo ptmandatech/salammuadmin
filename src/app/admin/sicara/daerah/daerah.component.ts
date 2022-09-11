@@ -61,6 +61,7 @@ export class DaerahComponent implements OnInit {
   getDetailPwm() {
     this.api.get('sicara/find/sicara_pwm/'+this.id).then(res=>{
       this.dataPwm = res;
+      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -73,6 +74,7 @@ export class DaerahComponent implements OnInit {
     this.allPdm = [];
     this.api.get('sicara/getPDM/'+this.id).then(res=>{
       this.allPdm = res;
+      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

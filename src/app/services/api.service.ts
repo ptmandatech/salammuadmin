@@ -27,6 +27,16 @@ export class ApiService {
     let dt = await this.common.getExternal(url);
     return dt;
   }
+  
+  async syncSicara(url:any){
+    let dt =  await this.common.syncSicara(url);
+    return dt;
+  }
+  
+  async postDataSicara(url:any, data:any){
+    let dt =  await this.common.postDataSicara(url, data);
+    return dt;
+  }
 
   async post(url:any, data:any) {
     let dt = await this.common.post(url, data);

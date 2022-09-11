@@ -35,7 +35,7 @@
           <tbody>
               <tr *ngFor="let n of allPwm | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
                   <td class="fw-bold">{{n.nama}}</td>
-                  <td>{{n.nama}}</td>
+                  <td>{{n.jumlah_pdm}}</td>
                   <td>{{n.created_at | date:'dd MMMM yyyy'}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-mini-fab [routerLink]="['/sicara/daerah', n.id]">

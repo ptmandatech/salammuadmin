@@ -65,6 +65,16 @@ export class CommonService {
       })
     };
   }
+
+  generateOptionExternal()
+  {
+    this.httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+  }
  
   times:any;
   async getTimes(url:any)
@@ -95,8 +105,20 @@ export class CommonService {
   async getExternal(url:any)
   {
     this.data = undefined;
-    this.data = await this.http.get(this.serverExternal+url).toPromise();
+    this.data = await this.http.get(this.serverExternal+url, this.httpOption).toPromise();
     return this.data;
+  }
+
+  async syncSicara(url:any){
+    this.data = undefined;
+    this.data = await this.http.get(url).toPromise();
+    return this.data;
+  }
+  
+  postDataSicara(url:any, data:any)
+  {
+    this.getToken();
+    return this.http.post(this.serverUrl+url,data, this.httpOption).toPromise();
   }
   
   post(url:any,data:any)
