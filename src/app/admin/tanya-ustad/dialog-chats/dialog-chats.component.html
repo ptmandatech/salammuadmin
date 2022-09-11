@@ -20,7 +20,7 @@
 <div mat-dialog-actions align="center" style="box-sizing: border-box">
     <div class="uk-flex" style="width: 100%;">
         <div style="padding: 10px;" class="uk-flex uk-flex-bottom uk-width-1-1">
-            <textarea class="uk-textarea" (keyup)="pressEnter($event)" style="border-radius: 25px; min-height: 40px; padding-top: 10px;" [(ngModel)]="message" autosize placeholder="Tulis pesan.."></textarea>
+            <textarea class="uk-textarea" (keyup)="pressEnter($event)" style="border-radius: 10px; padding-top: 12px; padding-bottom: 0 !important;" [(ngModel)]="message" autosize placeholder="Tulis pesan.."></textarea>
             <button mat-icon-button color="light" (click)="sendMessage()">
                 <mat-icon style="color: grey;">send</mat-icon>
             </button>
