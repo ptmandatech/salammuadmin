@@ -5,11 +5,13 @@
     <div class="uk-flex uk-flex-column" style="margin-top: 20px;">
         <div *ngFor="let message of listChats">
             <div *ngIf="message.created_by !== userData.id" class="message other-message">
+                <img *ngIf="message.image" src="{{serverImg+message.image}}"/>
                 <span style="font-size: 15px;">{{ message.messages }}</span>
                 <div class="time-other" style="text-align: right;">{{ message.created_at | date:'short' }}</div>
             </div>
 
             <div *ngIf="message.created_by === userData.id" class="message my-message">
+                <img *ngIf="message.image" src="{{serverImg+message.image}}"/>
                 <span style="font-size: 15px;">{{ message.messages }}</span>
                 <div class="time" style="text-align: right;">{{ message.created_at | date:'short' }}</div>
             </div>
@@ -18,10 +20,37 @@
 </div>
 
 <div mat-dialog-actions align="center" style="box-sizing: border-box">
+    <div *ngIf="attachFile">
+        <mat-form-field>
+            <div>
+              <div class="uk-flex">
+                <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
+                <!-- Display files names -->
+                <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+              <!-- Fetch selected filed on change -->
+              <input
+                type="file"
+                #fileInput
+                id="uploadFile"
+                (change)="uploadFileEvt($event)"
+                name="uploadFile"
+                multiple="multiple"
+                accept="image/*"
+              />
+              </div>
+            </div>
+            <!-- image preview setelah file terpilih -->
+            <img *ngIf="image != undefined" class="uk-margin-top" [src]="image">
+          </mat-form-field><br>
+          <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
+    </div>
     <div class="uk-flex" style="width: 100%;">
         <div style="padding: 10px;" class="uk-flex uk-flex-bottom uk-width-1-1">
+            <button mat-icon-button color="light" (click)="attachFile = true" class="buttonForm">
+                <mat-icon style="color: rgb(96, 170, 255);">attach_file</mat-icon>
+            </button>
             <textarea class="uk-textarea" (keyup)="pressEnter($event)" style="border-radius: 10px; padding-top: 12px; padding-bottom: 0 !important;" [(ngModel)]="message" autosize placeholder="Tulis pesan.."></textarea>
-            <button mat-icon-button color="light" (click)="sendMessage()">
+            <button mat-icon-button color="light" (click)="uploadPhoto()" class="buttonForm">
                 <mat-icon style="color: grey;">send</mat-icon>
             </button>
         </div>

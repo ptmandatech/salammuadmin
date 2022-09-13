@@ -9,7 +9,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import { VideoHandler, ImageHandler, Options } from 'ngx-quill-upload';
 import Quill from 'quill';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ScrollToBottomDirective } from 'src/app/scroll-to-bottom.directive';
 
 Quill.register('modules/imageHandler', ImageHandler);
@@ -27,16 +27,17 @@ export class DialogChatsComponent implements OnInit {
   listChats:any = [];
   @ViewChild(ScrollToBottomDirective)
   scroll: ScrollToBottomDirective;
+  serverImg: any;
   constructor(
     public common: CommonService,
+    private http: HttpClient,
     public dialogRef: MatDialogRef<DialogChatsComponent>,
     @Inject(MAT_DIALOG_DATA) public sourceData: any,
     private api: ApiService
   ) {
     Loading.pulse();
+    this.serverImg = this.common.photoBaseUrl+'chattings/';
     this.roomData = sourceData.data;
-    this.checkRoom();
-    this.getChats();
   }
 
   async ngOnInit(): Promise<void> {
@@ -48,10 +49,20 @@ export class DialogChatsComponent implements OnInit {
   {    
     this.api.me().then(async res=>{
       this.userData = res;
+      this.checkRoom();
+      this.getChats();
     });
   }
 
+  isUstad:boolean = false;
   checkRoom() {
+    console.log(this.roomData)
+    if(this.roomData.ustadz_id == this.userData.id) {
+      this.isUstad = true;
+    } else {
+      this.isUstad = false;
+    }
+    console.log(this.isUstad)
     this.api.post('chattings/checkRooms', this.roomData).then(res => {
       // console.log(res)
     })
@@ -67,6 +78,32 @@ export class DialogChatsComponent implements OnInit {
     })
   }
 
+  @ViewChild('fileInput')
+  fileInput!: ElementRef;
+  fileAttr = 'Belum ada file yang dipilih';
+  attachFile:boolean = false;
+  uploadFileEvt(imgFile: any) {
+    if (imgFile.target.files && imgFile.target.files[0]) {
+      this.fileAttr = '';
+      Array.from(imgFile.target.files).forEach((file: any) => {
+        this.fileAttr += file.name + ' - ';
+      });
+      // HTML5 FileReader API
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        let image = new Image();
+        image.src = e.target.result;
+        image.onload = (rs) => {
+          this.image = e.target.result;
+        };
+      };
+      reader.readAsDataURL(imgFile.target.files[0]);
+      // Reset if duplicate image uploaded again
+      this.fileInput.nativeElement.value = '';
+    } else {
+      this.fileAttr = 'Belum ada file yang dipilih';
+    }
+  }
   
   message: any;
   pressEnter(event:any)
@@ -77,30 +114,82 @@ export class DialogChatsComponent implements OnInit {
       if(this.message.length == 0) {
         return;
       } else {
-        this.sendMessage();
+        this.uploadPhoto();
       }
     }
   }
 
-  sendMessage() {
+  imagePath:any;
+  image:any;
+  async uploadPhoto()
+  {
+    if(this.message.length == 0) {
+      return;
+    } else {
+      let id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
+      if(this.image) {
+        await this.api.put('chattings/uploadfoto/'+id,{image: this.image}).then(res=>{
+          this.imagePath = res;
+          console.log(res)
+          this.sendMessage(id);
+        }, error => {
+          console.log(error)
+        });
+      } else {
+        this.sendMessage(id);
+      }
+    }
+  }
+
+  sendMessage(id:any) {
     let dt = {
-      id: new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))],
+      id: id,
       created_by: this.userData.id,
       room_id: this.roomData.id,
       messages: this.message,
+      image: this.image == null ? null:this.imagePath,
       ustad_already_read: this.roomData.ustadz_id == this.userData.id ? true:false,
       user_already_read: this.roomData.ustadz_id != this.userData.id ? true:false,
       type: this.image == null ? 'text':'image'
     }
 
-    this.message = null;
-
     this.api.post('chattings/chats', dt).then(res => {
       // console.log(res)
+      this.sendNotif();
       this.getChats();
+
+      this.message = null;
+      this.image = null;
+      this.attachFile = false;
     });
   }
 
-  image:any;
+  //notifikasi
+  url_notif = 'https://fcm.googleapis.com/fcm/send';
+
+  sendNotif() {
+    let data = {
+      "notification" : {
+        "title": this.isUstad ? this.roomData.ustadz_name:this.roomData.user_name,
+        "body":this.message,
+        "sound":"default",
+        "icon":"app-logo"
+      },
+      "data": {
+        "room_id":this.roomData.id,
+      },
+      "to": this.isUstad ? this.roomData.tokenUser : this.roomData.tokenUstad,
+      "priority":"high",
+      "restricted_package_name":""
+    };
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `key=AAAAfUgqfM0:APA91bE2AsdIjPXxbQmvzOqkXfcNoREowKF__oE4P8GJUEcXPYuZb78cMd_S7Os5fnXPskvY6RHDuJs4Af5G-gkSAw0uOZHXnt_BYfczS_zPuDy6k9DomFfI1TWuv-OILopIrqxznJXv`
+    });
+
+    this.http.post(this.url_notif, data, { headers }).subscribe( res => {
+    });
+  }
 
 }
