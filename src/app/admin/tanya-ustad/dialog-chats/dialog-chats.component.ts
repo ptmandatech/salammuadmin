@@ -170,7 +170,7 @@ export class DialogChatsComponent implements OnInit {
   sendNotif() {
     let data = {
       "notification" : {
-        "title": "SalamMU - " + this.isUstad ? this.roomData.ustadz_name:this.roomData.user_name,
+        "title": "SalamMU - Pesan Baru",
         "body":this.message,
         "sound":"default",
         "icon":"logo"
