@@ -36,8 +36,8 @@
           <tbody>
               <tr *ngFor="let n of allRadiomu | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                 <td><img class="uk-thumbnail" src="{{n.image == undefined || n.image == '' ? '../../../assets/imgs/no-image.png':(serverImg+n.image)}}" width="120" height="120" alt=""></td>
-                  <td>RadioMu Pusat</td>
                   <td>{{n.title}}</td>
+                  <td>{{n.url}}</td>
                   <td>{{n.user_name}}</td>
                   <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">

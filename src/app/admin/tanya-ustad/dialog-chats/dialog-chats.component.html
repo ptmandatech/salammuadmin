@@ -17,10 +17,9 @@
             </div>
         </div>
     </div>
-</div>
 
-<div mat-dialog-actions align="center" style="box-sizing: border-box">
-    <div *ngIf="attachFile">
+    <div *ngIf="attachFile" class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index uk-margin-bottom" uk-sticky="position: bottom; end: !.uk-height-large">
+        <button class="uk-modal-close-default" type="button" (click)="attachFile = false" uk-close></button>
         <mat-form-field>
             <div>
               <div class="uk-flex">
@@ -40,10 +39,13 @@
               </div>
             </div>
             <!-- image preview setelah file terpilih -->
-            <img *ngIf="image != undefined" class="uk-margin-top" [src]="image">
+            <img *ngIf="image != undefined" class="uk-margin-top object-bg" style="height: 200px;" [src]="image">
           </mat-form-field><br>
           <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
     </div>
+</div>
+
+<div mat-dialog-actions align="center" style="box-sizing: border-box">
     <div class="uk-flex" style="width: 100%;">
         <div style="padding: 10px;" class="uk-flex uk-flex-bottom uk-width-1-1">
             <button mat-icon-button color="light" (click)="attachFile = true" class="buttonForm">
