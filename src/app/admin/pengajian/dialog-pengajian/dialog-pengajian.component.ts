@@ -335,6 +335,7 @@ export class DialogPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPCM').then(res=>{ 
         this.listCabang = res;
+        this.listCabang = this.listCabang.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
       }, err => {
       });
     } catch {
@@ -343,6 +344,7 @@ export class DialogPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPRM').then(res=>{
         this.listRanting = res;
+        this.listRanting = this.listRanting.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
       }, err => {
       });
     } catch {

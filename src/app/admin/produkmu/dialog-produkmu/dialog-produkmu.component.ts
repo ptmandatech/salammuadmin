@@ -63,6 +63,7 @@ export class DialogProdukmuComponent implements OnInit {
   getCategories() {
     this.api.get('categories').then(res=>{
       this.allCategories = res;
+      this.allCategories = this.allCategories.sort((a:any,b:any) => a.name < b.name ? -1:1)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

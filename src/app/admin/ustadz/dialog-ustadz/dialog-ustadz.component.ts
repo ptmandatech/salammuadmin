@@ -71,6 +71,7 @@ export class DialogUstadzComponent implements OnInit {
   getAllScience() {
     this.api.get('sciences').then(res=>{
       this.allSciences=res;
+      this.allSciences = this.allSciences.sort((a:any,b:any) => a.name < b.name ? -1:1)
     })
   }
 
