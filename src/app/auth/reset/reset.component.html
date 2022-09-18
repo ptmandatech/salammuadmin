@@ -10,14 +10,14 @@
 					<div class="uk-margin uk-width-large uk-margin-auto card uk-card uk-card-default uk-card-body uk-box-shadow-large">
 
                         <mat-form-field  class="uk-width-1-1" appearance="outline">
-                            <mat-label>Password Baru</mat-label>
-                            <input matInput placeholder="your password" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="user.p1" #p1="ngModel" required>
+                            <mat-label>Kata Sandi Baru</mat-label>
+                            <input matInput placeholder="Masukkan Kata Sandi Baru" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="user.p1" #p1="ngModel" required>
 							<mat-icon matSuffix (click)="togglePasswordVisibility()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
                         </mat-form-field>
 
                         <mat-form-field  class="uk-width-1-1" appearance="outline">
-                            <mat-label>Tulis Ulang Password Baru</mat-label>
-                            <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Your password" [(ngModel)]="user.p2" #p2="ngModel" required>
+                            <mat-label>Tulis Ulang Kata Sandi Baru</mat-label>
+                            <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Masukkan Kata Sandi Baru" [(ngModel)]="user.p2" #p2="ngModel" required>
 							<mat-icon matSuffix (click)="togglePasswordVisibility()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
                         </mat-form-field>
 

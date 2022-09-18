@@ -86,6 +86,8 @@ export class DialogUpdatePasswordComponent implements OnInit {
           this.loading = false;
           Notiflix.Notify.failure('Gagal memperbarui password.',{ timeout: 2000 });
         })
+      } else {
+        this.loading = false;
       }
     })
   }

@@ -21,13 +21,13 @@
 						<div class="error-msg" *ngIf="form.controls.email.errors?.email">
 						  Format Email salah!
 						</div>
-					<p>Password</p>
+					<p>Kata Sandi</p>
 						<mat-form-field class="uk-width-1-1" appearance="outline">
-							<input formControlName="password" name="password" matInput required [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Masukan Password">
+							<input formControlName="password" name="password" matInput required [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Masukan Kata Sandi">
 							<mat-icon matSuffix (click)="togglePasswordVisibility()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
 						</mat-form-field>
                         <div class="error-msg" *ngIf="form.controls.password.hasError('required') && form.controls.password.touched">
-							Password harus diisi!
+							Kata Sandi harus diisi!
 						</div>
 
 						<div *ngIf="success == true" class="uk-alert alert-info uk-alert-success">
@@ -35,7 +35,7 @@
 						</div>
 			
 						<div *ngIf="invalid == true" class="uk-alert alert-info uk-alert-danger">
-						  Tidak dapat login. Pastikan email dan password benar.
+						  Tidak dapat login. Pastikan email dan kata sandi benar.
 						</div>
 			
 						<div *ngIf="nonaktif == true" class="uk-alert alert-info uk-alert-danger">
@@ -43,7 +43,7 @@
 						</div>
 	  
 						<mat-checkbox class="example-margin" formControlName="remember" name="remember">Ingat Saya</mat-checkbox>
-					  	<button class="uk-align-right uk-button uk-button-link uk-text-capitalize uk-text-muted" routerLink="/auth/lupa-password">Lupa Password ?</button>
+					  	<button class="uk-align-right uk-button uk-button-link uk-text-capitalize uk-text-muted" routerLink="/auth/lupa-password">Lupa Kata Sandi ?</button>
 	  
 						<div class="uk-margin">
 							<button mat-flat-button class="uk-width-1-1" color="primary" (click)="login()">Masuk</button>
