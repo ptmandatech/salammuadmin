@@ -18,8 +18,8 @@
     <textarea matInput [(ngModel)]="doaDzikirData.descriptions" required></textarea>
   </mat-form-field> -->
   
-  <mat-label>Isi Doa/Dzikir</mat-label>
-  <quill-editor [(ngModel)]="doaDzikirData.descriptions" #descriptions="ngModel" [modules]="modules" placeholder="Tentang">
+  <mat-label>Isi Doa/Dzikir <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor [(ngModel)]="doaDzikirData.descriptions" [required]="true" #descriptions="ngModel" [modules]="modules" placeholder="Tentang">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">

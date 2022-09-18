@@ -16,7 +16,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Harga</mat-label>
-    <input matInput required type="number" min="0" [(ngModel)]="productsData.price" #price="ngModel">
+    <input matInput required type="number" min="1" [(ngModel)]="productsData.price" #price="ngModel">
   </mat-form-field>
 
   <!-- <mat-form-field class="uk-width-1-1" appearance="fill">
@@ -24,8 +24,8 @@
     <textarea matInput required [(ngModel)]="productsData.descriptions"></textarea>
   </mat-form-field> -->
 
-  <mat-label>Deskripsi Produk</mat-label>
-  <quill-editor [(ngModel)]="productsData.descriptions" #descriptions="ngModel" [modules]="modules" placeholder="Deskripsi">
+  <mat-label>Deskripsi Produk <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor [(ngModel)]="productsData.descriptions" [required]="true" #descriptions="ngModel" [modules]="modules" placeholder="Deskripsi">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">

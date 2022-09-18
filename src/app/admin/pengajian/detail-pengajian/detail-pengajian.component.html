@@ -19,14 +19,14 @@
 
   <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
     <mat-form-field appearance="fill">
-      <mat-label>Tanggal Pengajian</mat-label>
+      <mat-label>Tanggal Pengajian <span class="text-merah-16 ml-10">*</span></mat-label>
       <input matInput [(ngModel)]="dateValue" [disabled]="true">
       <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker [disabled]="true" #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Jam Pengajian</mat-label>
+      <mat-label>Jam Pengajian <span class="text-merah-16 ml-10">*</span></mat-label>
       <input matInput [(ngModel)]="timeValue" [disabled]="true">
       <mat-icon color="#92949C" matSuffix >alarm</mat-icon>
     </mat-form-field>

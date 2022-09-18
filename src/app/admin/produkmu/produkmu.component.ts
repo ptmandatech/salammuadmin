@@ -38,7 +38,6 @@ export class ProdukmuComponent implements OnInit {
     });
     this.getCategories();
     this.cekLogin();
-    this.getProducts();
   }
 
   userData:any;
@@ -46,6 +45,7 @@ export class ProdukmuComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+      this.getProducts();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       localStorage.removeItem('salammuToken');
@@ -63,17 +63,31 @@ export class ProdukmuComponent implements OnInit {
   getProducts() {
     Loading.pulse();
     this.allProducts = [];
-    this.api.get('products').then(res=>{
-      res.forEach((e:any) => {
-        e.images = JSON.parse(e.images)
+    if(this.userData.role != 'user' || this.userData.role != '1656596135011345') {
+      this.api.get('products/getFromAdmin').then(res=>{
+        res.forEach((e:any) => {
+          e.images = JSON.parse(e.images)
+        });
+        this.allProducts = res;
+        this.allProductsTemp = res;
+        Loading.remove();
+      }, err => {
+        Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+        Loading.remove();
       });
-      this.allProducts = res;
-      this.allProductsTemp = res;
-      Loading.remove();
-    }, err => {
-      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
-    });
+    } else {
+      this.api.get('products').then(res=>{
+        res.forEach((e:any) => {
+          e.images = JSON.parse(e.images)
+        });
+        this.allProducts = res;
+        this.allProductsTemp = res;
+        Loading.remove();
+      }, err => {
+        Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+        Loading.remove();
+      });
+    }
   }
 
   allCategories:any = {};
@@ -270,7 +284,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Verifikasi!'
+      confirmButtonText: 'Ya, Verifikasi!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();

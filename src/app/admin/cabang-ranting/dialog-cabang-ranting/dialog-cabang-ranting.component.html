@@ -32,8 +32,8 @@
     <textarea matInput required [innerHTML]="getInnerHTML(crData.about)"></textarea>
   </mat-form-field> -->
   
-  <mat-label>Tentang</mat-label>
-  <quill-editor [(ngModel)]="crData.about" [modules]="modules" placeholder="Tentang">
+  <mat-label>Tentang <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor [(ngModel)]="crData.about" [required]="true" [modules]="modules" placeholder="Tentang">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">

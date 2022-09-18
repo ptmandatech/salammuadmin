@@ -4,8 +4,8 @@
 <div mat-dialog-content>
 
   <!-- Disini pake Quill juga yaa -->
-  <mat-label>Deskripsi Cabang</mat-label>
-  <quill-editor [(ngModel)]="dataCabang.deskripsi" placeholder="Deskripsi">
+  <mat-label>Deskripsi Cabang <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor [(ngModel)]="dataCabang.deskripsi" [required]="true" placeholder="Deskripsi">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">

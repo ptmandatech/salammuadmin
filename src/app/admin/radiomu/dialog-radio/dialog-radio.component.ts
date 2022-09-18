@@ -67,6 +67,7 @@ export class DialogRadioComponent implements OnInit {
             this.image = e.target.result;
           };
         } else {
+          this.fileInput.nativeElement.value = '';
           Notiflix.Notify.failure('Ukuran tidak boleh lebih dari 2 MB',{ timeout: 2000 });
         }
       };

@@ -53,7 +53,6 @@ export class DetailPengajianComponent implements OnInit {
     Loading.pulse();
     this.getAllCr();
     this.pengajianData = sourceData.data;
-    console.log(this.pengajianData)
     if(this.pengajianData == null) {
       this.pengajianData = {};
       this.isCreated = true;
@@ -290,7 +289,6 @@ export class DetailPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPCM').then(res=>{ 
         this.listCabang = res;
-        console.log(this.listCabang)
       }, err => {
       });
     } catch {
@@ -299,7 +297,6 @@ export class DetailPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPRM').then(res=>{
         this.listRanting = res;
-        console.log(this.listRanting)
       }, err => {
       });
     } catch {

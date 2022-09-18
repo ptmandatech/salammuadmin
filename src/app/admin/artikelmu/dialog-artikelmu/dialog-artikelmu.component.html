@@ -17,8 +17,8 @@
     <mat-label>Isi Artikel</mat-label>
     <textarea matInput [(ngModel)]="articlesData.descriptions" required></textarea>
   </mat-form-field> -->
-  <mat-label>Isi Artikel</mat-label>
-  <quill-editor [(ngModel)]="articlesData.descriptions" #descriptions="ngModel" [modules]="modules" placeholder="Deskripsi">
+  <mat-label>Isi Artikel <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor [(ngModel)]="articlesData.descriptions" [required]="true" #descriptions="ngModel" [modules]="modules" placeholder="Deskripsi">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">

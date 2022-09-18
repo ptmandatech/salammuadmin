@@ -13,8 +13,8 @@
   </mat-form-field>
 
   <!-- Disini pake Quill juga yaa -->
-  <mat-label>Isi Khutbah</mat-label>
-  <quill-editor placeholder="Deskripsi" [(ngModel)]="khutbahData.descriptions" #descriptions="ngModel" [modules]="modules">
+  <mat-label>Isi Khutbah <span class="text-merah-16 ml-10">*</span></mat-label>
+  <quill-editor placeholder="Deskripsi" [required]="true" [(ngModel)]="khutbahData.descriptions" #descriptions="ngModel" [modules]="modules">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">
