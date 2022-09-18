@@ -251,6 +251,9 @@ export class PenggunaComponent implements OnInit {
       this.allUsers = this.allUsers.filter((e:any) => e.role == role && e.is_active == status);
     }
     this.p = 1;
+    if(this.allUsers.length == 0) {
+      Notiflix.Notify.failure('Data tidak ditemukan.',{ timeout: 2000 });
+    }
   }
 
 }

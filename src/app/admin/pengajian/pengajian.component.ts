@@ -161,6 +161,10 @@ export class PengajianComponent implements OnInit {
     if(status != 'all') {
       this.allPengajian = this.allPengajian.filter((e:any) => e.verified == status);
     }
+
+    if(this.allPengajian.length == 0) {
+      Notiflix.Notify.failure('Data tidak ditemukan.',{ timeout: 2000 });
+    }
   }
 
   hasSelectedData:boolean = false;

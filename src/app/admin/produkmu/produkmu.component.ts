@@ -159,17 +159,21 @@ export class ProdukmuComponent implements OnInit {
     }
     
     if(fav != 'all' && status != 'all' && fav != '0' && status != '0') {
-      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status && e.blocked == 0);
     } else if(fav != 'all' && status != 'all' && fav != '1' && status != '1') {
-      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status && e.blocked == 0);
     } else if(fav == 'all' && status != 'all') {
-      this.allProducts = this.allProducts.filter((e:any) => e.verified == status);
+      this.allProducts = this.allProducts.filter((e:any) => e.verified == status && e.blocked == 0);
     } else if(fav != 'all' && status == 'all') {
       this.allProducts = this.allProducts.filter((e:any) => e.fav == fav);
     } else if(fav == '0' && status != '0' || fav == '1' && status != '1') {
-      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status);
+      this.allProducts = this.allProducts.filter((e:any) => e.fav == fav && e.verified == status && e.blocked == 0);
     }
     this.p = 1;
+
+    if(this.allProducts.length == 0) {
+      Notiflix.Notify.failure('Data tidak ditemukan.',{ timeout: 2000 });
+    }
   }
 
   verifikasi(n:any, status:any) {
@@ -193,7 +197,7 @@ export class ProdukmuComponent implements OnInit {
             this.getProducts()
           }
         }).catch(error => {
-          Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
+          Notiflix.Notify.failure('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
       }
     })
@@ -220,7 +224,7 @@ export class ProdukmuComponent implements OnInit {
             this.getProducts()
           }
         }).catch(error => {
-          Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
+          Notiflix.Notify.failure('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
       }
     })

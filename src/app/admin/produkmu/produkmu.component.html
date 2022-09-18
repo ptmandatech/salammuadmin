@@ -43,7 +43,7 @@
           </thead>
           <tbody>
               <tr *ngFor="let n of allProducts | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
-                  <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" [disabled]="n.blocked == 1" (change)="selectAll($event, idx)"></td>
+                  <td><input class="uk-checkbox" type="checkbox" [hidden]="n.blocked == 1" [(ngModel)]="n.checked" [disabled]="n.blocked == 1" (change)="selectAll($event, idx)"></td>
                   <td><img class="uk-thumbnail" src="{{n.images == undefined || n.images == '' ? '../../../assets/imgs/no-image.png':serverImg+n.images[0]}}" width="120" height="120" alt=""></td>
                   <td>{{n.name}}</td>
                   <td>{{allCategories[n.category] == undefined ? '':allCategories[n.category].name}}</td>
