@@ -14,7 +14,7 @@
           <div class="uk-width-1-2" style="text-align:right;">
             <mat-form-field appearance="standard" class="uk-margin-right">
               <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Nama pengguna" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
+              <input matInput placeholder="Masukkan kata kunci" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button class="tambah uk-margin-right" (click)="dialogPengguna(null)">Tambah Pengguna</button>
@@ -57,27 +57,27 @@
                       <mat-menu #menu="matMenu">
                         <button mat-menu-item *ngIf="n.is_active == 1" [disabled]="userData.email == n.email" (click)="block(n, false)">
                           <mat-icon>block</mat-icon>
-                          <span>Block User</span>
+                          <span>Blokir Pengguna</span>
                         </button>
                         <button mat-menu-item *ngIf="n.is_active == 0" [disabled]="userData.email == n.email" (click)="block(n, true)">
                             <mat-icon>done_outline</mat-icon>
-                            <span>Aktifkan User</span>
+                            <span>Aktifkan Pengguna</span>
                         </button>
                         <button mat-menu-item (click)="dialogPengguna(n)">
                             <mat-icon>edit</mat-icon>
-                            <span>Edit User</span>
+                            <span>Perbarui Pengguna</span>
                           </button>
                         <button mat-menu-item [disabled]="userData.email == n.email" (click)="editRole(n)">
                           <mat-icon>manage_accounts</mat-icon>
-                          <span>Ubah Role</span>
+                          <span>Ubah Hak Akses</span>
                         </button>
                         <button mat-menu-item (click)="updatePassword(n)">
                             <mat-icon>key</mat-icon>
-                            <span>Update Password</span>
+                            <span>Perbarui Kata Sandi</span>
                           </button>
                         <button mat-menu-item [disabled]="userData.email == n.email" (click)="delete(n)">
                           <mat-icon>delete</mat-icon>
-                          <span>Hapus User</span>
+                          <span>Hapus Pengguna</span>
                         </button>
                       </mat-menu>
                   </td>

@@ -14,6 +14,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
+import { ResetComponent } from './auth/reset/reset.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
     LoginComponent,
     LupaPasswordComponent,
     ScrollToBottomDirective,
+    ResetComponent,
   ],
   imports: [
     BrowserModule,

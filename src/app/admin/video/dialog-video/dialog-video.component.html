@@ -4,17 +4,17 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Judul Video</mat-label>
-    <input matInput [(ngModel)]="videosData.title" required>
+    <input matInput [(ngModel)]="videosData.title" #title="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Deskripsi Video</mat-label>
-    <textarea matInput [(ngModel)]="videosData.descriptions" required></textarea>
+    <textarea matInput [(ngModel)]="videosData.descriptions" #descriptions="ngModel" required></textarea>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Link Youtube </mat-label>
-    <input matInput [(ngModel)]="videosData.url" required>
+    <input matInput [(ngModel)]="videosData.url" #url="ngModel" required>
   </mat-form-field>
 
   <mat-form-field>
@@ -48,6 +48,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="uploadPhoto()" [disabled]="title.invalid || descriptions.invalid || url.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>

@@ -2,99 +2,144 @@
 
 <div mat-dialog-content>
 
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Nama Pengajian</mat-label>
-    <input [(ngModel)]="pengajianData.name" matInput required>
-  </mat-form-field>
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Nama Pembicara</mat-label>
-    <input matInput [(ngModel)]="pengajianData.speaker" required>
-  </mat-form-field>
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Deskripsi</mat-label>
-    <textarea matInput [(ngModel)]="pengajianData.descriptions" required></textarea>
-  </mat-form-field>
-
-  <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
-    <mat-form-field appearance="fill">
-      <mat-label>Tanggal Pengajian</mat-label>
-      <input matInput [(ngModel)]="dateValue" [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Jam Pengajian</mat-label>
-      <input matTimepicker [(ngModel)]="timeValue">
-      <mat-icon matSuffix >alarm</mat-icon>
-    </mat-form-field>
-  </div>
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Penyelenggara</mat-label>
-    <mat-select [(ngModel)]="pengajianData.organizer" required>
-      <mat-option *ngFor="let n of ['cabang', 'ranting', 'lainnya']" value="{{n}}">{{n}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Jika Cabang terpilih -->
-  <div *ngIf="pengajianData.organizer == 'cabang'">
+  <form [formGroup]="form">
     <mat-form-field class="uk-width-1-1" appearance="fill">
-      <mat-label>Cabang</mat-label>
-      <mat-select [(ngModel)]="pengajianData.branch" required>
-        <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
+      <mat-label>Nama Pengajian</mat-label>
+      <input matInput formControlName="name" name="name" required type="text">
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.name.hasError('required') && form.controls.name.touched">
+      Nama Pengajian harus diisi!
+    </div>
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Nama Pembicara</mat-label>
+      <input matInput formControlName="speaker" name="speaker" required type="text">
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.speaker.hasError('required') && form.controls.speaker.touched">
+      Nama Pembicara harus diisi!
+    </div>
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Deskripsi</mat-label>
+      <textarea matInput formControlName="descriptions" name="descriptions" required type="text"></textarea>
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.descriptions.hasError('required') && form.controls.descriptions.touched">
+      Deskripsi harus diisi!
+    </div>
+  
+    <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
+      <mat-form-field appearance="fill">
+        <mat-label>Tanggal Pengajian</mat-label>
+        <input matInput [(ngModel)]="dateValue" name="dateValue" [ngModelOptions]="{standalone: true}" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Jam Pengajian</mat-label>
+        <input matTimepicker [(ngModel)]="timeValue" [ngModelOptions]="{standalone: true}" name="timeValue">
+        <mat-icon matSuffix >alarm</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
+      <div class="error-msg" *ngIf="!dateValue">
+        Tanggal Pengajian harus diisi!
+      </div>
+      
+      <div class="error-msg" *ngIf="!timeValue">
+        Jam Pengajian harus diisi!
+      </div>
+    </div> -->
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Penyelenggara</mat-label>
+      <mat-select matInput formControlName="organizer" name="organizer" required type="text">
+        <mat-option *ngFor="let n of ['cabang', 'ranting', 'lainnya']" value="{{n}}">{{n}}</mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
+	  
+    <div class="error-msg" *ngIf="form.controls.organizer.hasError('required') && form.controls.organizer.touched">
+      Penyelenggara harus diisi!
+    </div>
   
-
-  <!-- Jika Ranting terpilih -->
-  <div *ngIf="pengajianData.organizer == 'ranting'">
+    <!-- Jika Cabang terpilih -->
+    <div *ngIf="pengajianData.organizer == 'cabang'">
+      <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Cabang</mat-label>
+        <mat-select matInput formControlName="branch" name="branch" required type="text">
+          <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+	  
+      <div class="error-msg" *ngIf="form.controls.branch.hasError('required') && form.controls.branch.touched">
+        Cabang harus diisi!
+      </div>
+    </div>
+    
+  
+    <!-- Jika Ranting terpilih -->
+    <div *ngIf="pengajianData.organizer == 'ranting'">
+      <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Ranting</mat-label>
+        <mat-select matInput formControlName="twig" name="twig" required type="text">
+          <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+	  
+      <div class="error-msg" *ngIf="form.controls.twig.hasError('required') && form.controls.twig.touched">
+        Ranting harus diisi!
+      </div>
+    </div>
+  
+    <!-- Jika lainnya terpilih -->
+    <div *ngIf="pengajianData.organizer == 'lainnya'">
+      <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Nama Penyelenggara</mat-label>
+        <input matInput formControlName="organizer_name" name="organizer_name" required type="text">
+      </mat-form-field>
+	  
+      <div class="error-msg" *ngIf="form.controls.organizer_name.hasError('required') && form.controls.organizer_name.touched">
+        Nama Penyelenggara harus diisi!
+      </div>
+    </div>
+    
+  
     <mat-form-field class="uk-width-1-1" appearance="fill">
-      <mat-label>Ranting</mat-label>
-      <mat-select [(ngModel)]="pengajianData.twig" required>
-        <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
-      </mat-select>
+      <mat-label>Live Streaming</mat-label>
+      <input matInput formControlName="url_livestream" name="url_livestream" required type="text" placeholder="Masukan url/link streaming"> 
     </mat-form-field>
-  </div>
-
-  <!-- Jika lainnya terpilih -->
-  <div *ngIf="pengajianData.organizer == 'lainnya'">
+	  
+    <div class="error-msg" *ngIf="form.controls.url_livestream.hasError('required') && form.controls.url_livestream.touched">
+      Live Streaming harus diisi!
+    </div>
+  
     <mat-form-field class="uk-width-1-1" appearance="fill">
-      <mat-label>Nama Penyelenggara</mat-label>
-      <input matInput [(ngModel)]="pengajianData.organizer_name" required>
+      <mat-label>Alamat Lengkap</mat-label>
+      <textarea matInput formControlName="location" name="location" required type="text"></textarea>
     </mat-form-field>
-  </div>
+	  
+    <div class="error-msg" *ngIf="form.controls.location.hasError('required') && form.controls.location.touched">
+      Alamat Lengkap harus diisi!
+    </div>
   
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Live Streaming</mat-label>
-    <input matInput [(ngModel)]="pengajianData.url_livestream" required placeholder="Masukan url/link streaming"> 
-  </mat-form-field>
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Alamat Lengkap</mat-label>
-    <textarea matInput [(ngModel)]="pengajianData.location" required></textarea>
-  </mat-form-field>
-
-  <mat-form-field class="uk-width-1-1" appearance="fill">
-    <mat-label>Lokasi Sesuai Peta (Terisi Otomatis)</mat-label>
-    <input matInput [disabled]="true">{{detailLocSelected == undefined ? '':detailLocSelected.display_name}}
-  </mat-form-field>
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Lokasi Sesuai Peta (Terisi Otomatis)</mat-label>
+      <input matInput [disabled]="true">{{detailLocSelected == undefined ? '':detailLocSelected.display_name}}
+    </mat-form-field>
+    
+    <div id="map" style="width: auto; height: 300px;"></div>
+    <div id="info">&nbsp;</div>
+    <div id="geolocation"></div>
   
-  <div id="map" style="width: auto; height: 300px;"></div>
-  <div id="info">&nbsp;</div>
-  <div id="geolocation"></div>
-
-  <div style="margin-top: 100px;"></div>
-
-
+    <div style="margin-top: 100px;"></div>  
+  </form>
 
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Batal</button>
   <button mat-flat-button (click)="save()" color="primary">Simpan</button>
 </mat-dialog-actions>

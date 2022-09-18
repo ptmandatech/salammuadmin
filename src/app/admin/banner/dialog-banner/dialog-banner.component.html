@@ -4,7 +4,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Tautan banner</mat-label>
-    <input [(ngModel)]="bannersData.url" matInput required>
+    <input [(ngModel)]="bannersData.url" #url="ngModel" matInput required>
   </mat-form-field>
 
   <mat-form-field>
@@ -37,6 +37,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="uploadPhoto()" [disabled]="url.invalid || image == undefined && !bannersData.image" color="primary">Simpan</button>
 </mat-dialog-actions>

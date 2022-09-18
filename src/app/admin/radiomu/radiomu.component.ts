@@ -61,7 +61,6 @@ export class RadiomuComponent implements OnInit {
     this.allRadiomu = [];
     this.api.get('radiomu').then(res=>{
       this.allRadiomu = res;
-      console.log(res)
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

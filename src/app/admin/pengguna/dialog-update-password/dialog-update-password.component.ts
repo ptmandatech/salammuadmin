@@ -58,6 +58,11 @@ export class DialogUpdatePasswordComponent implements OnInit {
     this.user.password2 == this.user.password ? this.match = true:this.match = false;
   }
 
+  showPassword: boolean = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   save() {
     this.loading = true;
     Swal.fire({

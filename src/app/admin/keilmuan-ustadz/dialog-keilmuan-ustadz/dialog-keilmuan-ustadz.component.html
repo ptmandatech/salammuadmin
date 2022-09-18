@@ -4,13 +4,13 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Keilmuan</mat-label>
-    <input matInput [(ngModel)]="sciencesData.name" required>
+    <input matInput [(ngModel)]="sciencesData.name" #name="ngModel" required>
   </mat-form-field>
 
 
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="save()" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="save()" [disabled]="name.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>

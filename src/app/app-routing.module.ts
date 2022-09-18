@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { LupaPasswordComponent } from './auth/lupa-password/lupa-password.component';
+import { ResetComponent } from './auth/reset/reset.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
       {
 				path:'lupa-password',
 				component:LupaPasswordComponent
+			},
+      {
+				path:'reset/:token',
+				component:ResetComponent
 			},
 		]
 	},

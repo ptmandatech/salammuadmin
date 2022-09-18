@@ -32,6 +32,7 @@ export class LupaPasswordComponent implements OnInit {
       this.api.post('auth/reset',{email:this.form.get('email')?.value}).then((res:any)=>{
         Notiflix.Notify.success('Tautan pembaharuan password berhasil dikirim.',{ timeout: 2000 });
         localStorage.removeItem('salammuToken');
+        this.form.reset();
       },err=>{
         Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       });

@@ -2,31 +2,67 @@
 
   <div mat-dialog-content>
 
-    <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>Nama</mat-label>
-        <input matInput [(ngModel)]="usersData.name" required>
-    </mat-form-field>
+    <form [formGroup]="form">
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+            <mat-label>Nama</mat-label>
+            <input matInput formControlName="name" name="name" required type="text">
+        </mat-form-field>
+	  
+        <div class="error-msg" *ngIf="form.controls.name.hasError('required') && form.controls.name.touched">
+            Nama harus diisi!
+        </div>
+    
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" name="email" required type="email" email="true">
+        </mat-form-field>
+	  
+        <div class="error-msg" *ngIf="form.controls.email.hasError('required') && form.controls.email.touched">
+            Email harus diisi!
+        </div>
+        <div class="error-msg" *ngIf="form.controls.email.errors?.email">
+          Format Email salah!
+        </div>
+    
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+            <mat-label>No HP</mat-label>
+            <input matInput required formControlName="phone" name="phone" type="tel">
+        </mat-form-field>
+	  
+        <div class="error-msg" *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">
+            No HP harus diisi!
+        </div>
 
-    <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput required [(ngModel)]="usersData.email" type="email">
-    </mat-form-field>
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+            <mat-label>Hak Akses</mat-label>
+            <mat-select required formControlName="role" name="role">
+              <mat-option *ngFor="let role of allRoles" value="{{role.id}}">{{role.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+	  
+        <div class="error-msg" *ngIf="form.controls.role.hasError('required') && form.controls.role.touched">
+            Hak Akses harus diisi!
+        </div>
+	  
+        <div class="error-msg" *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">
+            No HP harus diisi!
+        </div>
+    
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+            <mat-label>Alamat</mat-label>
+            <textarea matInput formControlName="address" name="address" required type="text"></textarea>
+        </mat-form-field>
+    
+        <div class="error-msg" *ngIf="form.controls.address.hasError('required') && form.controls.address.touched">
+            Alamat harus diisi!
+        </div>
+    </form>
+    </div>
+    <div *ngIf="isCreated" class="uk-alert-primary" uk-alert>
+        <p>Password default akan dibuat berdasarkan dengan nomor hp.</p>
+    </div>
 
-    <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>No HP</mat-label>
-        <input matInput required [(ngModel)]="usersData.phone" type="tel">
-    </mat-form-field>
-
-    <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>Alamat</mat-label>
-        <textarea matInput [(ngModel)]="usersData.address" required></textarea>
-      </mat-form-field>
-      
-
-  
-  </div>
-  
   <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close>Batal</button>
       <button mat-flat-button (click)="save()" color="primary">Simpan</button>
     </mat-dialog-actions>

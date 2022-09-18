@@ -95,12 +95,14 @@ export class DialogBannerComponent implements OnInit {
       this.api.post('banners', this.bannersData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil menambahkan banner.',{ timeout: 2000 });
+          this.dialogRef.close();
         }
       })
     } else {
       this.api.put('banners/'+ this.bannersData.id, this.bannersData).then(res => {
         if(res) {
           Notiflix.Notify.success('Berhasil memperbarui banner.',{ timeout: 2000 });
+          this.dialogRef.close();
         }
       })
     }

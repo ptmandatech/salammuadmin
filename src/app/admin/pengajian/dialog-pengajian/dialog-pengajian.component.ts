@@ -25,6 +25,7 @@ import PluggableMap from 'ol/PluggableMap';
 import TileWMS from 'ol/source/TileWMS';
 const Geocoder = require('ol-geocoder');
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 useGeographic();
 
@@ -48,9 +49,11 @@ export class DialogPengajianComponent implements OnInit {
   today:any;
   @ViewChild('mapElementRef', { static: true }) mapElementRef: ElementRef | undefined;
   map!: Map;
+  form!: FormGroup;
   constructor(
     public http:HttpClient,
     public common: CommonService,
+    private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogPengajianComponent>,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public sourceData: any,
@@ -58,6 +61,20 @@ export class DialogPengajianComponent implements OnInit {
   ) {
     Loading.pulse();
     this.getAllCr();
+    this.form = this.formBuilder.group({
+      id: [null],
+      name: [null, [Validators.required]],
+      speaker: [null, [Validators.required]],
+      descriptions: [null, [Validators.required]],
+      organizer: [null, [Validators.required]],
+      branch: [null],
+      twig: [null],
+      organizer_name: [null],
+      url_livestream: [null, [Validators.required]],
+      location: [null, [Validators.required]],
+      verified: [null],
+      created_by: [null],
+    });
     this.pengajianData = sourceData.data;
     if(this.pengajianData == null) {
       this.pengajianData = {};
@@ -71,6 +88,22 @@ export class DialogPengajianComponent implements OnInit {
         this.timeValue = new Date(this.pengajianData.datetime);
       }
       this.generateMap(undefined);
+      if(this.pengajianData != null) {
+        this.form.patchValue({
+          id: this.pengajianData.id,
+          name: this.pengajianData.name,
+          speaker: this.pengajianData.speaker,
+          descriptions: this.pengajianData.descriptions,
+          organizer: this.pengajianData.organizer,
+          branch: this.pengajianData.branch,
+          twig: this.pengajianData.twig,
+          organizer_name: this.pengajianData.organizer_name,
+          url_livestream: this.pengajianData.url_livestream,
+          location: this.pengajianData.location,
+          verified: this.pengajianData.verified,
+          created_by: this.pengajianData.created_by,
+        });
+      }
     }
     Loading.remove();
   }
@@ -331,42 +364,59 @@ export class DialogPengajianComponent implements OnInit {
   }
 
   save() {
-    if(new Date(this.dateValue) > this.today) {
-      this.pengajianData.status = 'soon';
-    } else {
-      this.pengajianData.status = 'done';
+    if (!this.form.valid) {
+      this.validateAllFormFields(this.form);
     }
-    this.timeValue = this.datePipe.transform(new Date(this.timeValue), 'HH:mm');
-    let hours = this.timeValue.split(':')[0];
-    let minutes = this.timeValue.split(':')[1];
-    if(this.dateValue != undefined) {
-      if(hours > 24) {
-        Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
+    else {
+      this.pengajianData = this.form.value;
+      if(new Date(this.dateValue) > this.today) {
+        this.pengajianData.status = 'soon';
       } else {
-        this.pengajianData.datetime = this.dateValue.setHours(hours, minutes);
-        this.pengajianData.datetime = new Date(this.pengajianData.datetime);
-        if(this.isCreated == true) {
-          this.pengajianData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
-          this.pengajianData.verified = false;
-          this.pengajianData.created_by = this.userData.id;
-          this.api.post('pengajian', this.pengajianData).then(res => {
-            if(res) {
-              Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
-              this.dialogRef.close();
-            }
-          })
-        } else {
-          this.api.put('pengajian/'+this.pengajianData.id, this.pengajianData).then(res => {
-            if(res) {
-              Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
-              this.dialogRef.close();
-            }
-          })
-        }
+        this.pengajianData.status = 'done';
       }
-    } else {
-      Notiflix.Notify.failure('Tentukan tanggal!',{ timeout: 2000 });
+      this.timeValue = this.datePipe.transform(new Date(this.timeValue), 'HH:mm');
+      let hours = this.timeValue.split(':')[0];
+      let minutes = this.timeValue.split(':')[1];
+      if(this.dateValue != undefined) {
+        if(hours > 24) {
+          Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
+        } else {
+          this.pengajianData.datetime = this.dateValue.setHours(hours, minutes);
+          this.pengajianData.datetime = new Date(this.pengajianData.datetime);
+          if(this.isCreated == true) {
+            this.pengajianData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
+            this.pengajianData.verified = false;
+            this.pengajianData.created_by = this.userData.id;
+            this.api.post('pengajian', this.pengajianData).then(res => {
+              if(res) {
+                Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
+                this.dialogRef.close();
+              }
+            })
+          } else {
+            this.api.put('pengajian/'+this.pengajianData.id, this.pengajianData).then(res => {
+              if(res) {
+                Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
+                this.dialogRef.close();
+              }
+            })
+          }
+        }
+      } else {
+        Notiflix.Notify.failure('Tentukan tanggal!',{ timeout: 2000 });
+      }
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
 }

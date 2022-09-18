@@ -1,0 +1,33 @@
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade bg-login" uk-height-viewport>
+	<div class="uk-width-1-1">
+		<div class="uk-container">
+			<div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+				<div class="uk-width-1-1@m">
+          <div class="uk-margin-bottom">
+            <img class="uk-align-center" src="../../../assets/icon/logo.svg">
+            <h2 class="uk-text-center" style="color: white">Reset Kata Sandi Admin Salammu</h2>
+          </div>
+					<div class="uk-margin uk-width-large uk-margin-auto card uk-card uk-card-default uk-card-body uk-box-shadow-large">
+
+                        <mat-form-field  class="uk-width-1-1" appearance="outline">
+                            <mat-label>Password Baru</mat-label>
+                            <input matInput placeholder="your password" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="user.p1" #p1="ngModel" required>
+							<mat-icon matSuffix (click)="togglePasswordVisibility()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field  class="uk-width-1-1" appearance="outline">
+                            <mat-label>Tulis Ulang Password Baru</mat-label>
+                            <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Your password" [(ngModel)]="user.p2" #p2="ngModel" required>
+							<mat-icon matSuffix (click)="togglePasswordVisibility()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
+                        </mat-form-field>
+
+                        <div class="uk-margin">
+                            <button mat-flat-button class="uk-width-1-1" color="primary" [disabled]="p1.invalid || p2.invalid" (click)="reset()">Kirim</button>
+                        </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

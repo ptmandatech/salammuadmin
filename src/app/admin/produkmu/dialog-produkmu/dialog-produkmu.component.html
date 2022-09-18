@@ -4,19 +4,19 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Produk</mat-label>
-    <input matInput [(ngModel)]="productsData.name" required>
+    <input matInput [(ngModel)]="productsData.name" #name="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Kategori</mat-label>
-    <mat-select required [(ngModel)]="productsData.category">
+    <mat-select required [(ngModel)]="productsData.category" #category="ngModel">
         <mat-option *ngFor="let n of allCategories" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Harga</mat-label>
-    <input matInput required type="number" [(ngModel)]="productsData.price">
+    <input matInput required type="number" [(ngModel)]="productsData.price" #price="ngModel">
   </mat-form-field>
 
   <!-- <mat-form-field class="uk-width-1-1" appearance="fill">
@@ -25,7 +25,7 @@
   </mat-form-field> -->
 
   <mat-label>Deskripsi Produk</mat-label>
-  <quill-editor [(ngModel)]="productsData.descriptions" [modules]="modules" placeholder="Deskripsi">
+  <quill-editor [(ngModel)]="productsData.descriptions" #descriptions="ngModel" [modules]="modules" placeholder="Deskripsi">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">
@@ -124,6 +124,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="uploadPhoto()" [disabled]="name.invalid || descriptions.invalid || category.invalid || price.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>

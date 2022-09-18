@@ -2,7 +2,7 @@
 
   <div mat-dialog-content>      
 
-    <h4>Role</h4>
+    <h4>Hak Akses</h4>
     <!-- Jika diaktifkan, maka color chip ditambah primary -->
     <mat-chip-list aria-label="Fish selection">
         <mat-chip *ngFor="let n of allRoles" color="{{filterData.role == n.id ? 'primary':''}}" [selected]="filterData.role == n.id" (click)="selectRole(n.id)">{{n.name}}</mat-chip>
@@ -19,7 +19,7 @@
   </div>
   
   <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close>Batal</button>
       <button mat-flat-button color="accent" (click)="reset()">Reset Filter</button>
       <button mat-flat-button color="primary" (click)="save()">Terapkan</button>
     </mat-dialog-actions>

@@ -4,17 +4,17 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Judul</mat-label>
-    <input matInput [(ngModel)]="khutbahData.title" required>
+    <input matInput [(ngModel)]="khutbahData.title" #title="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Ringkasan Khutbah</mat-label>
-    <textarea matInput [(ngModel)]="khutbahData.summary" required></textarea>
+    <textarea matInput [(ngModel)]="khutbahData.summary" #summary="ngModel" required></textarea>
   </mat-form-field>
 
   <!-- Disini pake Quill juga yaa -->
   <mat-label>Isi Khutbah</mat-label>
-  <quill-editor placeholder="Deskripsi" [(ngModel)]="khutbahData.descriptions" [modules]="modules">
+  <quill-editor placeholder="Deskripsi" [(ngModel)]="khutbahData.descriptions" #descriptions="ngModel" [modules]="modules">
     <div quill-editor-toolbar>
       <span class="ql-formats">
         <select class="ql-align" [title]="'Aligment'">
@@ -86,6 +86,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="uploadPhoto()" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="uploadPhoto()" [disabled]="title.invalid || descriptions.invalid || summary.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>

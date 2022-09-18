@@ -14,7 +14,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Keilmuan</mat-label>
-    <mat-select [(ngModel)]="ustadzmuData.science" required>
+    <mat-select [(ngModel)]="ustadzmuData.science" #science="ngModel" required>
         <mat-option *ngFor="let n of allSciences" value="{{n.id}}">{{n.name}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -26,7 +26,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Profil/Biodata Ustadz</mat-label>
-    <textarea rows="5" cols="40" matInput [(ngModel)]="ustadzmuData.biodata" required type="text"></textarea>
+    <textarea rows="5" cols="40" matInput [(ngModel)]="ustadzmuData.biodata" #biodata="ngModel" required type="text"></textarea>
   </mat-form-field>
 
   <div class="border-card" style="padding: 16px;">
@@ -80,6 +80,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button (click)="save()" [disabled]="name.invalid || email.invalid || phone.invalid" color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="save()" [disabled]="name.invalid || email.invalid || phone.invalid || science.invalid || biodata.invalid" color="primary">Simpan</button>
 </mat-dialog-actions>
