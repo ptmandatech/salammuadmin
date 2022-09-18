@@ -88,7 +88,8 @@ export class ArtikelmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.delete('articles/'+n.id).then(res => {
@@ -127,12 +128,13 @@ export class ArtikelmuComponent implements OnInit {
   batalVerif() {
     let checkData = this.allArticles.filter((e:any) => e.verified == 1 && e.checked == true);
     Swal.fire({
-      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data ArtikelMU?',
+      title: 'Anda yakin ingin melanjutkan menghapus verifikasi data ArtikelMU?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Batalkan!'
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();
@@ -168,7 +170,8 @@ export class ArtikelmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Verifikasi!'
+      confirmButtonText: 'Ya, Verifikasi!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();

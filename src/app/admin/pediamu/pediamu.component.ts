@@ -88,7 +88,8 @@ export class PediamuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.delete('pediamu/'+n.id).then(res => {
@@ -132,7 +133,8 @@ export class PediamuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Batalkan!'
+      confirmButtonText: 'Ya, Batalkan!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();
@@ -168,7 +170,8 @@ export class PediamuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Verifikasi!'
+      confirmButtonText: 'Ya, Verifikasi!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();

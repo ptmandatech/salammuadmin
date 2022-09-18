@@ -53,6 +53,7 @@ export class DetailPengajianComponent implements OnInit {
     Loading.pulse();
     this.getAllCr();
     this.pengajianData = sourceData.data;
+    console.log(this.pengajianData)
     if(this.pengajianData == null) {
       this.pengajianData = {};
       this.isCreated = true;
@@ -289,6 +290,7 @@ export class DetailPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPCM').then(res=>{ 
         this.listCabang = res;
+        console.log(this.listCabang)
       }, err => {
       });
     } catch {
@@ -297,6 +299,7 @@ export class DetailPengajianComponent implements OnInit {
     try {
       await this.api.get('sicara/getAllPRM').then(res=>{
         this.listRanting = res;
+        console.log(this.listRanting)
       }, err => {
       });
     } catch {
@@ -327,7 +330,8 @@ export class DetailPengajianComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Verifikasi!'
+      confirmButtonText: 'Ya, Verifikasi!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.pengajianData.verified = true;
@@ -345,12 +349,13 @@ export class DetailPengajianComponent implements OnInit {
 
   batalVerif() {
     Swal.fire({
-      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data pengajian?',
+      title: 'Anda yakin ingin melanjutkan menghapus verifikasi data pengajian?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Batalkan!'
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.pengajianData.verified = false;

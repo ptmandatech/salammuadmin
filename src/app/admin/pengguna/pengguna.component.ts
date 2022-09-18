@@ -106,7 +106,8 @@ export class PenggunaComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, '+t+'!'
+      confirmButtonText: 'Ya, '+t+'!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         n.verified = status;
@@ -131,7 +132,8 @@ export class PenggunaComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, '+t+'!'
+      confirmButtonText: 'Ya, '+t+'!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         n.is_active = status;
@@ -155,7 +157,8 @@ export class PenggunaComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.delete('users/'+n.id).then(res => {

@@ -88,7 +88,8 @@ export class KategoriProdukComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.delete('categories/'+n.id).then(res => {

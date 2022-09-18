@@ -21,14 +21,14 @@
     <mat-form-field appearance="fill">
       <mat-label>Tanggal Pengajian</mat-label>
       <input matInput [(ngModel)]="dateValue" [disabled]="true">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker [disabled]="true" #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Jam Pengajian</mat-label>
       <input matInput [(ngModel)]="timeValue" [disabled]="true">
-      <mat-icon matSuffix >alarm</mat-icon>
+      <mat-icon color="#92949C" matSuffix >alarm</mat-icon>
     </mat-form-field>
   </div>
 
@@ -40,23 +40,23 @@
   </mat-form-field>
 
   <!-- Jika Cabang terpilih -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <mat-form-field *ngIf="pengajianData.organizer == 'cabang'" class="uk-width-1-1" appearance="fill">
     <mat-label>Cabang</mat-label>
     <mat-select [(ngModel)]="pengajianData.branch" [disabled]="true">
-      <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.name}}</mat-option>
+      <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika Ranting terpilih -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <mat-form-field *ngIf="pengajianData.organizer == 'ranting'" class="uk-width-1-1" appearance="fill">
     <mat-label>Ranting</mat-label>
     <mat-select [(ngModel)]="pengajianData.twig" [disabled]="true">
-      <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.name}}</mat-option>
+      <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Jika lainnya terpilih -->
-  <mat-form-field class="uk-width-1-1" appearance="fill">
+  <mat-form-field *ngIf="pengajianData.organizer == 'lainnya'" class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Penyelenggara</mat-label>
     <input matInput [(ngModel)]="pengajianData.organizer_name" required [disabled]="true">
   </mat-form-field>

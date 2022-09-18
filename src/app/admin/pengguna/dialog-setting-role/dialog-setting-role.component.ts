@@ -91,7 +91,8 @@ export class DialogSettingRoleComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Simpan!'
+      confirmButtonText: 'Ya, Simpan!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.put('users/'+this.usersData.id, this.usersData).then(res => {

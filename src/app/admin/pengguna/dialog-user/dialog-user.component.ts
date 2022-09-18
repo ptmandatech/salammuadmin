@@ -95,7 +95,8 @@ export class DialogUserComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#2196F3',
         cancelButtonColor: '#F44336',
-        confirmButtonText: 'Ya, Simpan!'
+        confirmButtonText: 'Ya, Simpan!',
+        cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
           this.usersData = this.form.value;

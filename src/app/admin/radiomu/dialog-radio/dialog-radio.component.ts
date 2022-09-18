@@ -60,11 +60,15 @@ export class DialogRadioComponent implements OnInit {
       // HTML5 FileReader API
       let reader = new FileReader();
       reader.onload = (e: any) => {
-        let image = new Image();
-        image.src = e.target.result;
-        image.onload = (rs) => {
-          this.image = e.target.result;
-        };
+        if (e.total <= 2000000) {
+          let image = new Image();
+          image.src = e.target.result;
+          image.onload = (rs) => {
+            this.image = e.target.result;
+          };
+        } else {
+          Notiflix.Notify.failure('Ukuran tidak boleh lebih dari 2 MB',{ timeout: 2000 });
+        }
       };
       reader.readAsDataURL(imgFile.target.files[0]);
       // Reset if duplicate image uploaded again

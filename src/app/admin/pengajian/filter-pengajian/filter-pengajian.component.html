@@ -3,14 +3,14 @@
   <div mat-dialog-content>      
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Tanggal Pengajian</mat-label>
-        <input matInput [(ngModel)]="filterData.tglPengajian" [matDatepicker]="picker">
+        <input matInput readonly [(ngModel)]="filterData.tglPengajian" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="uk-width-1-1" appearance="fill">
         <mat-label>Tanggal Dibuat</mat-label>
-        <input matInput [(ngModel)]="filterData.created_at" [matDatepicker]="picker2">
+        <input matInput readonly [(ngModel)]="filterData.created_at" [matDatepicker]="picker2">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>

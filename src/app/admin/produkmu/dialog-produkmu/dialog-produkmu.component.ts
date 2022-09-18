@@ -83,11 +83,16 @@ export class DialogProdukmuComponent implements OnInit {
       // HTML5 FileReader API
       let reader = new FileReader();
       reader.onload = (e: any) => {
-        let image = new Image();
-        image.src = e.target.result;
-        image.onload = (rs) => {
-          this.images.push(e.target.result);
-        };
+        if (e.total <= 2000000) {
+          let image = new Image();
+          image.src = e.target.result;
+          image.onload = (rs) => {
+            this.images.push(e.target.result);
+          };
+        } else {
+          Notiflix.Notify.failure('Ukuran tidak boleh lebih dari 2 MB',{ timeout: 2000 });
+          this.fileInput.nativeElement.value = '';
+        }
       };
       reader.readAsDataURL(imgFile.target.files[0]);
       // Reset if duplicate image uploaded again
@@ -168,7 +173,8 @@ export class DialogProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.productsData.images.splice(idx, 1);
@@ -186,7 +192,8 @@ export class DialogProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.images.splice(idx, 1);

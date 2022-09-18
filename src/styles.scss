@@ -103,6 +103,11 @@ body { margin: 0; font-family: Nunito-Bold, "Helvetica Neue", sans-serif; }
     border-radius: 10px !important;
 }
 
+.disabled-edit{
+  pointer-events: none;
+  color: #92949C;
+}
+
 .mat-stroked-button {
   border-radius: 15px;
   border-radius: 8px;

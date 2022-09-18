@@ -167,7 +167,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, '+t+'!'
+      confirmButtonText: 'Ya, '+t+'!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         n.verified = status;
@@ -193,7 +194,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, '+t+'!'
+      confirmButtonText: 'Ya, '+t+'!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         n.blocked = status;
@@ -218,7 +220,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Simpan!'
+      confirmButtonText: 'Ya, Simpan!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         n.fav = n.fav == true ? n.fav = false:n.fav = true;
@@ -302,7 +305,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Batalkan!'
+      confirmButtonText: 'Ya, Batalkan!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         Loading.pulse();
@@ -337,7 +341,8 @@ export class ProdukmuComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#2196F3',
       cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, hapus!'
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.delete('products/'+n.id).then(res => {

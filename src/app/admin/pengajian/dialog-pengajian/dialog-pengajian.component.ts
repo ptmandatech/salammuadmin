@@ -50,6 +50,8 @@ export class DialogPengajianComponent implements OnInit {
   @ViewChild('mapElementRef', { static: true }) mapElementRef: ElementRef | undefined;
   map!: Map;
   form!: FormGroup;
+  get f() { return this.form.controls; }
+  minDate = new Date();
   constructor(
     public http:HttpClient,
     public common: CommonService,
@@ -82,6 +84,7 @@ export class DialogPengajianComponent implements OnInit {
       this.generateMap(undefined);
     } else {
       this.isCreated = false;
+      console.log(this.pengajianData)
       if(this.pengajianData.datetime != '0000-00-00 00:00:00.000000') {
         this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
         this.dateValue = new Date(this.dateValue);
