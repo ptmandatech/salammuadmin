@@ -132,6 +132,7 @@ export class DialogRolePermissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.menuList = this.menuList.sort((a:any,b:any) => a.name < b.name ? -1:1);
     this.cekLogin();
   }
 

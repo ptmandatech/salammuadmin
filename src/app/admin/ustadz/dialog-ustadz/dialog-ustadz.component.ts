@@ -174,32 +174,48 @@ export class DialogUstadzComponent implements OnInit {
   }
 
   dt:any;
-  save() {
-    this.ustadzmuData.prov_id = this.prov.value;
-    this.ustadzmuData.kab_id = this.kab.value;
-    this.ustadzmuData.kec_id = this.kec.value;
-    if(this.isCreated == true) {
-      this.ustadzmuData.created_by = this.userData.id;
-      this.api.post('ustadzmu', this.ustadzmuData).then(res => {
-        this.dt = res;
-        if(this.dt != 'user_exist') {
-          Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
-          this.dialogRef.close();
-        } else {
-          Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
-        }
-      })
+  async save() {
+    let phone = isNaN(this.ustadzmuData.phone);
+    if(phone) {
+      Notiflix.Notify.failure('No Whatsapp hanya boleh berisi angka.',{ timeout: 2000 });
     } else {
-      this.api.put('ustadzmu/'+this.ustadzmuData.id, this.ustadzmuData).then(res => {
-        this.dt = res;
-        if(this.dt != 'user_exist') {
-          Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
-          this.dialogRef.close();
+      function validateEmail(email:any) 
+      {
+          var re = /\S+@\S+\.\S+/;
+          return re.test(email);
+      }
+      let email = await validateEmail(this.ustadzmuData.email);
+      if(email) {
+        this.ustadzmuData.prov_id = this.prov.value;
+        this.ustadzmuData.kab_id = this.kab.value;
+        this.ustadzmuData.kec_id = this.kec.value;
+        if(this.isCreated == true) {
+          this.ustadzmuData.created_by = this.userData.id;
+          this.api.post('ustadzmu', this.ustadzmuData).then(res => {
+            this.dt = res;
+            if(this.dt != 'user_exist') {
+              Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
+              this.dialogRef.close();
+            } else {
+              Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
+            }
+          })
         } else {
-          Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
+          this.api.put('ustadzmu/'+this.ustadzmuData.id, this.ustadzmuData).then(res => {
+            this.dt = res;
+            if(this.dt != 'user_exist') {
+              Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
+              this.dialogRef.close();
+            } else {
+              Notiflix.Notify.failure('Email sudah digunakan.',{ timeout: 2000 });
+            }
+          })
         }
-      })
+      } else {
+        Notiflix.Notify.failure('Format email salah.',{ timeout: 2000 });
+      }
     }
+    
   }
 
 }
