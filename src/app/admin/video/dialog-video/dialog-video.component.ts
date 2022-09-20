@@ -77,11 +77,14 @@ export class DialogVideoComponent implements OnInit {
     }
   }
 
+  progressUpload:boolean;
   async uploadPhoto()
   {
     if(this.image != undefined) {
+      this.progressUpload = true;
       await this.api.put('videos/uploadfoto',{image: this.image}).then(res=>{
         this.videosData.image = res;
+        this.progressUpload = false;
         if(res) {
           this.save();
         }

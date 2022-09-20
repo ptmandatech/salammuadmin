@@ -5,7 +5,7 @@
   <form [formGroup]="form">
     <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Nama Pengajian</mat-label>
-      <input matInput formControlName="name" name="name" required type="text">
+      <input matInput formControlName="name" type="text" maxlength="255" name="name" required type="text">
     </mat-form-field>
 	  
     <div class="error-msg" *ngIf="form.controls.name.hasError('required') && form.controls.name.touched">

@@ -4,7 +4,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Nama Produk</mat-label>
-    <input matInput [(ngModel)]="productsData.name" #name="ngModel" required>
+    <input matInput [(ngModel)]="productsData.name" type="text" maxlength="255" #name="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">

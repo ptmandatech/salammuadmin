@@ -65,31 +65,37 @@ export class DialogUpdatePasswordComponent implements OnInit {
 
   save() {
     this.loading = true;
-    Swal.fire({
-      title: 'Anda yakin ingin memperbarui password pengguna?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#2196F3',
-      cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Simpan!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.usersData.password = this.user.password;
-        this.api.put('users/changePass/'+this.usersData.id, this.usersData).then(async res => {
-          if(res) {
+    if(this.user.password.length >= 6)
+    {
+      Swal.fire({
+        title: 'Anda yakin ingin memperbarui password pengguna?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2196F3',
+        cancelButtonColor: '#F44336',
+        confirmButtonText: 'Ya, Simpan!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usersData.password = this.user.password;
+          this.api.put('users/changePass/'+this.usersData.id, this.usersData).then(async res => {
+            if(res) {
+              this.loading = false;
+              Notiflix.Notify.success('Berhasil memperbarui password.',{ timeout: 2000 });
+              this.dialogRef.close();
+            }
+          }, error => {
             this.loading = false;
-            Notiflix.Notify.success('Berhasil memperbarui password.',{ timeout: 2000 });
-            this.dialogRef.close();
-          }
-        }, error => {
+            Notiflix.Notify.failure('Gagal memperbarui password.',{ timeout: 2000 });
+          })
+        } else {
           this.loading = false;
-          Notiflix.Notify.failure('Gagal memperbarui password.',{ timeout: 2000 });
-        })
-      } else {
-        this.loading = false;
-      }
-    })
+        }
+      })
+    } else {
+      Notiflix.Notify.failure('Kata Sandi minimal 6 karakter!',{ timeout: 2000 });
+      this.loading = false;
+    }
   }
 
 }

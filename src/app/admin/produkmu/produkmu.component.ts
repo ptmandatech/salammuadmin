@@ -282,74 +282,82 @@ export class ProdukmuComponent implements OnInit {
   allData:any = {};
   verifikasiAll() {
     let checkData = this.allProducts.filter((e:any) => e.verified == 0 && e.checked == true);
-    Swal.fire({
-      title: 'Anda yakin ingin melanjutkan verifikasi data produk?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#2196F3',
-      cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Verifikasi!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Loading.pulse();
-        checkData.forEach((e:any, idx:any) => {
-          e.verified = true;
-          e.images = JSON.stringify(e.images);
-          this.api.put('products/'+ e.id, e).then(res => {
-            if(res) {
-              if(idx+1 == checkData.length) {
-                this.getProducts();
-                Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
-                this.allProducts.forEach((e:any) => {
-                  e.checked = false;
-                });
-                this.allData.checked = false;
-                this.hasSelectedData = false;
+    if(checkData.length > 0) {
+      Swal.fire({
+        title: 'Anda yakin ingin melanjutkan verifikasi data produk?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2196F3',
+        cancelButtonColor: '#F44336',
+        confirmButtonText: 'Ya, Verifikasi!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Loading.pulse();
+          checkData.forEach((e:any, idx:any) => {
+            e.verified = true;
+            e.images = JSON.stringify(e.images);
+            this.api.put('products/'+ e.id, e).then(res => {
+              if(res) {
+                if(idx+1 == checkData.length) {
+                  this.getProducts();
+                  Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
+                  this.allProducts.forEach((e:any) => {
+                    e.checked = false;
+                  });
+                  this.allData.checked = false;
+                  this.hasSelectedData = false;
+                }
               }
-            }
-          }, err => {
-            Loading.remove();
-          })
-        });
-      }
-    })
+            }, err => {
+              Loading.remove();
+            })
+          });
+        }
+      })
+    } else {
+      Notiflix.Notify.success('Data terpilih sudah di Verifikasi.',{ timeout: 2000 });
+    }
   }
 
   batalVerif() {
     let checkData = this.allProducts.filter((e:any) => e.verified == 1 && e.checked == true);
-    Swal.fire({
-      title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data produk?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#2196F3',
-      cancelButtonColor: '#F44336',
-      confirmButtonText: 'Ya, Batalkan!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Loading.pulse();
-        checkData.forEach((e:any, idx:any) => {
-          e.verified = false;
-          e.images = JSON.stringify(e.images);
-          this.api.put('products/'+ e.id, e).then(res => {
-            if(res) {
-              if(idx+1 == checkData.length) {
-                this.getProducts();
-                Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
-                this.allProducts.forEach((e:any) => {
-                  e.checked = false;
-                });
-                this.allData.checked = false;
-                this.hasSelectedData = false;
+    if(checkData.length > 0) {
+      Swal.fire({
+        title: 'Anda yakin ingin melanjutkan membatalkan verifikasi data produk?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2196F3',
+        cancelButtonColor: '#F44336',
+        confirmButtonText: 'Ya, Batalkan!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Loading.pulse();
+          checkData.forEach((e:any, idx:any) => {
+            e.verified = false;
+            e.images = JSON.stringify(e.images);
+            this.api.put('products/'+ e.id, e).then(res => {
+              if(res) {
+                if(idx+1 == checkData.length) {
+                  this.getProducts();
+                  Notiflix.Notify.success('Verifikasi Berhasil dibatalkan.',{ timeout: 2000 });
+                  this.allProducts.forEach((e:any) => {
+                    e.checked = false;
+                  });
+                  this.allData.checked = false;
+                  this.hasSelectedData = false;
+                }
               }
-            }
-          }, err => {
-            Loading.remove();
-          })
-        });
-      }
-    })
+            }, err => {
+              Loading.remove();
+            })
+          });
+        }
+      })
+    } else {
+      Notiflix.Notify.success('Verifikasi data terpilih sudah dibatalkan.',{ timeout: 2000 });
+    }
   }
 
   delete(n:any) {

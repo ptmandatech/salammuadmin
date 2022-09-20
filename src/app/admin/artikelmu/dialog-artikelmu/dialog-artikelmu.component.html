@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Artikel</h1>
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} ArtikelMU</h1>
 
 <div mat-dialog-content>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Judul</mat-label>
-    <input matInput [(ngModel)]="articlesData.title" #title="ngModel" required>
+    <input matInput [(ngModel)]="articlesData.title" type="text" maxlength="255" #title="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">

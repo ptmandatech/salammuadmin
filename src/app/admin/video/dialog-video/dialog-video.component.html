@@ -4,7 +4,7 @@
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
     <mat-label>Judul Video</mat-label>
-    <input matInput [(ngModel)]="videosData.title" #title="ngModel" required>
+    <input matInput [(ngModel)]="videosData.title" type="text" maxlength="255" #title="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="uk-width-1-1" appearance="fill">
@@ -19,6 +19,8 @@
 
   <mat-form-field>
     <div>
+      <progress *ngIf="progressUpload" id="js-progressbar" class="uk-progress" value="10" max="100"></progress>
+
       <div class="uk-flex">
         <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
         <!-- Display files names -->
