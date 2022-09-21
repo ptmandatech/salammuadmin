@@ -129,11 +129,14 @@ export class DialogPediamuComponent implements OnInit {
     }
   }
 
+  progressUpload:boolean;
   async uploadPhoto()
   {
     if(this.image != undefined) {
+      this.progressUpload = true;
       await this.api.put('pediamu/uploadfoto',{image: this.image}).then(res=>{
         this.pediamuData.image = res;
+        this.progressUpload = false;
         if(res) {
           this.save();
         }

@@ -72,7 +72,7 @@ export class DialogPengajianComponent implements OnInit {
       branch: [null],
       twig: [null],
       organizer_name: [null],
-      url_livestream: [null, [Validators.required]],
+      url_livestream: [null],
       location: [null, [Validators.required]],
       verified: [null],
       created_by: [null],
@@ -84,7 +84,6 @@ export class DialogPengajianComponent implements OnInit {
       this.generateMap(undefined);
     } else {
       this.isCreated = false;
-      console.log(this.pengajianData)
       if(this.pengajianData.datetime != '0000-00-00 00:00:00.000000') {
         this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
         this.dateValue = new Date(this.dateValue);
@@ -368,11 +367,20 @@ export class DialogPengajianComponent implements OnInit {
     }
   }
 
+  urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
   save() {
     if (!this.form.valid) {
       this.validateAllFormFields(this.form);
     }
     else {
+      if(this.form.get('url_livestream').value) {
+        if(this.isValidUrl(this.form.get('url_livestream').value)) { 
+        } else {
+          Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+          return;
+        }
+      }
+
       this.pengajianData = this.form.value;
       if(new Date(this.dateValue) > this.today) {
         this.pengajianData.status = 'soon';
@@ -410,6 +418,16 @@ export class DialogPengajianComponent implements OnInit {
       } else {
         Notiflix.Notify.failure('Tentukan tanggal!',{ timeout: 2000 });
       }
+    }
+  }
+
+  isValidUrl(urlString: string): boolean {
+    try {
+      let pattern = new RegExp(this.urlRegEx);
+      let valid = pattern.test(urlString);
+      return valid;
+    } catch (TypeError) {
+      return false;
     }
   }
 

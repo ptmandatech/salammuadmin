@@ -79,43 +79,46 @@ export class DialogRadioComponent implements OnInit {
     }
   }
 
+  urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
+  progressUpload:boolean;
   async uploadPhoto()
   {
-    if(this.image != undefined) {
-      await this.api.put('radiomu/uploadfoto',{image: this.image}).then(res=>{
-        this.radiomuData.image = res;
-        if(res) {
-          this.save();
-        }
-      }, error => {
-        console.log(error)
-      });
-    } else {
-      this.save();
-    }
-  }
-
-  urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
-  save() {
-    if(this.isValidUrl(this.radiomuData.url)) {
-      if(this.isCreated == true) {
-        this.radiomuData.created_by = this.userData.id;
-        this.api.post('radiomu', this.radiomuData).then(res => {
+    if(this.isValidUrl(this.radiomuData.url)) { 
+      if(this.image != undefined) {
+        this.progressUpload = true;
+        await this.api.put('radiomu/uploadfoto',{image: this.image}).then(res=>{
+          this.radiomuData.image = res;
+          this.progressUpload = false;
           if(res) {
-            Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
-            this.dialogRef.close();
+            this.save();
           }
-        })
+        }, error => {
+          console.log(error)
+        });
       } else {
-        this.api.put('radiomu/'+this.radiomuData.id, this.radiomuData).then(res => {
-          if(res) {
-            Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
-            this.dialogRef.close();
-          }
-        })
+        this.save();
       }
     } else {
       Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+    }
+  }
+
+  save() {
+    if(this.isCreated == true) {
+      this.radiomuData.created_by = this.userData.id;
+      this.api.post('radiomu', this.radiomuData).then(res => {
+        if(res) {
+          Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
+          this.dialogRef.close();
+        }
+      })
+    } else {
+      this.api.put('radiomu/'+this.radiomuData.id, this.radiomuData).then(res => {
+        if(res) {
+          Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
+          this.dialogRef.close();
+        }
+      })
     }
   }
 

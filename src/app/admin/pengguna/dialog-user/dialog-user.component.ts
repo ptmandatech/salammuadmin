@@ -79,7 +79,7 @@ export class DialogUserComponent implements OnInit {
       this.allRoles.forEach((e:any, index:any) => {
         e.path = JSON.parse(e.path);
       });
-      this.allRoles = this.allRoles.sort((a:any,b:any) => a.name < b.name ? -1:1)
+      this.allRoles = this.allRoles.sort((a:any,b:any) => a.name < b.name ? -1:1);
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
     });

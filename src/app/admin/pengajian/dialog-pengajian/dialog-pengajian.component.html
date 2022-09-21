@@ -109,7 +109,7 @@
   
     <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Live Streaming</mat-label>
-      <input matInput formControlName="url_livestream" name="url_livestream" required type="text" placeholder="Masukan url/link streaming"> 
+      <input matInput formControlName="url_livestream" name="url_livestream" type="text" placeholder="Masukan url/link streaming"> 
     </mat-form-field>
 	  
     <div class="error-msg" *ngIf="form.controls.url_livestream.hasError('required') && form.controls.url_livestream.touched">

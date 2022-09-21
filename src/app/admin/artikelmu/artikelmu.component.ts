@@ -61,6 +61,9 @@ export class ArtikelmuComponent implements OnInit {
     this.allArticles = [];
     this.api.get('articles').then(res=>{
       this.allArticles = res;
+      this.allArticles.forEach((e:any) => {
+        e.checked = false;
+      });
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -72,10 +75,14 @@ export class ArtikelmuComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogArtikelmuComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.allData.checked = false;
+      this.hasSelectedData = false;
+
       this.getArticles();
     });
   }
@@ -95,9 +102,15 @@ export class ArtikelmuComponent implements OnInit {
         this.api.delete('articles/'+n.id).then(res => {
           if(res) {
             Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
+            this.allData.checked = false;
+            this.hasSelectedData = false;
             this.getArticles();
           }
         })
+      } else {
+        this.allData.checked = false;
+        this.hasSelectedData = false;
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -158,6 +171,8 @@ export class ArtikelmuComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -199,6 +214,8 @@ export class ArtikelmuComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {

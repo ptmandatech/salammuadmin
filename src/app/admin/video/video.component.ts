@@ -72,6 +72,7 @@ export class VideoComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogVideoComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -98,6 +99,8 @@ export class VideoComponent implements OnInit {
             this.getAllVideos();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

@@ -73,6 +73,7 @@ export class UstadzComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogUstadzComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -98,6 +99,8 @@ export class UstadzComponent implements OnInit {
             this.getUstadzmu();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

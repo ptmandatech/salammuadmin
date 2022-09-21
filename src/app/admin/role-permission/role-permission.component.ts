@@ -75,6 +75,7 @@ export class RolePermissionComponent implements OnInit {
   openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogRolePermissionComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -101,6 +102,8 @@ export class RolePermissionComponent implements OnInit {
             this.getAllRoles();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

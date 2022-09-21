@@ -119,6 +119,8 @@ export class PenggunaComponent implements OnInit {
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -145,6 +147,8 @@ export class PenggunaComponent implements OnInit {
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -167,6 +171,8 @@ export class PenggunaComponent implements OnInit {
             this.getAllUsers();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -175,6 +181,7 @@ export class PenggunaComponent implements OnInit {
   dialogPengguna(n:any): void {
     const dialogRef = this.dialog.open(DialogUserComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -187,6 +194,7 @@ export class PenggunaComponent implements OnInit {
   editRole(n:any): void {
     const dialogRef = this.dialog.open(DialogSettingRoleComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -198,6 +206,7 @@ export class PenggunaComponent implements OnInit {
   updatePassword(n:any): void {
     const dialogRef = this.dialog.open(DialogUpdatePasswordComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -210,6 +219,7 @@ export class PenggunaComponent implements OnInit {
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterPenggunaComponent, {
       width: '550px',
+      disableClose: true,
       data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {

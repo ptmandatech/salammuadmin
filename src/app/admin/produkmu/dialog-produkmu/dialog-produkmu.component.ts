@@ -149,13 +149,16 @@ export class DialogProdukmuComponent implements OnInit {
   }
 
   imgUploaded:any = [];
+  progressUpload:boolean;
   async uploadPhoto()
   {
     if(this.images.length > 0) {
+      this.progressUpload = true;
       for(var i=0; i<this.images.length; i++) {
         await this.api.put('products/uploadfoto/'+this.productsData.id,{image: this.images[i]}).then(res=>{
           this.imgUploaded.push(res);
           if(i+1 == this.images.length) {
+            this.progressUpload = false;
             this.save();
           }
         }, error => {

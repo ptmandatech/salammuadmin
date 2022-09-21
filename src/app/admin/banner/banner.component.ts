@@ -71,6 +71,7 @@ export class BannerComponent implements OnInit {
   openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogBannerComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -93,12 +94,13 @@ export class BannerComponent implements OnInit {
       if (result.isConfirmed) {
         this.api.delete('banners/'+n.id).then(res => {
           if(res) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Berhasil menghapus data.',
-              showConfirmButton: false,
-              timer: 1500
-            })
+            // Swal.fire({
+            //   icon: 'success',
+            //   title: 'Berhasil menghapus data.',
+            //   showConfirmButton: false,
+            //   timer: 1500
+            // })
+            Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
             this.getAllBanners();
           }
         })

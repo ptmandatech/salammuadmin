@@ -9,6 +9,8 @@
 
   <mat-form-field>
     <div>
+      <mat-progress-bar *ngIf="progressUpload" mode="indeterminate"></mat-progress-bar>
+      <br>
       <div class="uk-flex">
         <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
         <!-- Display files names -->

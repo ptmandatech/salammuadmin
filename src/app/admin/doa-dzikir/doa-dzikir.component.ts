@@ -61,6 +61,9 @@ export class DoaDzikirComponent implements OnInit {
     this.allDoaDzikir = [];
     this.api.get('Doadzikir').then(res=>{
       this.allDoaDzikir = res;
+      this.allDoaDzikir.forEach((e:any) => {
+        e.checked = false;
+      });
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -72,10 +75,13 @@ export class DoaDzikirComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogDoaDzikirComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.allData.checked = false;
+      this.hasSelectedData = false;
       this.getAllDoaDzikir();
     });
   }
@@ -95,9 +101,15 @@ export class DoaDzikirComponent implements OnInit {
         this.api.delete('Doadzikir/'+n.id).then(res => {
           if(res) {
             Notiflix.Notify.success('Berhasil menghapus data.',{ timeout: 2000 });
+            this.allData.checked = false;
+            this.hasSelectedData = false;
             this.getAllDoaDzikir();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
+        this.allData.checked = false;
+        this.hasSelectedData = false;
       }
     })
   }
@@ -158,6 +170,8 @@ export class DoaDzikirComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -199,6 +213,8 @@ export class DoaDzikirComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {

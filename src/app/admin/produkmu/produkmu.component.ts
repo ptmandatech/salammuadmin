@@ -70,6 +70,9 @@ export class ProdukmuComponent implements OnInit {
         });
         this.allProducts = res;
         this.allProductsTemp = res;
+        this.allProducts.forEach((e:any) => {
+          e.checked = false;
+        });
         Loading.remove();
       }, err => {
         Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -82,6 +85,9 @@ export class ProdukmuComponent implements OnInit {
         });
         this.allProducts = res;
         this.allProductsTemp = res;
+        this.allProducts.forEach((e:any) => {
+          e.checked = false;
+        });
         Loading.remove();
       }, err => {
         Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -116,10 +122,13 @@ export class ProdukmuComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogProdukmuComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.allData.checked = false;
+      this.hasSelectedData = false;
       this.getProducts();
     });
   }
@@ -129,6 +138,7 @@ export class ProdukmuComponent implements OnInit {
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterProdukComponent, {
       width: '550px',
+      disableClose: true,
       data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -194,11 +204,17 @@ export class ProdukmuComponent implements OnInit {
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
             Notiflix.Notify.success('Data Berhasil di '+t+'.',{ timeout: 2000 });
+            this.allData.checked = false;
+            this.hasSelectedData = false;
             this.getProducts()
           }
         }).catch(error => {
           Notiflix.Notify.failure('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
+      } else {
+        this.allData.checked = false;
+        this.hasSelectedData = false;
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -221,11 +237,17 @@ export class ProdukmuComponent implements OnInit {
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
             Notiflix.Notify.success('Data Berhasil di '+t+'.',{ timeout: 2000 });
+            this.allData.checked = false;
+            this.hasSelectedData = false;
             this.getProducts()
           }
         }).catch(error => {
           Notiflix.Notify.failure('Data Gagal di '+t+'.',{ timeout: 2000 });
         })
+      } else {
+        this.allData.checked = false;
+        this.hasSelectedData = false;
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -247,11 +269,17 @@ export class ProdukmuComponent implements OnInit {
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
             Notiflix.Notify.success('Data Berhasil disimpan',{ timeout: 2000 });
+            this.allData.checked = false;
+            this.hasSelectedData = false;
             this.getProducts()
           }
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal disimpan',{ timeout: 2000 });
         })
+      } else {
+        this.allData.checked = false;
+        this.hasSelectedData = false;
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -313,6 +341,8 @@ export class ProdukmuComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -353,6 +383,8 @@ export class ProdukmuComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -378,6 +410,8 @@ export class ProdukmuComponent implements OnInit {
             this.getProducts();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

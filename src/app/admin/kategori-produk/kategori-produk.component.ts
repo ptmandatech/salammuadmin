@@ -72,6 +72,7 @@ export class KategoriProdukComponent implements OnInit {
   openDialog(n:any): void {
     const dialogRef = this.dialog.open(DialogKategoriProdukComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:n}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -98,6 +99,8 @@ export class KategoriProdukComponent implements OnInit {
             this.getCategories();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

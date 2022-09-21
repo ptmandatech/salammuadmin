@@ -65,7 +65,6 @@ export class TanyaUstadComponent implements OnInit {
     this.listRoomChatsTemp = [];
     this.api.get('chattings/getUstadzRooms/'+this.userData.id).then(res => {
       this.listRoomChats = res;
-      console.log(res)
       this.listRoomChatsTemp = res;
       this.listRoomChats.forEach((data:any) => {
         if(data.user_already_read == '0') {

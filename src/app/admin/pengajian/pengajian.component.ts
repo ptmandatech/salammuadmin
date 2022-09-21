@@ -61,6 +61,9 @@ export class PengajianComponent implements OnInit {
     this.api.get('pengajian/getAsAdmin').then(res=>{
       this.allPengajian = res;
       this.allPengajianTemp = res;
+      this.allPengajian.forEach((e:any) => {
+        e.checked = false;
+      });
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
@@ -77,10 +80,13 @@ export class PengajianComponent implements OnInit {
   openDialog(data:any): void {
     const dialogRef = this.dialog.open(DialogPengajianComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.allData.checked = false;
+      this.hasSelectedData = false
       this.getAllPengajian();
     });
   }
@@ -89,10 +95,13 @@ export class PengajianComponent implements OnInit {
   openDetail(data:any): void {
     const dialogRef = this.dialog.open(DetailPengajianComponent, {
       width: '650px',
+      disableClose: true,
       data: {data:data}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.allData.checked = false;
+      this.hasSelectedData = false
       this.getAllPengajian();
     });
   }
@@ -102,6 +111,7 @@ export class PengajianComponent implements OnInit {
   openFilter(): void {
     const dialogRef = this.dialog.open(FilterPengajianComponent, {
       width: '550px',
+      disableClose: true,
       data: {data:this.selectedFiltered}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -223,6 +233,8 @@ export class PengajianComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -261,6 +273,8 @@ export class PengajianComponent implements OnInit {
               Loading.remove();
             })
           });
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
       })
     } else {
@@ -286,6 +300,8 @@ export class PengajianComponent implements OnInit {
             this.getAllPengajian();
           }
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }

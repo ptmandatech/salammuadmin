@@ -77,19 +77,37 @@ export class DialogBannerComponent implements OnInit {
     }
   }
 
+  urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
+  progressUpload:boolean;
   async uploadPhoto()
   {
-    if(this.image != undefined) {
-      await this.api.put('banners/uploadfoto',{image: this.image}).then(res=>{
-        this.bannersData.image = res;
-        if(res) {
-          this.addBanner();
-        }
-      }, error => {
-        console.log(error)
-      });
+    if(this.isValidUrl(this.bannersData.url)) { 
+      if(this.image != undefined) {
+        this.progressUpload = true;
+        await this.api.put('banners/uploadfoto',{image: this.image}).then(res=>{
+          this.bannersData.image = res;
+          this.progressUpload = false;
+          if(res) {
+            this.addBanner();
+          }
+        }, error => {
+          console.log(error)
+        });
+      } else {
+        this.addBanner();
+      }
     } else {
-      this.addBanner();
+      Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+    }
+  }
+
+  isValidUrl(urlString: string): boolean {
+    try {
+      let pattern = new RegExp(this.urlRegEx);
+      let valid = pattern.test(urlString);
+      return valid;
+    } catch (TypeError) {
+      return false;
     }
   }
 

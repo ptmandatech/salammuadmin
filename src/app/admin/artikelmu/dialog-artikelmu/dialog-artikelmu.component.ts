@@ -129,12 +129,15 @@ export class DialogArtikelmuComponent implements OnInit {
     }
   }
 
+  progressUpload:boolean;
   async uploadPhoto()
   {
     if(this.image != undefined) {
+      this.progressUpload = true;
       await this.api.put('articles/uploadfoto',{image: this.image}).then(res=>{
         console.log(res)
         this.articlesData.image = res;
+        this.progressUpload = false;
         if(res) {
           this.save();
         }

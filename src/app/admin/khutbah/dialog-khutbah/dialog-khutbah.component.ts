@@ -128,11 +128,14 @@ export class DialogKhutbahComponent implements OnInit {
     }
   }
 
+  progressUpload:boolean;
   async uploadPhoto()
   {
     if(this.image != undefined) {
+      this.progressUpload = true;
       await this.api.put('khutbah/uploadfoto',{image: this.image}).then(res=>{
         this.khutbahData.image = res;
+        this.progressUpload = false;
         if(res) {
           this.save();
         }

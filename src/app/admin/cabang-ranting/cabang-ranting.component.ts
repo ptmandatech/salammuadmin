@@ -138,6 +138,8 @@ export class CabangRantingComponent implements OnInit {
             }
           })
         });
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -172,6 +174,8 @@ export class CabangRantingComponent implements OnInit {
             Loading.remove();
           })
         });
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
@@ -196,6 +200,8 @@ export class CabangRantingComponent implements OnInit {
         }, err => {
           Loading.remove();
         })
+      } else {
+        Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
   }
