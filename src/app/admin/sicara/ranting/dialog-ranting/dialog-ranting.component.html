@@ -1,7 +1,12 @@
-<h1 mat-dialog-title>Perbarui Informasi Ranting .....</h1>
+<h1 mat-dialog-title>Perbarui Informasi Ranting</h1>
 <!-- dikasih nama ranting yaa -->
 
 <div mat-dialog-content>
+
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Nama Ranting</mat-label>
+    <input matInput [disabled]="true" [(ngModel)]="dataRanting.nama" type="text" maxlength="255" #title="ngModel" required>
+  </mat-form-field>
 
   <!-- Disini pake Quill juga yaa -->
   <mat-label>Deskripsi ranting <span class="text-merah-16 ml-10">*</span></mat-label>
