@@ -125,7 +125,7 @@
       Alamat Lengkap harus diisi!
     </div>
   
-    <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="detailLocSelected">
       <mat-label>Lokasi Sesuai Peta (Terisi Otomatis)</mat-label>
       <input matInput [disabled]="true">{{detailLocSelected == undefined ? '':detailLocSelected.display_name}}
     </mat-form-field>
@@ -141,5 +141,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button (click)="save()" [disabled]="dateValue == null || timeValue == null" color="primary">Simpan</button>
+  <button mat-flat-button (click)="save()" [disabled]="dateValue == null || timeValue == null || !detailLocSelected" color="primary">Simpan</button>
 </mat-dialog-actions>
