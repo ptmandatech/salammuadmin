@@ -84,11 +84,13 @@ export class DialogPengajianComponent implements OnInit {
       this.generateMap(undefined);
     } else {
       this.isCreated = false;
+      console.log(this.pengajianData)
       if(this.pengajianData.datetime != '0000-00-00 00:00:00.000000') {
         this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
         this.dateValue = new Date(this.dateValue);
         this.timeValue = new Date(this.pengajianData.datetime);
       }
+      
       this.generateMap(undefined);
       if(this.pengajianData != null) {
         this.form.patchValue({
@@ -137,6 +139,11 @@ export class DialogPengajianComponent implements OnInit {
   {
     if(this.pengajianData.pin != null) {
       data = JSON.parse(this.pengajianData.pin);
+      var dt = {
+        lat: data.lat,
+        long: data.long
+      }
+      this.getDetailLocation(dt);
     }
     var features = [];
     if(data == undefined) {
@@ -298,7 +305,7 @@ export class DialogPengajianComponent implements OnInit {
   }
 
   httpOption:any;
-  detailLocSelected:any;
+  detailLocSelected:any = {};
   city:any;
   async getDetailLocation(dt:any) {
     this.httpOption = {
@@ -379,6 +386,12 @@ export class DialogPengajianComponent implements OnInit {
       }
 
       this.pengajianData = this.form.value;
+      var dt = {
+        lat: this.locationNow.lat,
+        long: this.locationNow.long
+      }
+      this.pengajianData.pin = JSON.stringify(dt);
+      
       if(new Date(this.dateValue) > this.today) {
         this.pengajianData.status = 'soon';
       } else {
@@ -393,6 +406,7 @@ export class DialogPengajianComponent implements OnInit {
         } else {
           this.pengajianData.datetime = this.dateValue.setHours(hours, minutes);
           this.pengajianData.datetime = new Date(this.pengajianData.datetime);
+
           if(this.isCreated == true) {
             this.pengajianData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
             this.pengajianData.verified = false;
