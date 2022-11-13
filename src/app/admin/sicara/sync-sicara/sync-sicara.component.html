@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Sinkronisasi Data Sicara</h1>
+
+<div mat-dialog-content>
+    <div class="uk-child-width-1-2@s uk-text-center uk-margin-top uk-margin-bottom" uk-grid>
+        <div>
+            <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="syncSicara('wilayah')">
+              <img src="../../../assets/icon/wilayah.svg" class="uk-margin-bottom">
+              <h2 class="color-primary">Wilayah</h2>
+            </div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="syncSicara('daerah')">
+            <img src="../../../assets/icon/daerah.svg" class="uk-margin-bottom">
+            <h2 class="color-primary">Daerah</h2>
+          </div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="syncSicara('cabang')">
+            <img src="../../../assets/icon/cabang.svg" class="uk-margin-bottom">
+            <h2 class="color-primary">Cabang</h2>
+          </div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-default uk-card-small uk-card-body" (click)="syncSicara('ranting')">
+            <img src="../../../assets/icon/ranting.svg" class="uk-margin-bottom">
+            <h2 class="color-primary">Ranting</h2>
+          </div>
+        </div>
+    </div>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Tutup</button>
+</mat-dialog-actions>

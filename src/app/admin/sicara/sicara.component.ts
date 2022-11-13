@@ -6,6 +6,7 @@ import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
+import { SyncSicaraComponent } from './sync-sicara/sync-sicara.component';
 
 @Component({
   selector: 'app-sicara',
@@ -53,6 +54,18 @@ export class SicaraComponent implements OnInit {
       localStorage.removeItem('salammuToken');
       this.router.navigate(['/auth/login'], {replaceUrl:true});
     })
+  }
+
+  //sync sicara modal
+  syncSicara() {
+    const dialogRef = this.dialog.open(SyncSicaraComponent, {
+      width: '650px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.ngOnInit();
+    });
   }
 
   syncPwm() {

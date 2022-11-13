@@ -53,6 +53,7 @@ import { DialogCabangComponent } from './sicara/cabang/dialog-cabang/dialog-caba
 import { DialogRantingComponent } from './sicara/ranting/dialog-ranting/dialog-ranting.component';
 import { TanyaUstadComponent } from './tanya-ustad/tanya-ustad.component';
 import { DialogChatsComponent } from './tanya-ustad/dialog-chats/dialog-chats.component';
+import { SyncSicaraComponent } from './sicara/sync-sicara/sync-sicara.component';
 const routes: Routes = [
   {
     path: '',
@@ -221,6 +222,7 @@ const routes: Routes = [
     DialogRantingComponent,
     TanyaUstadComponent,
     DialogChatsComponent,
+    SyncSicaraComponent,
   ],
   imports: [
     CommonModule,
