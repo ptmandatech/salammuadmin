@@ -76,6 +76,30 @@ export class CabangComponent implements OnInit {
     this.allPcm = [];
     this.api.get('sicara/getPCM/'+this.id).then(res=>{
       this.allPcm = res;
+      if(this.allPcm.length == 0) {
+        Loading.pulse();
+        this.syncCabang();
+      }
+      Loading.remove();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
+    });
+  }
+
+  syncCabang() {
+    this.api.get('sicara/syncPCMManualByID/'+this.id).then(res => {
+      this.getAfterManualSync();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
+    })
+  }
+
+  async getAfterManualSync() {
+    this.allPcm = [];
+    await this.api.get('sicara/getPCM/'+this.id).then(res=>{
+      this.allPcm = res;
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });

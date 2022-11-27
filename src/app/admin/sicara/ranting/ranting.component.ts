@@ -76,6 +76,30 @@ export class RantingComponent implements OnInit {
     this.allPrm = [];
     this.api.get('sicara/getPRM/'+this.id).then(res=>{
       this.allPrm = res;
+      if(this.allPrm.length == 0) {
+        Loading.pulse();
+        this.syncRanting();
+      }
+      Loading.remove();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
+    });
+  }
+
+  syncRanting() {
+    this.api.get('sicara/syncPRMManualByID/'+this.id).then(res => {
+      this.getAfterManualSync();
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      Loading.remove();
+    })
+  }
+
+  async getAfterManualSync() {
+    this.allPrm = [];
+    await this.api.get('sicara/getPRM/'+this.id).then(res=>{
+      this.allPrm = res;
       Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
