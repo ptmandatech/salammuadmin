@@ -27,8 +27,10 @@ export class ProdukmuComponent implements OnInit {
 
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'products/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -61,7 +63,8 @@ export class ProdukmuComponent implements OnInit {
   allProducts:any = [];
   allProductsTemp:any = [];
   getProducts() {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.allProducts = [];
     if(this.userData.role != 'user' || this.userData.role != '1656596135011345') {
       this.api.get('products/getFromAdmin').then(res=>{
@@ -73,10 +76,12 @@ export class ProdukmuComponent implements OnInit {
         this.allProducts.forEach((e:any) => {
           e.checked = false;
         });
-        Loading.remove();
+        // Loading.remove();
+        this.loading = false;
       }, err => {
         Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-        Loading.remove();
+        // Loading.remove();
+        this.loading = false;
       });
     } else {
       this.api.get('products').then(res=>{
@@ -88,10 +93,12 @@ export class ProdukmuComponent implements OnInit {
         this.allProducts.forEach((e:any) => {
           e.checked = false;
         });
-        Loading.remove();
+        // Loading.remove();
+        this.loading = false;
       }, err => {
         Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-        Loading.remove();
+        // Loading.remove();
+        this.loading = false;
       });
     }
   }
@@ -321,7 +328,8 @@ export class ProdukmuComponent implements OnInit {
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = true;
             e.images = JSON.stringify(e.images);
@@ -338,7 +346,8 @@ export class ProdukmuComponent implements OnInit {
                 }
               }
             }, err => {
-              Loading.remove();
+              // Loading.remove();
+              this.loading = false;
             })
           });
         } else {
@@ -363,7 +372,8 @@ export class ProdukmuComponent implements OnInit {
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = false;
             e.images = JSON.stringify(e.images);
@@ -380,7 +390,8 @@ export class ProdukmuComponent implements OnInit {
                 }
               }
             }, err => {
-              Loading.remove();
+              // Loading.remove();
+              this.loading = false;
             })
           });
         } else {

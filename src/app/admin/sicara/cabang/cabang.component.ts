@@ -19,6 +19,7 @@ export class CabangComponent implements OnInit {
   p: number = 1;
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   constructor(
     public api: ApiService,
     public common: CommonService,
@@ -28,7 +29,8 @@ export class CabangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    Loading.pulse();
+    // Loading.pulse();
+    this.loading = true;
     this.id = this.routes.snapshot.paramMap.get('id');
     this.serverImg = this.common.photoBaseUrl+'sicara/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
@@ -63,11 +65,13 @@ export class CabangComponent implements OnInit {
   getDetailPdm() {
     this.api.get('sicara/find/sicara_pdm/'+this.id).then(res=>{
       this.dataPdm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       console.log(err)
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
@@ -77,13 +81,16 @@ export class CabangComponent implements OnInit {
     this.api.get('sicara/getPCM/'+this.id).then(res=>{
       this.allPcm = res;
       if(this.allPcm.length == 0) {
-        Loading.pulse();
+        // Loading.pulse();
+        this.loading = true;
         this.syncCabang();
       }
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
@@ -92,7 +99,8 @@ export class CabangComponent implements OnInit {
       this.getAfterManualSync();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     })
   }
 
@@ -100,10 +108,12 @@ export class CabangComponent implements OnInit {
     this.allPcm = [];
     await this.api.get('sicara/getPCM/'+this.id).then(res=>{
       this.allPcm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 

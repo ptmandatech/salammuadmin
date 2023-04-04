@@ -26,8 +26,10 @@ export class SicaraComponent implements OnInit {
 
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'sicara/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -69,25 +71,30 @@ export class SicaraComponent implements OnInit {
   }
 
   syncPwm() {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.api.get('sicara/syncPWM').then(res=>{
       Notiflix.Notify.success('Berhasil menyinkronkan data SICARA.',{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
   allPwm:any = [];
   getSicaraPwm() {
     this.allPwm = [];
-    this.api.get('sicara/getPWM').then(res=>{
+    this.api.get('sicara/getAllPWM').then(res=>{
       this.allPwm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 

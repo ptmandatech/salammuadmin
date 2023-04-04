@@ -26,8 +26,10 @@ export class RolePermissionComponent implements OnInit {
 
   pageTitle:any;
   serverImgBanner:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImgBanner = this.common.photoBaseUrl+'banners/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -64,10 +66,12 @@ export class RolePermissionComponent implements OnInit {
         e.idx = index+1;
         e.path = JSON.parse(e.path);
       });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 

@@ -27,8 +27,10 @@ export class UstadzComponent implements OnInit {
 
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'ustadzmu/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -62,10 +64,12 @@ export class UstadzComponent implements OnInit {
     this.allUstadzmu = [];
     this.api.get('ustadzmu').then(res=>{
       this.allUstadzmu = res;
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 

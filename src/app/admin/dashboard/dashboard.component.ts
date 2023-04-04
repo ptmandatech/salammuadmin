@@ -18,9 +18,10 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   pageTitle:any;
-
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
@@ -67,10 +68,12 @@ export class DashboardComponent implements OnInit {
   getStatistic() {
     this.api.get('dashboard/statistics').then(res=>{
       this.statisticsData = res;
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 

@@ -26,8 +26,10 @@ export class CabangRantingComponent implements OnInit {
   ) { }
 
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
@@ -55,10 +57,12 @@ export class CabangRantingComponent implements OnInit {
     this.allCr = [];
     this.api.get('cr').then(res=>{
       this.allCr = res;
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 
@@ -121,7 +125,8 @@ export class CabangRantingComponent implements OnInit {
       confirmButtonText: 'Ya, Verifikasi!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Loading.pulse();
+        this.loading = true;
+        // Loading.pulse();
         checkData.forEach((e:any, idx:any) => {
           e.verified = true;
           this.api.put('cr/'+ e.id, e).then(res => {
@@ -133,7 +138,8 @@ export class CabangRantingComponent implements OnInit {
                 });
                 this.allData.checked = false;
                 this.hasSelectedData = false;
-                Loading.remove();
+                this.loading = false;
+                // Loading.remove();
               }
             }
           })
@@ -155,7 +161,8 @@ export class CabangRantingComponent implements OnInit {
       confirmButtonText: 'Ya, Batalkan!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Loading.pulse();
+        this.loading = true;
+        // Loading.pulse();
         checkData.forEach((e:any, idx:any) => {
           e.verified = false;
           this.api.put('cr/'+ e.id, e).then(res => {
@@ -167,11 +174,13 @@ export class CabangRantingComponent implements OnInit {
                 });
                 this.allData.checked = false;
                 this.hasSelectedData = false;
-                Loading.remove();
+                this.loading = false;
+                // Loading.remove();
               }
             }
           }, err => {
-            Loading.remove();
+            this.loading = false;
+            // Loading.remove();
           })
         });
       } else {
@@ -198,7 +207,8 @@ export class CabangRantingComponent implements OnInit {
             this.getAllCr();
           }
         }, err => {
-          Loading.remove();
+          this.loading = false;
+          // Loading.remove();
         })
       } else {
         Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });

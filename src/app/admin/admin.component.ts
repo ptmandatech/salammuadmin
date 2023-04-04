@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   ) { }
 
   pageTitle:any;
-
+  loading:boolean = false;
   ngOnInit(): void {
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {

@@ -30,8 +30,10 @@ export class PengajianComponent implements OnInit {
 
   pageTitle:any;
   serverImgBanner:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImgBanner = this.common.photoBaseUrl+'banners/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -64,10 +66,12 @@ export class PengajianComponent implements OnInit {
       this.allPengajian.forEach((e:any) => {
         e.checked = false;
       });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 
@@ -214,7 +218,8 @@ export class PengajianComponent implements OnInit {
         confirmButtonText: 'Ya, Verifikasi!'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = true;
             this.api.put('pengajian/'+ e.id, e).then(res => {
@@ -226,11 +231,13 @@ export class PengajianComponent implements OnInit {
                   });
                   this.allData.checked = false;
                   this.hasSelectedData = false;
-                  Loading.remove();
+                  this.loading = false;
+                  // Loading.remove();
                 }
               }
             }, err => {
-              Loading.remove();
+              this.loading = false;
+              // Loading.remove();
             })
           });
         } else {
@@ -254,7 +261,8 @@ export class PengajianComponent implements OnInit {
         confirmButtonText: 'Ya, Batalkan!'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = false;
             this.api.put('pengajian/'+ e.id, e).then(res => {
@@ -266,11 +274,13 @@ export class PengajianComponent implements OnInit {
                   });
                   this.allData.checked = false;
                   this.hasSelectedData = false;
-                  Loading.remove();
+                  this.loading = false;
+                  // Loading.remove();
                 }
               }
             }, err => {
-              Loading.remove();
+              this.loading = false;
+              // Loading.remove();
             })
           });
         } else {

@@ -29,8 +29,10 @@ export class PenggunaComponent implements OnInit {
 
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    // Loading.pulse();
+    this.loading = true;
     this.serverImg = this.common.photoBaseUrl+'users/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -78,15 +80,18 @@ export class PenggunaComponent implements OnInit {
   allUsers:any = [];
   allUsersTemp:any = [];
   getAllUsers() {
-    Loading.pulse();
+    // Loading.pulse();
+    this.loading = true;
     this.allUsers = [];
     this.api.get('users/'+this.userData.id).then(res=>{
       this.allUsers = res;
       this.allUsersTemp = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 

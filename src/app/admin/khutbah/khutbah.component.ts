@@ -26,8 +26,10 @@ export class KhutbahComponent implements OnInit {
 
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   ngOnInit(): void {
-    Loading.pulse();
+    this.loading = true;
+    // Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'khutbah/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -64,10 +66,12 @@ export class KhutbahComponent implements OnInit {
       this.allKhutbah.forEach((e:any) => {
         e.checked = false;
       });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      this.loading = false;
+      // Loading.remove();
     });
   }
 
@@ -150,7 +154,8 @@ export class KhutbahComponent implements OnInit {
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = false;
             e.images = JSON.stringify(e.images);
@@ -167,7 +172,8 @@ export class KhutbahComponent implements OnInit {
                 }
               }
             }, err => {
-              Loading.remove();
+              this.loading = false;
+              // Loading.remove();
             })
           });
         } else {
@@ -193,7 +199,8 @@ export class KhutbahComponent implements OnInit {
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
-          Loading.pulse();
+          this.loading = true;
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = true;
             e.images = JSON.stringify(e.images);
@@ -210,7 +217,8 @@ export class KhutbahComponent implements OnInit {
                 }
               }
             }, err => {
-              Loading.remove();
+              this.loading = false;
+              // Loading.remove();
             })
           });
         } else {

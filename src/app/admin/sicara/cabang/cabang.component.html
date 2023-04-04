@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div style="margin: 16px">
 
     <div class="border-card">
@@ -45,7 +46,7 @@
                   <td>{{n.pwm_nama}}</td>
                   <td>{{n.pdm_nama}}</td>
                   <td class="fw-bold">{{n.nama}}</td>
-                  <td>{{n.jumlah_prm}}</td>
+                  <td>{{n.listPRM.length}}</td>
                   <td>{{n.created_at | date:'dd MMMM yyyy'}}</td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-mini-fab color="primary" (click)="openDialog(n)">

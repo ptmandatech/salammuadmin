@@ -18,6 +18,7 @@ export class DaerahComponent implements OnInit {
   p: number = 1;
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   constructor(
     public api: ApiService,
     public common: CommonService,
@@ -26,7 +27,8 @@ export class DaerahComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    Loading.pulse();
+    // Loading.pulse();
+    this.loading = true;
     this.id = this.routes.snapshot.paramMap.get('id');
     this.serverImg = this.common.photoBaseUrl+'sicara/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
@@ -61,10 +63,12 @@ export class DaerahComponent implements OnInit {
   getDetailPwm() {
     this.api.get('sicara/find/sicara_pwm/'+this.id).then(res=>{
       this.dataPwm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
@@ -73,11 +77,12 @@ export class DaerahComponent implements OnInit {
     this.allPdm = [];
     this.api.get('sicara/getPDM/'+this.id).then(res=>{
       this.allPdm = res;
-      console.log(res)
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 

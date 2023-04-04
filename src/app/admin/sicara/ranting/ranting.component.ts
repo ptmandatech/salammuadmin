@@ -20,6 +20,7 @@ export class RantingComponent implements OnInit {
   p: number = 1;
   serverImg:any;
   pageTitle:any;
+  loading:boolean = false;
   constructor(
     public api: ApiService,
     public common: CommonService,
@@ -29,7 +30,8 @@ export class RantingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    Loading.pulse();
+    // Loading.pulse();
+    this.loading = true;
     this.id = this.routes.snapshot.paramMap.get('id');
     this.serverImg = this.common.photoBaseUrl+'sicara/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
@@ -64,10 +66,14 @@ export class RantingComponent implements OnInit {
   getDetailPcm() {
     this.api.get('sicara/find/sicara_pcm/'+this.id).then(res=>{
       this.dataPcm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
-      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      if(err.error) {
+        Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      }
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
@@ -77,13 +83,16 @@ export class RantingComponent implements OnInit {
     this.api.get('sicara/getPRM/'+this.id).then(res=>{
       this.allPrm = res;
       if(this.allPrm.length == 0) {
-        Loading.pulse();
+        // Loading.pulse();
+        this.loading = true;
         this.syncRanting();
       }
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
@@ -92,7 +101,8 @@ export class RantingComponent implements OnInit {
       this.getAfterManualSync();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     })
   }
 
@@ -100,10 +110,12 @@ export class RantingComponent implements OnInit {
     this.allPrm = [];
     await this.api.get('sicara/getPRM/'+this.id).then(res=>{
       this.allPrm = res;
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      Loading.remove();
+      // Loading.remove();
+      this.loading = false;
     });
   }
 
