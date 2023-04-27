@@ -72,6 +72,11 @@
             <h3 matLine class="light">Sicara</h3>
           </mat-list-item>
 
+          <mat-list-item *ngIf="accessMenu['/admin/notulenmu']" routerLink="/admin/notulenmu" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">speaker_notes</mat-icon>
+            <h3 matLine class="light">NotulenMU</h3>
+          </mat-list-item>
+
           <!-- <mat-list-item *ngIf="accessMenu['/admin/tanya-ustadz']" routerLink="/admin/tanya-ustadz" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">chat</mat-icon>
             <h3 matLine class="light">Tanya UstadzMU</h3>

@@ -105,6 +105,11 @@ export class DialogRolePermissionComponent implements OnInit {
       path: '/admin/sicara',
       checked: false,
       name: 'Sicara'
+    },
+    {
+      path: '/admin/notulenmu',
+      checked: false,
+      name: 'NotulenMU'
     }
   ];
   constructor(

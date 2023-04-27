@@ -54,6 +54,7 @@ import { DialogRantingComponent } from './sicara/ranting/dialog-ranting/dialog-r
 import { TanyaUstadComponent } from './tanya-ustad/tanya-ustad.component';
 import { DialogChatsComponent } from './tanya-ustad/dialog-chats/dialog-chats.component';
 import { SyncSicaraComponent } from './sicara/sync-sicara/sync-sicara.component';
+import { NotulenmuComponent } from './notulenmu/notulenmu.component';
 const routes: Routes = [
   {
     path: '',
@@ -163,6 +164,11 @@ const routes: Routes = [
         path: 'sicara/ranting/:id',
         component: RantingComponent,
         data: {title: 'Ranting'}
+      },
+      {
+        path: 'notulenmu',
+        component: NotulenmuComponent,
+        data: {title: 'NotulenMU'}
       }
     ]
   },
@@ -223,6 +229,7 @@ const routes: Routes = [
     TanyaUstadComponent,
     DialogChatsComponent,
     SyncSicaraComponent,
+    NotulenmuComponent,
   ],
   imports: [
     CommonModule,

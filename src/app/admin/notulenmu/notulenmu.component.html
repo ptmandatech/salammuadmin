@@ -1,0 +1,109 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div class="uk-flex-middle" uk-grid >
+          <div class="uk-width-1-4">
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">NotulenMu</h1>
+            </div>
+          </div>
+          <div class="uk-width-3-4" style="text-align:right;">
+            <mat-form-field class="uk-margin-right">
+                <mat-label>Pilih Cabang</mat-label>
+                <input type="text"
+                       placeholder="Pilih salah satu"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of options" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="uk-margin-right">
+                <mat-label>Pilih Ranting</mat-label>
+                <input type="text"
+                       placeholder="Pilih salah satu"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of options" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button mat-flat-button class="tambah uk-margin-right" >Tambah Khutbah</button>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+
+      <div style="margin-left: 16px;">
+        <mat-form-field appearance="outline">
+            <mat-label>Pencarian</mat-label>
+            <input matInput placeholder="Masukkan kata kunci" name="searchText">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Judul</th>
+                  <th>Waktu</th>
+                  <th>Cabang/Ranting</th>
+                  <th>Oleh</th>
+                  <th>Dibuat</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of [1,2,3,4,5]">
+              <td>Pertemuan Cabang Ranting</td>
+              <td>12 Januari 2024</td>
+              <td>Ranting Ujungrusi</td>
+              <td>14 Januari 2024</td>
+              <td>Sekretaris Ranting</td>
+              <td class="uk-table-shrink uk-text-nowrap">
+                <button mat-mini-fab color="primary">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+      <!-- <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div> -->
+  
+      <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <li><a href="#"><span uk-pagination-previous></span></a></li>
+        <li><a href="#">1</a></li>
+        <li class="uk-disabled"><span>...</span></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li class="uk-active"><span>7</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#"><span uk-pagination-next></span></a></li>
+    </ul> -->
+  
+    </div>
+  
+  </div>
+  
