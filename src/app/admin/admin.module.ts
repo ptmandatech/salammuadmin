@@ -55,6 +55,8 @@ import { TanyaUstadComponent } from './tanya-ustad/tanya-ustad.component';
 import { DialogChatsComponent } from './tanya-ustad/dialog-chats/dialog-chats.component';
 import { SyncSicaraComponent } from './sicara/sync-sicara/sync-sicara.component';
 import { NotulenmuComponent } from './notulenmu/notulenmu.component';
+import { DialogNotulenmuComponent } from './notulenmu/dialog-notulenmu/dialog-notulenmu.component';
+import { DetailNotulenmuComponent } from './notulenmu/detail-notulenmu/detail-notulenmu.component';
 const routes: Routes = [
   {
     path: '',
@@ -230,6 +232,8 @@ const routes: Routes = [
     DialogChatsComponent,
     SyncSicaraComponent,
     NotulenmuComponent,
+    DialogNotulenmuComponent,
+    DetailNotulenmuComponent,
   ],
   imports: [
     CommonModule,

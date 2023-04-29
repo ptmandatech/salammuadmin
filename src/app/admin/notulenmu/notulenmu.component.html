@@ -15,11 +15,11 @@
                        placeholder="Pilih salah satu"
                        aria-label="Number"
                        matInput
-                       [formControl]="myControl"
-                       [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of options" [value]="option">
-                    {{option}}
+                       [formControl]="myControlCabang"
+                       [matAutocomplete]="autoCabang">
+                <mat-autocomplete #autoCabang="matAutocomplete" (optionSelected)="selectOption($event.option.value)">
+                  <mat-option *ngFor="let n of listCabang" [value]="n.nama">
+                    {{n.nama}}
                   </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
@@ -29,15 +29,15 @@
                        placeholder="Pilih salah satu"
                        aria-label="Number"
                        matInput
-                       [formControl]="myControl"
-                       [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of options" [value]="option">
-                    {{option}}
+                       [formControl]="myControlRanting"
+                       [matAutocomplete]="autoRanting">
+                <mat-autocomplete #autoRanting="matAutocomplete" (optionSelected)="selectOption($event.option.value)">
+                  <mat-option *ngFor="let n of listRanting" [value]="n.nama">
+                    {{n.nama}}
                   </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-            <button mat-flat-button class="tambah uk-margin-right" >Tambah Khutbah</button>
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialog(null)">Tambah NotulenMu</button>
           </div>
         </div>
 
@@ -47,10 +47,11 @@
       <div style="margin-left: 16px;">
         <mat-form-field appearance="outline">
             <mat-label>Pencarian</mat-label>
-            <input matInput placeholder="Masukkan kata kunci" name="searchText">
+            <input matInput placeholder="Masukkan kata kunci" [(ngModel)]="searchText" (ngModelChange)="onSearch()" name="searchText">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-    </div>
+        <button style="margin-left: 16px;" mat-flat-button color="warn" *ngIf="hasSelectedData" (click)="hapusDataTerpilih()">Hapus Data Terpilih</button>
+      </div>
 
       <hr>
 
@@ -58,6 +59,7 @@
         <table class="uk-table uk-table-middle uk-table-divider">
           <thead>
               <tr>
+                  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" [(ngModel)]="allData.checked" (change)="selectAll($event, 'all')"></th>
                   <th>Judul</th>
                   <th>Waktu</th>
                   <th>Cabang/Ranting</th>
@@ -67,17 +69,21 @@
               </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let n of [1,2,3,4,5]">
-              <td>Pertemuan Cabang Ranting</td>
-              <td>12 Januari 2024</td>
-              <td>Ranting Ujungrusi</td>
-              <td>14 Januari 2024</td>
-              <td>Sekretaris Ranting</td>
+            <tr *ngFor="let n of allNotulenmu | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
+              <td><input class="uk-checkbox" type="checkbox" [(ngModel)]="n.checked" (change)="selectAll($event, idx)"></td>
+              <td>{{n.title}}</td>
+              <td>{{n.datetime | date:'dd MMMM yyyy HH:mm'}}</td>
+              <td>{{n.organization_nama}}</td>
+              <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
+              <td>{{n.user_name}}</td>
               <td class="uk-table-shrink uk-text-nowrap">
-                <button mat-mini-fab color="primary">
+                <button mat-mini-fab (click)="openDetail(n)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-mini-fab color="primary" (click)="openDialog(n)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-mini-fab color="warn">
+                <button mat-mini-fab color="warn" (click)="delete(n)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -88,9 +94,10 @@
       
   
       <hr>
-      <!-- <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+  
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
         <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
-      </div> -->
+      </div>
   
       <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
         <li><a href="#"><span uk-pagination-previous></span></a></li>

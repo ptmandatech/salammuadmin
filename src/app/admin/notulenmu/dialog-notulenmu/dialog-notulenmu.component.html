@@ -1,0 +1,193 @@
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} NotulenMU</h1>
+
+<div mat-dialog-content>
+
+  <form [formGroup]="form">
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Judul</mat-label>
+      <input matInput formControlName="title" type="text" maxlength="255" name="title" required type="text">
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.title.hasError('required') && form.controls.title.touched">
+      Judul harus diisi!
+    </div>
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Tempat</mat-label>
+      <input matInput formControlName="place" name="place" required type="text">
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.place.hasError('required') && form.controls.place.touched">
+        Tempat harus diisi!
+    </div>
+  
+    <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
+      <mat-form-field appearance="fill">
+        <mat-label>Tanggal Pengajian <span class="text-merah-16 ml-10">*</span></mat-label>
+        <input matInput [min]="minDate" [(ngModel)]="dateValue" readonly name="dateValue" [ngModelOptions]="{standalone: true}" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Jam Pengajian <span class="text-merah-16 ml-10">*</span></mat-label>
+        <input matTimepicker [(ngModel)]="timeValue" [ngModelOptions]="{standalone: true}" name="timeValue">
+        <mat-icon matSuffix >alarm</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
+      <div class="error-msg" *ngIf="!dateValue">
+        Tanggal Pengajian harus diisi!
+      </div>
+      
+      <div class="error-msg" *ngIf="!timeValue">
+        Jam Pengajian harus diisi!
+      </div>
+    </div> -->
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Cabang dan ranting</mat-label>
+      <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
+        <mat-option *ngFor="let n of ['cabang', 'ranting']" value="{{n}}">{{n}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+	  
+    <div class="error-msg" *ngIf="form.controls.organization_type.hasError('required') && form.controls.organization_type.touched">
+      Penyelenggara harus diisi!
+    </div>
+  
+    <!-- Jika Cabang terpilih -->
+    <div *ngIf="f.organization_type.value?.trim() == 'cabang'">
+      <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Cabang</mat-label>
+        <mat-select matInput formControlName="organization_id" name="organization_id" required type="text">
+          <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+	  
+      <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
+        Cabang harus diisi!
+      </div>
+    </div>
+    
+  
+    <!-- Jika Ranting terpilih -->
+    <div *ngIf="f.organization_type.value?.trim() == 'ranting'">
+      <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Ranting</mat-label>
+        <mat-select matInput formControlName="organization_id" name="organization_id" required type="text">
+          <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+	  
+      <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
+        Ranting harus diisi!
+      </div>
+    </div>
+
+    <mat-label>Notulen rapat <span class="text-merah-16 ml-10">*</span></mat-label>
+    <quill-editor formControlName="notulen" name="notulen" [required]="true" [modules]="modules" placeholder="Deskripsi">
+      <div quill-editor-toolbar>
+        <span class="ql-formats">
+          <select class="ql-align" [title]="'Aligment'">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-header">
+            <option value="1">Heading 1</option>
+            <option value="2">Heading 2</option>
+            <option value="3">Heading 3</option>
+            <option value="4">Heading 4</option>
+            <option value="5">Heading 5</option>
+            <option value="6">Heading 6</option>
+            <option selected>Normal</option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold" [title]="'Bold'"></button>
+          <button class="ql-italic" [title]="'Italic'"></button>
+          <button class="ql-underline" [title]="'Underline'"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-image" [title]="'Image'"></button>
+        </span>
+  
+      </div>
+  
+      <div class="ql-container" style="border-width: 0;">
+        <div class="ql-editor" [innerHTML]="byPassedHTMLString">
+        </div>
+      </div>
+    </quill-editor>
+
+    <mat-form-field class="mat-form-field-upload">
+      <div>
+        <mat-progress-bar *ngIf="progressUpload" mode="indeterminate"></mat-progress-bar>
+        <br>
+        <div class="uk-flex">
+          <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
+          <!-- Display files names -->
+          <input matInput [(ngModel)]="fileAttr" readonly name="name" [ngModelOptions]="{standalone: true}"/>
+        <!-- Fetch selected filed on change -->
+        <input
+          type="file"
+          #fileInput
+          id="uploadFile"
+          (change)="uploadFileEvt($event)"
+          name="uploadFile"
+          multiple="multiple"
+          accept="image/*"
+        />
+        </div>
+      </div>
+    </mat-form-field>
+    <p>*Pilih File PNG atau JPG dengan ukuran tidak lebih dari 2 MB</p>
+  
+    <!-- image preview setelah file terpilih -->
+    <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="dataNotulen.images" uk-grid>
+      <div *ngFor="let img of dataNotulen.images; let idx=index">
+        <div>
+          <div class="uk-card-default">
+              <div class="uk-card-media-top">
+                  <img src="{{img == undefined ? '../../../../assets/imgs/no-image.png':serverImg+img}}" alt="">
+              </div>
+              <div>
+                <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" (click)="removeImages(idx)">Hapus</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="images.length > 0" uk-grid>
+      <div *ngFor="let img of images; let idx=index">
+        <div>
+          <div class="uk-card-default">
+              <div class="uk-card-media-top">
+                  <img [src]="img" alt="">
+              </div>
+              <div>
+                <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" (click)="removeImagesLokal(idx)">Hapus</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div style="margin-top: 100px;"></div>  
+  </form>
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="uploadPhoto()" [disabled]="dateValue == null || timeValue == null" color="primary">Simpan</button>
+</mat-dialog-actions>
