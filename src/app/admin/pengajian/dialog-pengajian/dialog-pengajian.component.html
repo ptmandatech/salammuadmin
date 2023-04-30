@@ -74,7 +74,7 @@
         </mat-select>
       </mat-form-field> -->
 
-      <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-form-field class="uk-width-1-1" *ngIf="listCabangTemp.length > 0" appearance="fill">
         <mat-label>Pilih Cabang</mat-label>
         <input type="text"
                placeholder="Pilih salah satu"
@@ -104,7 +104,7 @@
         </mat-select>
       </mat-form-field> -->
 
-      <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-form-field class="uk-width-1-1" *ngIf="listRantingTemp.length > 0" appearance="fill">
           <mat-label>Pilih Ranting</mat-label>
           <input type="text"
                  placeholder="Pilih salah satu"

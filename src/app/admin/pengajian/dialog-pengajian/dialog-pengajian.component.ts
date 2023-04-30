@@ -87,7 +87,6 @@ export class DialogPengajianComponent implements OnInit {
       this.generateMap(undefined);
     } else {
       this.isCreated = false;
-      console.log(this.pengajianData)
       if(this.pengajianData.datetime != '0000-00-00 00:00:00.000000') {
         this.dateValue = this.datePipe.transform(new Date(this.pengajianData.datetime), 'MM/dd/yyyy');
         this.dateValue = new Date(this.dateValue);
@@ -110,6 +109,12 @@ export class DialogPengajianComponent implements OnInit {
           verified: this.pengajianData.verified,
           created_by: this.pengajianData.created_by,
         });
+
+        if(this.pengajianData.organizer == 'cabang') {
+          this.myControlCabang.setValue(this.pengajianData.branch);
+        } else if(this.pengajianData.organizer == 'ranting') {
+          this.myControlRanting.setValue(this.pengajianData.twig);
+        }
       }
     }
     Loading.remove();
@@ -341,7 +346,6 @@ export class DialogPengajianComponent implements OnInit {
         try {
           await this.api.get('sicara/getAllPCM?nama='+res).then(res=>{ 
             this.listCabang = res;
-            this.listCabangTemp = res;
             this.gettingCabang = false;
           }, err => {
             this.gettingCabang = false;
@@ -351,6 +355,10 @@ export class DialogPengajianComponent implements OnInit {
         }
       }
     })
+    this.api.get('sicara/getAllPCM').then(res=>{ 
+      this.listCabangTemp = res;
+    }, err => {
+    });
   }
 
   listRanting:any = [];
@@ -362,7 +370,6 @@ export class DialogPengajianComponent implements OnInit {
         try {
           await this.api.get('sicara/getAllPRM?nama='+res).then(res=>{ 
             this.listRanting = res;
-            this.listRantingTemp = res;
             this.gettingRanting = false;
           }, err => {
             this.gettingRanting = false;
@@ -372,23 +379,26 @@ export class DialogPengajianComponent implements OnInit {
         }
       }
     })
+
+    this.api.get('sicara/getAllPRM').then(res=>{ 
+      this.listRantingTemp = res;
+    }, err => {
+    });
   }
 
   getTitleCabang(cabangID: string) {
     if(cabangID) {
-      return this.listCabang.find((data:any) => data.id === cabangID).nama;
+      return this.listCabangTemp.find((data:any) => data.id === cabangID).nama;
     }
   }
 
   getTitleRanting(rantingID: string) {
     if(rantingID) {
-      return this.listRanting.find((data:any) => data.id === rantingID).nama;
+      return this.listRantingTemp.find((data:any) => data.id === rantingID).nama;
     }
   }
 
   selectEvent(val:any) {
-    console.log(val);
-    
     this.form.patchValue({
       branch: val
     })
