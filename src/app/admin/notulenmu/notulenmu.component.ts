@@ -50,7 +50,6 @@ export class NotulenmuComponent implements OnInit {
     this.cekLogin();
     this.getListCabang();
     this.getListRanting();
-    this.getAllNotulenmu();
   }
 
   listCabang:any = [];
@@ -118,6 +117,7 @@ export class NotulenmuComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+      this.getAllNotulenmu();
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
       localStorage.removeItem('salammuToken');
@@ -140,7 +140,7 @@ export class NotulenmuComponent implements OnInit {
           // Loading.remove();
         });
       } else {
-        this.api.get('notulenmu?cabang='+this.dataLogin.cabang_id+'&ranting='+this.dataLogin.ranting_id).then(res => {
+        this.api.get('notulenmu?cabang='+this.userData.cabang+'&ranting='+this.userData.ranting).then(res => {
           this.allNotulenmu = res;
           this.loading = false;
         }, error => {

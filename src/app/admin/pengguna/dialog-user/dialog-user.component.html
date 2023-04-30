@@ -33,6 +33,38 @@
             No HP harus diisi!
         </div>
 
+        <mat-form-field class="uk-width-1-1" *ngIf="listCabangTemp.length > 0" appearance="fill">
+          <mat-label>Pilih Cabang</mat-label>
+          <input type="text"
+                 placeholder="Pilih salah satu"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="myControlCabang"
+                 [matAutocomplete]="autoCabang">
+          <mat-autocomplete #autoCabang="matAutocomplete" [displayWith]="getTitleCabang.bind(this)"(optionSelected)="selectEvent($event.option.value)">
+            <mat-option *ngFor="let n of listCabang" [value]="n.id">
+              {{n.nama}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-hint style="font-style: italic;" *ngIf="gettingCabang">Mengambil data Cabang...</mat-hint>
+
+        <mat-form-field class="uk-width-1-1" *ngIf="listRantingTemp.length > 0" appearance="fill">
+            <mat-label>Pilih Ranting</mat-label>
+            <input type="text"
+                    placeholder="Pilih salah satu"
+                    aria-label="Number"
+                    matInput
+                    [formControl]="myControlRanting"
+                    [matAutocomplete]="autoRanting">
+            <mat-autocomplete #autoRanting="matAutocomplete" [displayWith]="getTitleRanting.bind(this)"(optionSelected)="selectEventRanting($event.option.value)">
+                <mat-option *ngFor="let n of listRanting" [value]="n.id">
+                {{n.nama}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-hint style="font-style: italic;" *ngIf="gettingRanting">Mengambil data Ranting...</mat-hint>
+
         <mat-form-field class="uk-width-1-1" appearance="fill">
             <mat-label>Hak Akses</mat-label>
             <mat-select required formControlName="role" name="role">

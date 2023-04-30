@@ -20,6 +20,8 @@ export class DialogUserComponent implements OnInit {
   id:any;
   imageNow:any = [];
   form!: FormGroup;
+  myControlCabang = new FormControl();
+  myControlRanting = new FormControl();
   constructor(
     public common: CommonService,
     private formBuilder: FormBuilder,
@@ -34,10 +36,14 @@ export class DialogUserComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       phone: [null, [Validators.required]],
       address: [null, [Validators.required]],
+      cabang: [null],
+      ranting: [null],
       role: [null, [Validators.required]],
     });
     this.serverImg = this.common.photoBaseUrl+'users/';
     this.usersData = sourceData.data;
+    this.getListCabang();
+    this.getListRanting();
     if(this.usersData == null) {
       this.usersData = {};
       this.isCreated = true;
@@ -46,14 +52,24 @@ export class DialogUserComponent implements OnInit {
       this.isCreated = false;
       this.id = this.usersData.id;
       if(this.usersData != null) {
+        
         this.form.patchValue({
           id: this.usersData.id,
           name: this.usersData.name,
           email: this.usersData.email,
           phone: this.usersData.phone,
           address: this.usersData.address,
+          cabang: this.usersData.cabang,
+          ranting: this.usersData.ranting,
           role: this.usersData.role,
         });
+
+        if(this.usersData.cabang) {
+          this.myControlCabang.setValue(this.usersData.cabang);
+        }
+        if(this.usersData.ranting) {
+          this.myControlRanting.setValue(this.usersData.ranting);
+        }
       }
     }
     Loading.remove();
@@ -83,6 +99,83 @@ export class DialogUserComponent implements OnInit {
     }, err => {
       Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
     });
+  }
+
+  listCabang:any = [];
+  listCabangTemp:any = [];
+  gettingCabang:boolean = true;
+  async getListCabang() {
+    this.myControlCabang.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPCM?nama='+res).then(res=>{ 
+            this.listCabang = res;
+            this.gettingCabang = false;
+          }, err => {
+            this.gettingCabang = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
+    this.api.get('sicara/getAllPCM').then(res=>{ 
+      this.listCabangTemp = res;
+      this.gettingCabang = false;
+    }, err => {
+      this.gettingCabang = false;
+    });
+  }
+
+  listRanting:any = [];
+  listRantingTemp:any = [];
+  gettingRanting:boolean = true;
+  async getListRanting() {
+    this.myControlRanting.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPRM?nama='+res).then(res=>{ 
+            this.listRanting = res;
+            this.gettingRanting = false;
+          }, err => {
+            this.gettingRanting = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
+
+    this.api.get('sicara/getAllPRM').then(res=>{ 
+      this.listRantingTemp = res;
+      this.gettingRanting = false;
+    }, err => {
+      this.gettingRanting = false;
+    });
+  }
+
+  getTitleCabang(cabangID: string) {
+    if(cabangID) {
+      return this.listCabangTemp.find((data:any) => data.id === cabangID).nama;
+    }
+  }
+
+  getTitleRanting(rantingID: string) {
+    if(rantingID) {
+      return this.listRantingTemp.find((data:any) => data.id === rantingID).nama;
+    }
+  }
+
+  selectEvent(val:any) {
+    this.form.patchValue({
+      cabang: val
+    })
+  }
+
+  selectEventRanting(val:any) {
+    this.form.patchValue({
+      ranting: val
+    })
   }
 
   save() {
