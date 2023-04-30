@@ -24,7 +24,7 @@
     <div class="uk-grid-column-small uk-grid-row-small uk-child-width-1-2@s" uk-grid>
       <mat-form-field appearance="fill">
         <mat-label>Tanggal Pengajian <span class="text-merah-16 ml-10">*</span></mat-label>
-        <input matInput [min]="minDate" [(ngModel)]="dateValue" readonly name="dateValue" [ngModelOptions]="{standalone: true}" [matDatepicker]="picker">
+        <input matInput [(ngModel)]="dateValue" readonly name="dateValue" [ngModelOptions]="{standalone: true}" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -46,6 +46,13 @@
     </div> -->
   
     <mat-form-field class="uk-width-1-1" appearance="fill">
+      <mat-label>Peserta Hadir</mat-label>
+      <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
+        <mat-option *ngFor="let n of ['Arvian', 'Fathu']" value="{{n}}">{{n}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Cabang dan ranting</mat-label>
       <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
         <mat-option *ngFor="let n of ['cabang', 'ranting']" value="{{n}}">{{n}}</mat-option>
@@ -53,16 +60,24 @@
     </mat-form-field>
 	  
     <div class="error-msg" *ngIf="form.controls.organization_type.hasError('required') && form.controls.organization_type.touched">
-      Penyelenggara harus diisi!
+      Cabang dan ranting harus diisi!
     </div>
   
     <!-- Jika Cabang terpilih -->
     <div *ngIf="f.organization_type.value?.trim() == 'cabang'">
-      <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>Cabang</mat-label>
-        <mat-select matInput formControlName="organization_id" name="organization_id" required type="text">
-          <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
-        </mat-select>
+      <mat-form-field class="uk-width-1-1" *ngIf="listCabangTemp.length > 0" appearance="fill">
+        <mat-label>Pilih Cabang</mat-label>
+        <input type="text"
+               placeholder="Pilih salah satu"
+               aria-label="Number"
+               matInput
+               [formControl]="myControlCabang"
+               [matAutocomplete]="autoCabang">
+        <mat-autocomplete #autoCabang="matAutocomplete" [displayWith]="getTitleCabang.bind(this)"(optionSelected)="selectEvent($event.option.value)">
+          <mat-option *ngFor="let n of listCabang" [value]="n.id">
+            {{n.nama}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 	  
       <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
@@ -73,13 +88,20 @@
   
     <!-- Jika Ranting terpilih -->
     <div *ngIf="f.organization_type.value?.trim() == 'ranting'">
-      <mat-form-field class="uk-width-1-1" appearance="fill">
-        <mat-label>Ranting</mat-label>
-        <mat-select matInput formControlName="organization_id" name="organization_id" required type="text">
-          <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
-        </mat-select>
+      <mat-form-field class="uk-width-1-1" *ngIf="listRantingTemp.length > 0" appearance="fill">
+          <mat-label>Pilih Ranting</mat-label>
+          <input type="text"
+                 placeholder="Pilih salah satu"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="myControlRanting"
+                 [matAutocomplete]="autoRanting">
+          <mat-autocomplete #autoRanting="matAutocomplete" [displayWith]="getTitleRanting.bind(this)"(optionSelected)="selectEvent($event.option.value)">
+            <mat-option *ngFor="let n of listRanting" [value]="n.id">
+              {{n.nama}}
+            </mat-option>
+          </mat-autocomplete>
       </mat-form-field>
-	  
       <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
         Ranting harus diisi!
       </div>
@@ -127,6 +149,9 @@
         </div>
       </div>
     </quill-editor>
+    <div class="error-msg" *ngIf="form.controls.notulen.hasError('required') && form.controls.notulen.touched">
+      Notulen rapat harus diisi!
+    </div>
 
     <mat-form-field class="mat-form-field-upload">
       <div>

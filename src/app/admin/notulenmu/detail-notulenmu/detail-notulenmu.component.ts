@@ -110,6 +110,8 @@ export class DetailNotulenmuComponent implements OnInit {
 
   listCabang:any = [];
   listRanting:any = [];
+  gettingCabang:boolean = true;
+  gettingRanting:boolean = true;
   async getAllCr() {
     // this.api.get('cr').then(res => {
     //   this.parseData(res);
@@ -118,6 +120,7 @@ export class DetailNotulenmuComponent implements OnInit {
       await this.api.get('sicara/getAllPCM').then(res=>{ 
         this.listCabang = res;
         this.listCabang = this.listCabang.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
+        this.gettingCabang = false;
       }, err => {
       });
     } catch {
@@ -127,6 +130,7 @@ export class DetailNotulenmuComponent implements OnInit {
       await this.api.get('sicara/getAllPRM').then(res=>{
         this.listRanting = res;
         this.listRanting = this.listRanting.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
+        this.gettingRanting = false;
       }, err => {
       });
     } catch {

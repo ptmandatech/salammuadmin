@@ -33,11 +33,12 @@ export class DialogNotulenmuComponent implements OnInit {
   timeValue:any;
   serverImg:any;
   today:any;
-  @ViewChild('mapElementRef', { static: true }) mapElementRef: ElementRef | undefined;
   form!: FormGroup;
   get f() { return this.form.controls; }
   minDate = new Date();
   imageNow:any = [];
+  myControlCabang = new FormControl();
+  myControlRanting = new FormControl();
   constructor(
     public http:HttpClient,
     public common: CommonService,
@@ -49,14 +50,15 @@ export class DialogNotulenmuComponent implements OnInit {
   ) {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'notulenmu/';
-    this.getAllCr();
+    this.getListCabang();
+    this.getListRanting();
     this.form = this.formBuilder.group({
       id: [null],
       title: [null, [Validators.required]],
       place: [null, [Validators.required]],
       notulen: [null, [Validators.required]],
       organization_type: [null, [Validators.required]],
-      organization_id: [null],
+      organization_id: [null, [Validators.required]],
       created_by: [null],
     });
     if(sourceData.data == null) {
@@ -76,6 +78,7 @@ export class DialogNotulenmuComponent implements OnInit {
       }
       
       if(this.dataNotulen != null) {
+        
         this.form.patchValue({
           id: this.dataNotulen.id,
           title: this.dataNotulen.title,
@@ -88,6 +91,12 @@ export class DialogNotulenmuComponent implements OnInit {
           verified: this.dataNotulen.verified,
           created_by: this.dataNotulen.created_by,
         });
+
+        if(this.dataNotulen.organization_type == 'cabang') {
+          this.myControlCabang.setValue(this.dataNotulen.organization_id);
+        } else {
+          this.myControlRanting.setValue(this.dataNotulen.organization_id);
+        }
       }
     }
     Loading.remove();
@@ -107,28 +116,69 @@ export class DialogNotulenmuComponent implements OnInit {
   }
 
   listCabang:any = [];
+  listCabangTemp:any = [];
+  gettingCabang:boolean = true;
+  async getListCabang() {
+    this.myControlCabang.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPCM?nama='+res).then(res=>{ 
+            this.listCabang = res;
+            this.gettingCabang = false;
+          }, err => {
+            this.gettingCabang = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
+    this.api.get('sicara/getAllPCM').then(res=>{ 
+      this.listCabangTemp = res;
+    }, err => {
+    });
+  }
+
   listRanting:any = [];
-  async getAllCr() {
-    // this.api.get('cr').then(res => {
-    //   this.parseData(res);
-    // })
-    try {
-      await this.api.get('sicara/getAllPCM').then(res=>{ 
-        this.listCabang = res;
-        this.listCabang = this.listCabang.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
-      }, err => {
-      });
-    } catch {
+  listRantingTemp:any = [];
+  gettingRanting:boolean = true;
+  async getListRanting() {
+    this.myControlRanting.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPRM?nama='+res).then(res=>{ 
+            this.listRanting = res;
+            this.gettingRanting = false;
+          }, err => {
+            this.gettingRanting = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
 
+    this.api.get('sicara/getAllPRM').then(res=>{ 
+      this.listRantingTemp = res;
+    }, err => {
+    });
+  }
+
+  selectEvent(val:any) {
+    this.form.patchValue({
+      organization_id: val
+    })
+  }
+
+  getTitleCabang(cabangID: string) {
+    if(cabangID) {
+      return this.listCabangTemp.find((data:any) => data.id === cabangID).nama;
     }
-    try {
-      await this.api.get('sicara/getAllPRM').then(res=>{
-        this.listRanting = res;
-        this.listRanting = this.listRanting.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
-      }, err => {
-      });
-    } catch {
+  }
 
+  getTitleRanting(rantingID: string) {
+    if(rantingID) {
+      return this.listRantingTemp.find((data:any) => data.id === rantingID).nama;
     }
   }
 

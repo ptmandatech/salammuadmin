@@ -52,6 +52,8 @@ export class DialogPengajianComponent implements OnInit {
   form!: FormGroup;
   get f() { return this.form.controls; }
   minDate = new Date();
+  myControlCabang = new FormControl();
+  myControlRanting = new FormControl();
   constructor(
     public http:HttpClient,
     public common: CommonService,
@@ -62,7 +64,8 @@ export class DialogPengajianComponent implements OnInit {
     private api: ApiService
   ) {
     Loading.pulse();
-    this.getAllCr();
+    this.getListCabang();
+    this.getListRanting();
     this.form = this.formBuilder.group({
       id: [null],
       name: [null, [Validators.required]],
@@ -330,45 +333,71 @@ export class DialogPengajianComponent implements OnInit {
   }
 
   listCabang:any = [];
+  listCabangTemp:any = [];
+  gettingCabang:boolean = true;
+  async getListCabang() {
+    this.myControlCabang.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPCM?nama='+res).then(res=>{ 
+            this.listCabang = res;
+            this.listCabangTemp = res;
+            this.gettingCabang = false;
+          }, err => {
+            this.gettingCabang = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
+  }
+
   listRanting:any = [];
-  async getAllCr() {
-    // this.api.get('cr').then(res => {
-    //   this.parseData(res);
-    // })
-    try {
-      await this.api.get('sicara/getAllPCM').then(res=>{ 
-        this.listCabang = res;
-        this.listCabang = this.listCabang.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
-      }, err => {
-      });
-    } catch {
+  listRantingTemp:any = [];
+  gettingRanting:boolean = true;
+  async getListRanting() {
+    this.myControlRanting.valueChanges.subscribe(async res => {
+      if(res.length >= 3) {
+        try {
+          await this.api.get('sicara/getAllPRM?nama='+res).then(res=>{ 
+            this.listRanting = res;
+            this.listRantingTemp = res;
+            this.gettingRanting = false;
+          }, err => {
+            this.gettingRanting = false;
+          });
+        } catch {
+    
+        }
+      }
+    })
+  }
 
-    }
-    try {
-      await this.api.get('sicara/getAllPRM').then(res=>{
-        this.listRanting = res;
-        this.listRanting = this.listRanting.sort((a:any,b:any) => a.nama < b.nama ? -1:1)
-      }, err => {
-      });
-    } catch {
-
+  getTitleCabang(cabangID: string) {
+    if(cabangID) {
+      return this.listCabang.find((data:any) => data.id === cabangID).nama;
     }
   }
 
-  parseData(res:any) {
-    for(var i=0; i<res.length; i++) {
-      if(res[i].category == 'cabang') {
-        let idx = this.listCabang.indexOf(res[i]);
-        if(idx == -1) {
-          this.listCabang.push(res[i]);
-        }
-      } else if(res[i].category == 'ranting') {
-        let idx = this.listRanting.indexOf(res[i]);
-        if(idx == -1) {
-          this.listRanting.push(res[i]);
-        }
-      }
+  getTitleRanting(rantingID: string) {
+    if(rantingID) {
+      return this.listRanting.find((data:any) => data.id === rantingID).nama;
     }
+  }
+
+  selectEvent(val:any) {
+    console.log(val);
+    
+    this.form.patchValue({
+      branch: val
+    })
+  }
+
+  selectEventRanting(val:any) {
+    this.form.patchValue({
+      twig: val
+    })
   }
 
   urlRegEx = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";

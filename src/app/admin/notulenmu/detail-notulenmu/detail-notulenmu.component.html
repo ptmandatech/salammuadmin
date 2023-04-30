@@ -55,6 +55,9 @@
           <mat-option *ngFor="let n of listCabang" value="{{n.id}}">{{n.nama}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="error-msg" style="margin-top: -10px;">
+        <mat-hint style="font-style: italic;" *ngIf="gettingCabang">Mengambil data Cabang...</mat-hint>
+      </div>
 	  
       <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
         Cabang harus diisi!
@@ -70,6 +73,9 @@
           <mat-option *ngFor="let n of listRanting" value="{{n.id}}">{{n.nama}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="error-msg" style="margin-top: -10px;">
+        <mat-hint style="font-style: italic;" *ngIf="gettingRanting">Mengambil data Ranting...</mat-hint>
+      </div>
 	  
       <div class="error-msg" *ngIf="form.controls.organization_id.hasError('required') && form.controls.organization_id.touched">
         Ranting harus diisi!

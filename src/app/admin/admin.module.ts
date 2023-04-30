@@ -57,6 +57,9 @@ import { SyncSicaraComponent } from './sicara/sync-sicara/sync-sicara.component'
 import { NotulenmuComponent } from './notulenmu/notulenmu.component';
 import { DialogNotulenmuComponent } from './notulenmu/dialog-notulenmu/dialog-notulenmu.component';
 import { DetailNotulenmuComponent } from './notulenmu/detail-notulenmu/detail-notulenmu.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatFormFieldModule } from "@angular/material/form-field";
+
 const routes: Routes = [
   {
     path: '',
@@ -243,7 +246,9 @@ const routes: Routes = [
     RouterModule,
     MatTimepickerModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgSelectModule,
+    MatFormFieldModule
   ],
   entryComponents: [
     DashboardComponent,
