@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Cari Anggota</h1>
+
+<div mat-dialog-content>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Pencarian</mat-label>
+        <input matInput placeholder="Masukkan kata kunci" name="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-selection-list class="uk-width-1-1" appearance="fill">
+        <mat-list-option *ngFor="let shoe of [1,2,3,4,5,6]">
+            Nama Anggota
+        </mat-list-option>
+    </mat-selection-list>
+
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button color="primary">Simpan</button>
+</mat-dialog-actions>

@@ -59,6 +59,7 @@ import { DialogNotulenmuComponent } from './notulenmu/dialog-notulenmu/dialog-no
 import { DetailNotulenmuComponent } from './notulenmu/detail-notulenmu/detail-notulenmu.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { DetailPesertaComponent } from './notulenmu/detail-peserta/detail-peserta.component';
 
 const routes: Routes = [
   {
@@ -237,6 +238,7 @@ const routes: Routes = [
     NotulenmuComponent,
     DialogNotulenmuComponent,
     DetailNotulenmuComponent,
+    DetailPesertaComponent,
   ],
   imports: [
     CommonModule,

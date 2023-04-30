@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import * as Notiflix from 'notiflix';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -10,6 +10,7 @@ import Quill from 'quill';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DetailPesertaComponent } from '../detail-peserta/detail-peserta.component';
 
 Quill.register('modules/imageHandler', ImageHandler);
 Quill.register('modules/videoHandler', VideoHandler);
@@ -45,6 +46,7 @@ export class DialogNotulenmuComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogNotulenmuComponent>,
     private datePipe: DatePipe,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public sourceData: any,
     private api: ApiService
   ) {
@@ -393,6 +395,16 @@ export class DialogNotulenmuComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+
+  //Dialog tambah/edit peserta
+  peserta(): void {
+    const dialogRef = this.dialog.open(DetailPesertaComponent, {
+      width: '650px',
+      disableClose: true,
+    });
+    
   }
 
 

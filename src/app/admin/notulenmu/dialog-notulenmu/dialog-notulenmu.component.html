@@ -45,15 +45,45 @@
       </div>
     </div> -->
   
-    <mat-form-field class="uk-width-1-1" appearance="fill">
+    <!-- <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Peserta Hadir</mat-label>
       <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
         <mat-option *ngFor="let n of ['Arvian', 'Fathu']" value="{{n}}">{{n}}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
+
+    <div class="peserta">
+      <div class="uk-flex-middle" uk-grid >
+        <div class="uk-width-1-4">
+          <span class="uk-margin-left"> 12 Hadir </span>
+        </div>
+        <div class="uk-width-3-4" style="text-align:right;">
+          <!-- Tombol detail hanya muncul saat klik dari button detail di list -->
+          <button mat-flat-button class="uk-margin-right">Detail Peserta</button>
+          <!-- Tombol tambah kehadiran dan peserta baru hanya muncul saat klik tambah notulen dan edit -->
+          <button mat-flat-button color="primary" class="uk-margin-right" (click)="peserta()">Tambah kehadiran</button>
+          <button mat-flat-button color="accent" class="uk-margin-right">Peserta baru</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form ini hanya muncul jika klik button peserta baru -->
+    <div class="uk-flex-middle" uk-grid >
+      <div class="uk-width-5-6">
+        <mat-form-field class="uk-width-1-1" appearance="fill">
+          <mat-label>Nama Peserta</mat-label>
+          <input matInput formControlName="title" type="text" maxlength="255" name="title" required type="text">
+        </mat-form-field>
+      </div>
+      <div class="uk-width-1-6">
+        <button mat-icon-button color="warn" aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
   
     <mat-form-field class="uk-width-1-1" appearance="fill">
-      <mat-label>Cabang dan ranting</mat-label>
+      <mat-label>Pilih Penyelenggara</mat-label>
       <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
         <mat-option *ngFor="let n of ['cabang', 'ranting']" value="{{n}}">{{n}}</mat-option>
       </mat-select>
