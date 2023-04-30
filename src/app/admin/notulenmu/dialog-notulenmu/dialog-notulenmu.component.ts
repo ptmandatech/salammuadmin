@@ -66,6 +66,8 @@ export class DialogNotulenmuComponent implements OnInit {
     if(sourceData.data == null) {
       this.dataNotulen = {};
       this.isCreated = true;
+      this.dataNotulen.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
+      this.dataNotulen.notulenmu_participants = [];
     } else {
       this.dataNotulen = sourceData.data;
       this.isCreated = false;
@@ -114,6 +116,9 @@ export class DialogNotulenmuComponent implements OnInit {
   {    
     this.api.me().then(res=>{
       this.userData = res;
+      if(this.isCreated) {
+        this.dataNotulen.created_by = this.userData.id;
+      }
     });
   }
 
@@ -226,8 +231,6 @@ export class DialogNotulenmuComponent implements OnInit {
           this.dataNotulen.datetime = new Date(this.dataNotulen.datetime);
 
           if(this.isCreated == true) {
-            this.dataNotulen.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
-            this.dataNotulen.created_by = this.userData.id;
             this.api.post('notulenmu', this.dataNotulen).then(res => {
               if(res) {
                 Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
@@ -386,6 +389,37 @@ export class DialogNotulenmuComponent implements OnInit {
     })
   }
 
+  showFormTambahPeserta:boolean = false;
+  namaPeserta = '';
+  tambahPeserta() {
+    this.showFormTambahPeserta == true ? this.showFormTambahPeserta = false:this.showFormTambahPeserta = true;
+  }
+
+  batalTambahPeserta() {
+    this.showFormTambahPeserta = false;
+    this.namaPeserta = '';
+  }
+
+  simpanPeserta() {
+    let dt = {
+      id: new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))],
+      user_id: 'm_'+new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))],
+      user_name: this.namaPeserta,
+      notulenmu_id: this.dataNotulen.id,
+      created_by: this.dataNotulen.created_by,
+    }
+    this.dataNotulen.notulenmu_participants.push(dt);
+    
+    this.api.post('notulenmu/participants', this.dataNotulen.notulenmu_participants).then(res => {
+      if(res) {
+        Notiflix.Notify.success('Berhasil menambahkan data peserta.',{ timeout: 2000 });
+      }
+    });
+
+    this.showFormTambahPeserta = false;
+    this.namaPeserta = '';
+  }
+
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
@@ -397,14 +431,22 @@ export class DialogNotulenmuComponent implements OnInit {
     });
   }
 
-
   //Dialog tambah/edit peserta
   peserta(): void {
     const dialogRef = this.dialog.open(DetailPesertaComponent, {
       width: '650px',
+      data: {
+        data: this.dataNotulen,
+        action: this.isCreated ? 'add':'update'
+      },
       disableClose: true,
     });
-    
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.dataNotulen.notulenmu_participants = result;
+      }
+    });
   }
 
 

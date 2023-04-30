@@ -35,6 +35,18 @@
         <mat-icon matSuffix>alarm</mat-icon>
       </mat-form-field>
     </div>
+
+    <div class="peserta">
+      <div class="uk-flex-middle" uk-grid >
+        <div class="uk-width-1-4">
+          <span class="uk-margin-left"> {{dataNotulen.notulenmu_participants == null ? 0:dataNotulen.notulenmu_participants.length}} Hadir </span>
+        </div>
+        <div class="uk-width-3-4" style="text-align:right;">
+          <!-- Tombol detail hanya muncul saat klik dari button detail di list -->
+          <button mat-flat-button class="uk-margin-right" (click)="peserta()">Detail Peserta</button>
+        </div>
+      </div>
+    </div>
   
     <mat-form-field class="uk-width-1-1" appearance="fill">
       <mat-label>Cabang dan ranting</mat-label>
@@ -83,8 +95,8 @@
     </div>
 
     <mat-label>Notulen rapat <span class="text-merah-16 ml-10">*</span></mat-label>
-    <quill-editor formControlName="notulen" name="notulen" [disabled]="true" [modules]="modules" placeholder="Deskripsi">
-      <div quill-editor-toolbar>
+    <quill-editor formControlName="notulen" name="notulen" [disabled]="true" [modules]= "{ toolbar: false }" placeholder="Deskripsi">
+      <!-- <div quill-editor-toolbar>
         <span class="ql-formats">
           <select class="ql-align" [title]="'Aligment'">
             <option selected></option>
@@ -117,7 +129,7 @@
           <button class="ql-image" [title]="'Image'"></button>
         </span>
   
-      </div>
+      </div> -->
   
       <div class="ql-container" style="border-width: 0;">
         <div class="ql-editor" [innerHTML]="byPassedHTMLString">
@@ -125,27 +137,6 @@
       </div>
     </quill-editor>
 
-    <!-- <mat-form-field class="mat-form-field-upload">
-      <div>
-        <mat-progress-bar *ngIf="progressUpload" mode="indeterminate"></mat-progress-bar>
-        <br>
-        <div class="uk-flex">
-          <button mat-stroked-button color="primary" class="uk-margin-right">Pilih File</button>
-          <input matInput [(ngModel)]="fileAttr" readonly name="name" [ngModelOptions]="{standalone: true}"/>
-        <input
-          type="file"
-          #fileInput
-          id="uploadFile"
-          (change)="uploadFileEvt($event)"
-          name="uploadFile"
-          multiple="multiple"
-          accept="image/*"
-        />
-        </div>
-      </div>
-    </mat-form-field>
-    <p>*Pilih File PNG atau JPG dengan ukuran tidak lebih dari 2 MB</p> -->
-  
     <div style="margin-top: 20px;"></div>  
     <!-- image preview setelah file terpilih -->
     <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="dataNotulen.images" uk-grid>
@@ -162,22 +153,6 @@
         </div>
       </div>
     </div>
-    
-    <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" *ngIf="images.length > 0" uk-grid>
-      <div *ngFor="let img of images; let idx=index">
-        <div>
-          <div class="uk-card-default">
-              <div class="uk-card-media-top">
-                  <img [src]="img" alt="">
-              </div>
-              <!-- <div>
-                <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" (click)="removeImagesLokal(idx)">Hapus</button>
-              </div> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  
     <div style="margin-top: 100px;"></div>  
   </form>
 

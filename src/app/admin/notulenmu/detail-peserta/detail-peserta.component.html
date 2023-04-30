@@ -1,23 +1,45 @@
-<h1 mat-dialog-title>Cari Anggota</h1>
+<h1 mat-dialog-title>{{action == 'view' ? 'Detail':'Cari'}} Anggota</h1>
 
 <div mat-dialog-content>
 
-    <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="action != 'view'">
         <mat-label>Pencarian</mat-label>
-        <input matInput placeholder="Masukkan kata kunci" name="searchText">
+        <input matInput placeholder="Masukkan kata kunci" [(ngModel)]="searchText" name="searchText">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
-    <mat-selection-list class="uk-width-1-1" appearance="fill">
-        <mat-list-option *ngFor="let shoe of [1,2,3,4,5,6]">
-            Nama Anggota
-        </mat-list-option>
-    </mat-selection-list>
+    <form [formGroup]="userForm">
+        <mat-selection-list class="uk-width-1-1" appearance="fill" formControlName="selectedUsers" *ngIf="action != 'view'">
+            <mat-list-option *ngFor="let n of listUsers | filter:searchText" [selected]="n.checked" [value]="n">
+                <div style="display:flex; justify-content:space-between;align-items:center">
+                    <div style="display:flex; align-items:center">
+                        <img class="uk-preserve-width uk-border-circle" src="{{n.image == null ? '../../../assets/imgs/user.svg':(serverImg+n.image)}}" width="40" height="40" alt="">
+                        <div style="display:flex; flex-direction:column; margin-left: 10px; margin-top: 20px;">
+                            <h3 matLine>{{n.name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </mat-list-option>
+        </mat-selection-list>
 
+        <!-- IF VIEW MODE -->
+        <mat-selection-list class="uk-width-1-1" appearance="fill" formControlName="selectedUsers" *ngIf="action == 'view'">
+            <mat-list-option *ngFor="let n of dataNotulen.notulenmu_participants | filter:searchText" [selected]="n.checked" [value]="n">
+                <div style="display:flex; justify-content:space-between;align-items:center">
+                    <div style="display:flex; align-items:center">
+                        <img class="uk-preserve-width uk-border-circle" src="{{n.user_image == null ? '../../../assets/imgs/user.svg':(serverImg+n.user_image)}}" width="40" height="40" alt="">
+                        <div style="display:flex; flex-direction:column; margin-left: 10px; margin-top: 20px;">
+                            <h3 matLine>{{n.user_name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </mat-list-option>
+        </mat-selection-list>
+    </form>
 
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button color="primary">Simpan</button>
+  <button mat-button mat-dialog-close>{{action == 'view' ? 'Tutup':'Batal'}}</button>
+  <button mat-flat-button color="primary" *ngIf="action != 'view'" (click)="simpanPeserta()">Simpan</button>
 </mat-dialog-actions>
