@@ -83,8 +83,15 @@
       </div>
     </div>
   
-    <mat-form-field class="uk-width-1-1" appearance="fill">
-      <mat-label>Pilih Penyelenggara</mat-label>
+    <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="dataLogin.role != 'superadmin'">
+      <mat-label>Cabang dan ranting</mat-label>
+      <mat-select matInput [(ngModel)]="selectedCR" [ngModelOptions]="{standalone: true}" (ngModelChange)="selectCR()" type="text">
+        <mat-option *ngFor="let n of pilihanCR" value="{{n.id}}">{{n.nama}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field class="uk-width-1-1" appearance="fill" *ngIf="dataLogin.role == 'superadmin'">
+      <mat-label>Cabang dan ranting</mat-label>
       <mat-select matInput formControlName="organization_type" name="organization_type" required type="text">
         <mat-option *ngFor="let n of ['cabang', 'ranting']" value="{{n}}">{{n}}</mat-option>
       </mat-select>
@@ -95,7 +102,7 @@
     </div>
   
     <!-- Jika Cabang terpilih -->
-    <div *ngIf="f.organization_type.value?.trim() == 'cabang'">
+    <div *ngIf="f.organization_type.value?.trim() == 'cabang' && dataLogin.role == 'superadmin'">
       <mat-form-field class="uk-width-1-1" *ngIf="listCabangTemp.length > 0" appearance="fill">
         <mat-label>Pilih Cabang</mat-label>
         <input type="text"
@@ -118,7 +125,7 @@
     
   
     <!-- Jika Ranting terpilih -->
-    <div *ngIf="f.organization_type.value?.trim() == 'ranting'">
+    <div *ngIf="f.organization_type.value?.trim() == 'ranting' && dataLogin.role == 'superadmin'">
       <mat-form-field class="uk-width-1-1" *ngIf="listRantingTemp.length > 0" appearance="fill">
           <mat-label>Pilih Ranting</mat-label>
           <input type="text"

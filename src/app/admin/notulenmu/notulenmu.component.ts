@@ -32,12 +32,14 @@ export class NotulenmuComponent implements OnInit {
   ) { 
   }
 
+  dataLogin:any = {};
   serverImg:any;
   pageTitle:any;
   loading:boolean = false;
   ngOnInit(): void {
     this.loading = true;
     // Loading.pulse();
+    this.dataLogin = JSON.parse(localStorage.getItem('salammuToken'));
     this.serverImg = this.common.photoBaseUrl+'notulenmu/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -126,18 +128,26 @@ export class NotulenmuComponent implements OnInit {
   allNotulenmu:any = [];
   getAllNotulenmu() {
     this.allNotulenmu = [];
-    this.api.get('notulenmu').then(res=>{
-      this.allNotulenmu = res;
-      this.allNotulenmu.forEach((e:any) => {
-        e.checked = false;
-      });
-      this.loading = false;
-      // Loading.remove();
-    }, err => {
-      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
-      this.loading = false;
-      // Loading.remove();
-    });
+    if(this.dataLogin) {
+      if(this.dataLogin.role == 'superadmin') {
+        this.api.get('notulenmu').then(res=>{
+          this.allNotulenmu = res;
+          this.loading = false;
+          // Loading.remove();
+        }, err => {
+          Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+          this.loading = false;
+          // Loading.remove();
+        });
+      } else {
+        this.api.get('notulenmu?cabang='+this.dataLogin.cabang_id+'&ranting='+this.dataLogin.ranting_id).then(res => {
+          this.allNotulenmu = res;
+          this.loading = false;
+        }, error => {
+          this.loading = false;
+        })
+      }
+    }
   }
 
   //Dialog tambah/edit Cabang Ranting

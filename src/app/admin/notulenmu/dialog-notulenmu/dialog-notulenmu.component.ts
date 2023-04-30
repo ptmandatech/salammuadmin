@@ -29,6 +29,7 @@ export class DialogNotulenmuComponent implements OnInit {
   ]
 
   dataNotulen: any = {};
+  dataLogin: any = {};
   isCreated:boolean;
   dateValue:any;
   timeValue:any;
@@ -52,6 +53,7 @@ export class DialogNotulenmuComponent implements OnInit {
   ) {
     Loading.pulse();
     this.serverImg = this.common.photoBaseUrl+'notulenmu/';
+    this.dataLogin = JSON.parse(localStorage.getItem('salammuToken'));
     this.getListCabang();
     this.getListRanting();
     this.form = this.formBuilder.group({
@@ -101,6 +103,18 @@ export class DialogNotulenmuComponent implements OnInit {
         } else {
           this.myControlRanting.setValue(this.dataNotulen.organization_id);
         }
+
+        if(this.dataLogin.role != 'superadmin') {
+          if(this.dataNotulen.organization_type == 'cabang') {
+            this.selectedCR = this.dataLogin.cabang_id;
+            this.selectCR();
+          }
+
+          if(this.dataNotulen.organization_type == 'ranting') {
+            this.selectedCR = this.dataLogin.ranting_id;
+            this.selectCR();
+          }
+        }
       }
     }
     Loading.remove();
@@ -114,12 +128,53 @@ export class DialogNotulenmuComponent implements OnInit {
   userData:any;
   cekLogin()
   {    
+    if(this.dataLogin.cabang_nama) {
+      let dt = {
+        id: this.dataLogin.cabang_id,
+        nama: this.dataLogin.cabang_nama,
+        type: 'cabang'
+      }
+      this.pilihanCR.push(dt);
+    }
+    if(this.dataLogin.ranting_nama) {
+      let dt = {
+        id: this.dataLogin.ranting_id,
+        nama: this.dataLogin.ranting_nama,
+        type: 'ranting'
+      }
+      this.pilihanCR.push(dt);
+    }
+
     this.api.me().then(res=>{
       this.userData = res;
       if(this.isCreated) {
         this.dataNotulen.created_by = this.userData.id;
       }
     });
+  }
+
+  pilihanCR:any = [];
+  selectedCR = '';
+  selectCR() {
+    let idx = this.pilihanCR.findIndex((e:any) => e.id === this.selectedCR);
+    if(idx != -1) {
+      let data = this.pilihanCR[idx];
+      if(data.type == 'cabang') {
+        this.dataNotulen.organization_id = data.id;
+        this.dataNotulen.organization_type = 'cabang';
+        this.form.patchValue({
+          organization_id: data.id,
+          organization_type: 'cabang'
+        })
+      } else {
+        this.dataNotulen.organization_id = data.id;
+        this.dataNotulen.organization_type = 'ranting';
+        this.form.patchValue({
+          organization_id: data.id,
+          organization_type: 'ranting'
+        })
+      }
+    }
   }
 
   listCabang:any = [];
@@ -210,7 +265,13 @@ export class DialogNotulenmuComponent implements OnInit {
       this.validateAllFormFields(this.form);
     }
     else {
-      this.dataNotulen = this.form.value;
+      this.dataNotulen.title = this.form.get('title').value;
+      this.dataNotulen.place = this.form.get('place').value;
+      this.dataNotulen.notulen = this.form.get('notulen').value;
+      this.dataNotulen.organization_type = this.form.get('organization_type').value;
+      this.dataNotulen.organization_id = this.form.get('organization_id').value;
+      this.dataNotulen.notulen = this.form.get('notulen').value;
+
       this.dataNotulen.images = JSON.stringify(this.imgUploaded);
       if(this.images.length > 0) {
         this.imgUploaded = this.imgUploaded.concat(this.imageNow);
@@ -223,6 +284,9 @@ export class DialogNotulenmuComponent implements OnInit {
       this.timeValue = this.datePipe.transform(new Date(this.timeValue), 'HH:mm');
       let hours = this.timeValue.split(':')[0];
       let minutes = this.timeValue.split(':')[1];
+
+      delete this.dataNotulen.notulenmu_participants;
+
       if(this.dateValue != undefined) {
         if(hours > 24) {
           Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
