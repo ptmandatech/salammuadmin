@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,9 @@ import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import { ResetComponent } from './auth/reset/reset.component';
-
+import localeId from '@angular/common/locales/id';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeId, 'id');
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { ResetComponent } from './auth/reset/reset.component';
     MatTimepickerModule,
   ],
   providers: [
-    DatePipe
+    DatePipe,
+    {provide: LOCALE_ID, useValue: "id-ID" }
   ],
   bootstrap: [AppComponent]
 })

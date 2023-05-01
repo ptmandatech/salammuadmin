@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Detail Notifikasi</h1>
+
+<div mat-dialog-content>
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Judul</mat-label>
+    <input matInput [(ngModel)]="dataNotif.title" #title="ngModel" required type="text">
+  </mat-form-field>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="simpan()" [disabled]="title.invalid" color="primary">Simpan</button>
+</mat-dialog-actions>

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Notifikasi Manual</h1>
+
+<div mat-dialog-content>
+  <mat-form-field class="uk-width-1-1" appearance="fill">
+    <mat-label>Masukkan Pesan</mat-label>
+    <textarea matInput [(ngModel)]="dataPesan.pesan" #pesan="ngModel" required></textarea>
+  </mat-form-field>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="kirim()" [disabled]="pesan.invalid" color="primary">Simpan</button>
+</mat-dialog-actions>

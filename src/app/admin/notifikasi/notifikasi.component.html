@@ -1,0 +1,63 @@
+<div style="margin: 16px">
+
+    <div class="border-card">
+      <div style="margin: 16px">
+        <div class="uk-flex-middle" uk-grid >
+          <div class="uk-width-1-4">
+            <div style="display: flex;">
+              <h1 style="margin-bottom: 0;">Notifikasi</h1>
+            </div>
+          </div>
+          <div class="uk-width-3-4" style="text-align:right;">
+            <button mat-flat-button class="tambah uk-margin-right" (click)="openDialogManual()">Notifikasi Manual</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+              <tr>
+                  <th>Judul</th>
+                  <th>Terakhir Eksekusi</th>
+                  <th>Eksekusi Selanjutnya</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of listCronjobs | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let idx=index">
+                <td>
+                    {{n.title}} 
+                    <br>
+                    <a style="color: #c33d1b" href="{{n.url}}">{{n.url}}</a>
+                </td>
+                <td>{{n.lastExecutionFormated}}</td>
+                <td>{{n.nextExecutionFormated}}</td>
+              
+                <td class="uk-table-shrink uk-text-nowrap">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openDialog(n)">
+                            <mat-icon>visibility</mat-icon>
+                            <span>Detail Notifikasi</span>
+                        </button>
+                    </mat-menu>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+  
+      <hr>
+  
+      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+      </div>
+    </div>
+  
+  </div>
+  

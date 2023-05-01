@@ -60,6 +60,9 @@ import { DetailNotulenmuComponent } from './notulenmu/detail-notulenmu/detail-no
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { DetailPesertaComponent } from './notulenmu/detail-peserta/detail-peserta.component';
+import { NotifikasiComponent } from './notifikasi/notifikasi.component';
+import { NotifmanualComponent } from './notifikasi/notifmanual/notifmanual.component';
+import { DialogNotifikasiComponent } from './notifikasi/dialog-notifikasi/dialog-notifikasi.component';
 
 const routes: Routes = [
   {
@@ -175,6 +178,11 @@ const routes: Routes = [
         path: 'notulenmu',
         component: NotulenmuComponent,
         data: {title: 'NotulenMU'}
+      },
+      {
+        path: 'notifikasi',
+        component: NotifikasiComponent,
+        data: {title: 'Notifikasi'}
       }
     ]
   },
@@ -239,6 +247,9 @@ const routes: Routes = [
     DialogNotulenmuComponent,
     DetailNotulenmuComponent,
     DetailPesertaComponent,
+    NotifikasiComponent,
+    NotifmanualComponent,
+    DialogNotifikasiComponent,
   ],
   imports: [
     CommonModule,
