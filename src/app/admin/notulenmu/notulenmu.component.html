@@ -76,7 +76,7 @@
               <td>{{n.organization_nama}}</td>
               <td>{{n.created_at | date:'dd/MM/yyyy'}}</td>
               <td>{{n.user_name}}</td>
-              <td class="uk-table-shrink uk-text-nowrap">
+              <!-- <td class="uk-table-shrink uk-text-nowrap">
                 <button mat-mini-fab (click)="openDetail(n)">
                   <mat-icon>visibility</mat-icon>
                 </button>
@@ -86,6 +86,30 @@
                 <button mat-mini-fab color="warn" (click)="delete(n)">
                   <mat-icon>delete</mat-icon>
                 </button>
+              </td> -->
+              
+              <td class="uk-table-shrink uk-text-nowrap">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openDetail(n)">
+                      <mat-icon>visibility</mat-icon>
+                      <span>Detail NotulenMU</span>
+                    </button>
+                    <button mat-menu-item (click)="export(n)">
+                      <mat-icon>download</mat-icon>
+                      <span>Download NotulenMU</span>
+                    </button>
+                    <button mat-menu-item (click)="openDialog(n)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Perbarui</span>
+                    </button>
+                    <button mat-menu-item (click)="delete(n)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Hapus</span>
+                    </button>
+                  </mat-menu>
               </td>
               </tr>
           </tbody>

@@ -11,6 +11,11 @@ import { DialogNotulenmuComponent } from './dialog-notulenmu/dialog-notulenmu.co
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DetailNotulenmuComponent } from './detail-notulenmu/detail-notulenmu.component';
+import { DatePipe } from '@angular/common';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+var htmlToPdfmake = require("html-to-pdfmake");
 
 @Component({
   selector: 'app-notulenmu',
@@ -29,6 +34,7 @@ export class NotulenmuComponent implements OnInit {
     public common: CommonService,
     public routes: ActivatedRoute,
     public dialog: MatDialog,
+    public datePipe: DatePipe,
   ) { 
   }
 
@@ -232,6 +238,7 @@ export class NotulenmuComponent implements OnInit {
     checkData.length > 0 ? this.hasSelectedData = true : this.hasSelectedData = false;
   }
 
+  allData:any = {};
   hapusDataTerpilih() {
     let checkData = this.allNotulenmu.filter((e:any) => e.checked == true);
     if(checkData.length > 0) {
@@ -273,50 +280,143 @@ export class NotulenmuComponent implements OnInit {
     }
   }
 
-  allData:any = {};
-  verifikasiAll() {
-    let checkData = this.allNotulenmu.filter((e:any) => e.verified == 0 && e.checked == true);
-    if(checkData.length > 0) {
-      Swal.fire({
-        title: 'Anda yakin ingin melanjutkan verifikasi data ArtikelMU?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#2196F3',
-        cancelButtonColor: '#F44336',
-        confirmButtonText: 'Ya, Verifikasi!',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.loading = true;
-          // Loading.pulse();
-          checkData.forEach((e:any, idx:any) => {
-            e.verified = true;
-            e.images = JSON.stringify(e.images);
-            this.api.put('notulenmu/'+ e.id, e).then(res => {
-              if(res) {
-                if(idx+1 == checkData.length) {
-                  this.getAllNotulenmu();
-                  Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
-                  this.allNotulenmu.forEach((e:any) => {
-                    e.checked = false;
-                  });
-                  this.allData.checked = false;
-                  this.hasSelectedData = false;
-                }
-              }
-              this.loading = false;
-            }, err => {
-              this.loading = false;
-              // Loading.remove();
-            })
-          });
-        } else {
-          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
-        }
-      })
-    } else {
-      Notiflix.Notify.success('Data terpilih sudah di Verifikasi.',{ timeout: 2000 });
+  pdfObj:any;
+  async export(n:any)
+  {
+    Loading.pulse();
+    let participants = [];
+    let lampiran = [];
+    for(var i=0; i<n.notulenmu_participants.length; i++) {
+      var nama = n.notulenmu_participants[i].user_name;
+      var dt = [
+        {text: (i+1) + '. ' + nama, fontSize: 12, marginTop: 8, marginBottom: 8}
+      ]
+      participants.push(dt);
     }
+    
+    let images = JSON.parse(n.images);
+    for(var i=0; i<images.length; i++) {
+      var image = this.serverImg+images[i];
+      let dt = [
+        {
+          image: await this.getBase64ImageFromURL(image), 
+          fontSize: 12, 
+          marginTop: 8, 
+          marginBottom: 8,
+          alignment:'center'
+        }
+      ]
+      lampiran.push(dt);
+    }
+
+    var notulen = htmlToPdfmake(n.notulen);
+
+    const dd = {
+      content: [
+          {
+              text:n.title,
+              fontSize:14,
+              bold:true,
+              alignment:'center'
+          },
+          {
+              text: n.organization_nama,
+              fontSize:18,
+              bold:true,
+              alignment:'center',
+          },
+          {
+              text: this.datePipe.transform(new Date(n.datetime).toString(), 'EEEE, dd MMMM yyyy') + '. Jam '+this.datePipe.transform(new Date(n.datetime).toString(), 'H:mm')+'. Di '+n.place,
+              fontSize:12,
+              alignment:'center',
+              marginBottom:30
+          },
+          {
+            table: {
+              headerRows: 1,
+              widths: [ '*'],
+              body: [
+                [
+                  {
+                    bold: true,
+                    colSpan: 1,
+                    alignment:'center',
+                    fontSize: 12,
+                    text: "Peserta yang hadir"
+                  }
+                ],
+                [
+                  participants
+                ]
+              ]
+            },
+            marginBottom:10
+          },
+          {
+            text:'PEMBAHASAN',
+            fontSize:14,
+            bold:true,
+            alignment:'center',
+          },
+          [
+            notulen
+          ],
+          {
+            text:'LAMPIRAN',
+            fontSize:14,
+            bold:true,
+            alignment:'center',
+          },
+          [
+            lampiran
+          ],
+          {
+              text:'Dicetak melalui SalamMU Mobile pada '+this.datePipe.transform(new Date().toString(), 'dd MMMM yyyy H:mm:ss a')+'.',
+              alignment:'center',
+              marginTop:30,
+              fontSize:10,
+              italic:true
+          }
+      ]
+    }
+    // pdfMake.createPdf(dd).open();
+    this.downloadPDF(dd, n);
+  }
+
+  downloadPDF(dd:any, n:any) {
+    this.pdfObj = pdfMake.createPdf(dd);
+    this.pdfObj.download('notulenmu_'+n.title+'.pdf');
+    Loading.remove();
+  }
+
+  getBase64ImageFromURL(url:any) {
+    const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/' + url;
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        // Mendapatkan ukuran asli gambar
+        const originalWidth = img.width;
+        const originalHeight = img.height;
+      
+        // Menetapkan ukuran baru untuk gambar (50%)
+        const newWidth = originalWidth / 2;
+        const newHeight = originalHeight / 2;
+        
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, originalWidth, originalHeight, 0, 0, newWidth, newHeight);
+        var dataURL = canvas.toDataURL("image/png");
+        resolve(dataURL);
+      };
+      img.onerror = error => {
+        reject(error);
+      };
+      img.src = corsAnywhereUrl;
+    });
   }
 
 }
