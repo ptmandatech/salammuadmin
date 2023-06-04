@@ -94,6 +94,11 @@
 
           <p mat-subheader style="color: white;">Settings</p>
 
+          <mat-list-item *ngIf="accessMenu['/admin/konfigurasi']" routerLink="/admin/konfigurasi" routerLinkActive="active-list-item" >
+            <mat-icon matListIcon class="light">settings_applications</mat-icon>
+            <h3 matLine class="light">Konfigurasi Aplikasi</h3>
+          </mat-list-item>
+
           <mat-list-item *ngIf="accessMenu['/admin/notifikasi']" routerLink="/admin/notifikasi" routerLinkActive="active-list-item" >
             <mat-icon matListIcon class="light">circle_notifications</mat-icon>
             <h3 matLine class="light">Notifikasi</h3>

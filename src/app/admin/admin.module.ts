@@ -63,6 +63,8 @@ import { DetailPesertaComponent } from './notulenmu/detail-peserta/detail-pesert
 import { NotifikasiComponent } from './notifikasi/notifikasi.component';
 import { NotifmanualComponent } from './notifikasi/notifmanual/notifmanual.component';
 import { DialogNotifikasiComponent } from './notifikasi/dialog-notifikasi/dialog-notifikasi.component';
+import { KonfigurasiComponent } from './konfigurasi/konfigurasi.component';
+import { DialogKonfigurasiComponent } from './konfigurasi/dialog-konfigurasi/dialog-konfigurasi.component';
 
 const routes: Routes = [
   {
@@ -183,6 +185,11 @@ const routes: Routes = [
         path: 'notifikasi',
         component: NotifikasiComponent,
         data: {title: 'Notifikasi'}
+      },
+      {
+        path: 'konfigurasi',
+        component: KonfigurasiComponent,
+        data: {title: 'Konfigurasi'}
       }
     ]
   },
@@ -250,6 +257,8 @@ const routes: Routes = [
     NotifikasiComponent,
     NotifmanualComponent,
     DialogNotifikasiComponent,
+    KonfigurasiComponent,
+    DialogKonfigurasiComponent,
   ],
   imports: [
     CommonModule,

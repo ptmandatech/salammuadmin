@@ -77,6 +77,11 @@ export class DialogRolePermissionComponent implements OnInit {
     //   name: 'Notifikasi'
     // }, 
     {
+      path: '/admin/konfigurasi',
+      checked: false,
+      name: 'Konfigurasi Aplikasi'
+    }, 
+    {
       path: '/admin/role-permission',
       checked: false,
       name: 'Role Permission'

@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{isCreated ? 'Tambah':'Perbarui'}} Konfigurasi</h1>
+
+<div mat-dialog-content>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Nama</mat-label>
+        <input matInput [(ngModel)]="dataKonfigurasi.name" type="text" [disabled]="!isCreated" maxlength="255" #name="ngModel" required>
+    </mat-form-field>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Key</mat-label>
+        <input matInput [(ngModel)]="dataKonfigurasi.key" type="text" [disabled]="!isCreated" maxlength="255" #key="ngModel" required>
+    </mat-form-field>
+
+    <mat-form-field class="uk-width-1-1" appearance="fill">
+        <mat-label>Nilai</mat-label>
+        <input matInput [(ngModel)]="dataKonfigurasi.value" type="text" maxlength="255" #value="ngModel" required>
+    </mat-form-field>
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="save()" [disabled]="name.invalid || key.invalid || value.invalid" color="primary">Simpan</button>
+</mat-dialog-actions>
