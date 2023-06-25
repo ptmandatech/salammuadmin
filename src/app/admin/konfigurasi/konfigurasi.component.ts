@@ -7,6 +7,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { CommonService } from 'src/app/services/common.service';
 import Swal from 'sweetalert2';
 import { DialogKonfigurasiComponent } from './dialog-konfigurasi/dialog-konfigurasi.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-konfigurasi',
@@ -22,14 +23,27 @@ export class KonfigurasiComponent implements OnInit {
     public common: CommonService,
     public routes: ActivatedRoute,
     public dialog: MatDialog,
+    private formBuilder: FormBuilder,
   ) { }
 
   serverImg:any;
   pageTitle:any;
   loading:boolean = false;
+  formSMTP!: FormGroup;
   ngOnInit(): void {
     this.loading = true;
     // Loading.pulse();
+    this.formSMTP = this.formBuilder.group({
+      id: [null, [Validators.required]],
+      email_from: [null, [Validators.required]],
+      email_address: [null, [Validators.required, Validators.email]],
+      smtp_host: [null, [Validators.required]],
+      smtp_username: [null, [Validators.required]],
+      smtp_password: [null, [Validators.required]],
+      smtp_port: [465, [Validators.required]],
+      smtp_ssltls: ['ssl', [Validators.required]]
+    });
+
     this.serverImg = this.common.photoBaseUrl+'categories/';
     this.pageTitle = this.routes.snapshot.firstChild?.data.title;
     this.router.events.forEach((event) => {
@@ -38,8 +52,20 @@ export class KonfigurasiComponent implements OnInit {
       }
     });
     this.cekLogin();
+    this.getSmtpConfig();
     this.getConfig();
   }
+
+  ssltls:any = [
+    {
+      id: 'ssl',
+      name: 'SSL'
+    },
+    {
+      id: 'tls',
+      name: 'TLS'
+    }
+  ]
 
   userData:any;
   cekLogin()
@@ -75,6 +101,39 @@ export class KonfigurasiComponent implements OnInit {
       this.loading = false;
       // Loading.remove();
     });
+  }
+
+  dataSmtp:any = {};
+  getSmtpConfig() {
+    this.api.get('config/smtp').then(res=>{
+      this.dataSmtp = res;
+      this.loading = false;
+      if(res) {
+        this.formSMTP.patchValue({
+          id: this.dataSmtp.id,
+          email_from: this.dataSmtp.email_from,
+          email_address: this.dataSmtp.email_address,
+          smtp_host: this.dataSmtp.smtp_host,
+          smtp_username: this.dataSmtp.smtp_username,
+          smtp_password: this.dataSmtp.smtp_password,
+          smtp_port: this.dataSmtp.smtp_port,
+          smtp_ssltls: this.dataSmtp.smtp_ssltls,
+        });
+      }
+    }, err => {
+      Notiflix.Notify.failure(JSON.stringify(err.error.status),{ timeout: 2000 });
+      this.loading = false;
+    });
+  }
+
+  saveSMTP() {
+    let data = this.formSMTP.value;
+    this.api.put('config/smtp/'+data.id, data).then(res => {
+      if(res) {
+        Notiflix.Notify.success('Berhasil memperbarui data SMTP.',{ timeout: 2000 });
+        this.getSmtpConfig();
+      }
+    })
   }
 
   //Dialog tambah/edit Cabang Ranting

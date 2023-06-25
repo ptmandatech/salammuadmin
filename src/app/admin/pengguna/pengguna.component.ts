@@ -18,6 +18,7 @@ import { FilterPenggunaComponent } from './filter-pengguna/filter-pengguna.compo
 })
 export class PenggunaComponent implements OnInit {
 
+  conterColClick:any = { name: 0, email: 0, phone: 0, is_active: 0, asManagement: 0, role: 0, date_created: 0 };
   p: number = 1;
   constructor(
     public api: ApiService,
@@ -75,6 +76,16 @@ export class PenggunaComponent implements OnInit {
   searchText = '';
   onSearch() {
     this.p = 1;
+  }
+  
+  sortByColumn(col: string) {
+    if (this.allUsers.length == 0) return;
+    if (this.conterColClick[col] % 2 == 0) {
+      this.allUsers.sort((a:any, b:any) => a[col] < b[col] ? -1 : 1)
+    } else {
+      this.allUsers.sort((a:any, b:any) => a[col] > b[col] ? -1 : 1)
+    }
+    this.conterColClick[col]++;
   }
 
   allUsers:any = [];

@@ -1,83 +1,162 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
 <div style="margin: 16px">
 
     <div class="border-card">
-      <div style="margin: 16px">
-
-        <div class="uk-flex-middle" uk-grid >
-          <div class="uk-width-1-2">
-            <div style="display: flex;">
-              <h1 style="margin-bottom: 0;">Konfigurasi Aplikasi</h1>
+      <mat-tab-group>
+        <mat-tab label="Email Setting"> 
+          <div style="margin: 16px">
+            <div mat-dialog-content>
+              <form [formGroup]="formSMTP">
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>Email From</mat-label>
+                    <input matInput formControlName="email_from" type="text" maxlength="255" name="email_from" required type="text">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.email_from.hasError('required') && formSMTP.controls.email_from.touched">
+                  Email From harus diisi!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput formControlName="email_address" name="email_address" required type="email" email="true">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.email_address.hasError('required') && formSMTP.controls.email_address.touched">
+                  Email Address harus diisi!
+                </div>
+                <div class="error-msg" *ngIf="formSMTP.controls.email_address.errors?.email">
+                  Format Email Address salah!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>SMTP Host</mat-label>
+                    <input matInput formControlName="smtp_host" name="smtp_host" required type="text">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.smtp_host.hasError('required') && formSMTP.controls.smtp_host.touched">
+                  SMTP Host harus diisi!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>SMTP Username</mat-label>
+                    <input matInput formControlName="smtp_username" name="smtp_username" required type="text">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.smtp_username.hasError('required') && formSMTP.controls.smtp_username.touched">
+                  SMTP Username harus diisi!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>SMTP Password</mat-label>
+                    <input matInput formControlName="smtp_password" name="smtp_password" required type="text">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.smtp_password.hasError('required') && formSMTP.controls.smtp_password.touched">
+                  SMTP Password harus diisi!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>SMTP Port</mat-label>
+                    <input matInput formControlName="smtp_port" name="smtp_port" required type="number">
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.smtp_port.hasError('required') && formSMTP.controls.smtp_port.touched">
+                  SMTP Port harus diisi!
+                </div>
+            
+                <mat-form-field class="uk-width-1-1" appearance="fill">
+                    <mat-label>SSL/TLS</mat-label>
+                    <mat-select required formControlName="smtp_ssltls" name="smtp_ssltls">
+                      <mat-option *ngFor="let n of ssltls" value="{{n.id}}">{{n.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            
+                <div class="error-msg" *ngIf="formSMTP.controls.smtp_ssltls.hasError('required') && formSMTP.controls.smtp_ssltls.touched">
+                  SSL/TLS harus diisi!
+                </div>
+              </form>
+            </div>
+            <div class="uk-flex-middle" uk-grid >
+              <div class="uk-width-1-2">
+              </div>
+              <div class="uk-width-1-2" style="text-align:right;">
+                <button mat-flat-button [disabled]="loading" (click)="saveSMTP()" color="primary">Simpan</button>
+              </div>
             </div>
           </div>
-          <div class="uk-width-1-2" style="text-align:right;">
-            <mat-form-field appearance="standard" class="uk-margin-right">
-              <mat-label>Pencarian</mat-label>
-              <input matInput placeholder="Masukkan kata kunci" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
-              <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-            <!-- <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Kategori</button> -->
+        </mat-tab>
+        <mat-tab label="Menu Setting">
+          <!-- Konfigurasi Menu Aplikasi -->
+          <div style="margin: 16px">
+
+            <div class="uk-flex-middle" uk-grid >
+              <div class="uk-width-1-2">
+                <div style="display: flex;">
+                  <h1 style="margin-bottom: 0;">Konfigurasi Aplikasi</h1>
+                </div>
+              </div>
+              <div class="uk-width-1-2" style="text-align:right;">
+                <mat-form-field appearance="standard" class="uk-margin-right">
+                  <mat-label>Pencarian</mat-label>
+                  <input matInput placeholder="Masukkan kata kunci" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <!-- <button mat-flat-button class="tambah" (click)="openDialog(null)">Tambah Kategori</button> -->
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <hr>
-      <div class="uk-overflow-auto">
-        <table class="uk-table uk-table-divider uk-table-middle">
-          <thead>
-              <tr>
-                  <th>Key</th>
-                  <th>Nama</th>
-                  <th>Nilai</th>
-                  <th>Aksi</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let n of allConfig | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
-                  <td>{{n.key}}</td>
-                  <td>{{n.name}}</td>
-                  <td>
-                    <div *ngIf="n.value == '1' || n.value == '0'">
-                        {{n.value == '1' ? 'Aktif':'Tidak Aktif'}}
-                    </div>
-                    <div *ngIf="n.value != '1' && n.value != '0'">
-                        {{n.value}}
-                    </div>
-                  </td>
-                  <td class="uk-table-shrink uk-text-nowrap">
-                    <div *ngIf="n.value == '1' || n.value == '0'">
-                        <mat-slide-toggle [(ngModel)]="n.isActive" (ngModelChange)="changeStatus(n)"></mat-slide-toggle>
-                    </div>
-                    <div *ngIf="n.value != '1' && n.value != '0'">
-                        <button mat-mini-fab color="primary" (click)="openDialog(n)">
-                          <mat-icon>edit</mat-icon>
-                        </button>
-                        <!-- <button mat-mini-fab color="warn">
-                          <mat-icon>delete</mat-icon>
-                        </button> -->
-                    </div>
-                  </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
+          <hr>
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-divider uk-table-middle">
+              <thead>
+                  <tr>
+                      <th>Key</th>
+                      <th>Nama</th>
+                      <th>Nilai</th>
+                      <th>Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let n of allConfig | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                      <td>{{n.key}}</td>
+                      <td>{{n.name}}</td>
+                      <td>
+                        <div *ngIf="n.value == '1' || n.value == '0'">
+                            {{n.value == '1' ? 'Aktif':'Tidak Aktif'}}
+                        </div>
+                        <div *ngIf="n.value != '1' && n.value != '0'">
+                            {{n.value}}
+                        </div>
+                      </td>
+                      <td class="uk-table-shrink uk-text-nowrap">
+                        <div *ngIf="n.value == '1' || n.value == '0'">
+                            <mat-slide-toggle [(ngModel)]="n.isActive" (ngModelChange)="changeStatus(n)"></mat-slide-toggle>
+                        </div>
+                        <div *ngIf="n.value != '1' && n.value != '0'">
+                            <button mat-mini-fab color="primary" (click)="openDialog(n)">
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                            <!-- <button mat-mini-fab color="warn">
+                              <mat-icon>delete</mat-icon>
+                            </button> -->
+                        </div>
+                      </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
       
-  
-      <hr>
-  
-      <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
-        <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
-      </div>
-      <!-- <ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
-        <li><a href="#"><span uk-pagination-previous></span></a></li>
-        <li><a href="#">1</a></li>
-        <li class="uk-disabled"><span>...</span></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li class="uk-active"><span>7</span></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#"><span uk-pagination-next></span></a></li>
-    </ul> -->
-  
+          <div class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+            <pagination-controls (pageChange)="p = $event" nextLabel="Next" previousLabel="Prev"></pagination-controls>
+          </div>
+          
+        </mat-tab>
+        <mat-tab label="Other"> 
+          
+        </mat-tab>
+      </mat-tab-group>
     </div>
   
   </div>

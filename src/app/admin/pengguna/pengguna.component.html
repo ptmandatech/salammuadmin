@@ -30,11 +30,41 @@
           <thead>
               <tr>
                   <th>Avatar</th>
-                  <th>Nama</th>
-                  <th>Email</th>
-                  <th>No HP</th>
-                  <th>Status</th>
-                  <th>Hak Akses</th>
+                  <th (click)="sortByColumn('name')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Nama</span>
+                      <i [class]="conterColClick.name % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('email')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Email</span>
+                      <i [class]="conterColClick.email % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('phone')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">No HP</span>
+                      <i [class]="conterColClick.phone % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('is_active')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Status</span>
+                      <i [class]="conterColClick.is_active % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('asManagement')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Pengurus <br> LPCRM</span>
+                      <i [class]="conterColClick.asManagement % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('role')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Hak Akses</span>
+                      <i [class]="conterColClick.role % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
+                  <th (click)="sortByColumn('date_created')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Terdaftar</span>
+                      <i [class]="conterColClick.date_created % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
                   <th>Aksi</th>
               </tr>
           </thead>
@@ -50,7 +80,17 @@
                       <mat-chip color="warn" *ngIf="n.is_active == 0" selected>Block</mat-chip>
                     </mat-chip-list>
                   </td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="primary" *ngIf="n.asManagement == 1" selected>Yes</mat-chip>
+                      <mat-chip color="warn" *ngIf="n.asManagement == 0" selected>No</mat-chip>
+                    </mat-chip-list>
+                  </td>
                   <td>{{allRoles[n.role] == undefined ? '':allRoles[n.role].name}}</td>
+                  <td>
+                    <span *ngIf="n.date_created == '0000-00-00 00:00:00'">-</span>
+                    <span *ngIf="n.date_created != '0000-00-00 00:00:00'">{{n.date_created | date:'dd/MM/yyyy H:mm'}}</span>
+                  </td>
                   <td class="uk-table-shrink uk-text-nowrap">
                     <button mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
