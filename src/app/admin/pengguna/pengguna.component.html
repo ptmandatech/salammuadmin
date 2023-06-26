@@ -55,6 +55,11 @@
                       <span style="flex: 1;">Pengurus <br> LPCRM</span>
                       <i [class]="conterColClick.asManagement % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
                   </th>
+                  <th (click)="sortByColumn('statusAsManagement')">
+                    <span style="display: flex; align-items: center;">
+                      <span style="flex: 1;">Status <br> Pengurus</span>
+                      <i [class]="conterColClick.statusAsManagement % 2 != 0 ? 'fa fa-sort-down' : 'fa fa-sort-up'"></i></span>
+                  </th>
                   <th (click)="sortByColumn('role')">
                     <span style="display: flex; align-items: center;">
                       <span style="flex: 1;">Hak Akses</span>
@@ -86,6 +91,12 @@
                       <mat-chip color="warn" *ngIf="n.asManagement == 0" selected>No</mat-chip>
                     </mat-chip-list>
                   </td>
+                  <td>
+                    <mat-chip-list aria-label="Fish selection">
+                      <mat-chip color="primary" *ngIf="n.statusAsManagement == 'confirmed'" selected>Terkonfirmasi</mat-chip>
+                      <mat-chip color="accent" *ngIf="n.statusAsManagement == 'pending'" selected>Pending</mat-chip>
+                    </mat-chip-list>
+                  </td>
                   <td>{{allRoles[n.role] == undefined ? '':allRoles[n.role].name}}</td>
                   <td>
                     <span *ngIf="n.date_created == '0000-00-00 00:00:00'">-</span>
@@ -103,6 +114,10 @@
                         <button mat-menu-item *ngIf="n.is_active == 0" [disabled]="userData.email == n.email" (click)="block(n, true)">
                             <mat-icon>done_outline</mat-icon>
                             <span>Aktifkan Pengguna</span>
+                        </button>
+                        <button mat-menu-item *ngIf="n.statusAsManagement == 'pending'" (click)="konfirmasi(n)">
+                            <mat-icon>done_outline</mat-icon>
+                            <span>Konfirmasi Kepengurusan</span>
                         </button>
                         <button mat-menu-item (click)="dialogPengguna(n)">
                             <mat-icon>edit</mat-icon>

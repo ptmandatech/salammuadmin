@@ -16,6 +16,14 @@
         <mat-chip color="{{filterData.status == '0' ? 'primary':''}}" [selected]="filterData.status == '0'" (click)="selectStatus('0')">Block</mat-chip>
     </mat-chip-list>
 
+    <h4 class="uk-margin-top">Status Kepengurusan</h4>
+    <!-- Jika diaktifkan, maka color chip ditambah primary -->
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="{{filterData.statusAsManagement == 'all' ? 'primary':''}}" [selected]="filterData.statusAsManagement == 'all'" (click)="selectstatusAsManagement('all')">Semua</mat-chip>
+        <mat-chip color="{{filterData.statusAsManagement == 'pending' ? 'primary':''}}" [selected]="filterData.statusAsManagement == 'pending'" (click)="selectstatusAsManagement('pending')">Pending</mat-chip>
+        <mat-chip color="{{filterData.statusAsManagement == 'confirmed' ? 'primary':''}}" [selected]="filterData.statusAsManagement == 'confirmed'" (click)="selectstatusAsManagement('confirmed')">Terkonfirmasi</mat-chip>
+    </mat-chip-list>
+
   </div>
   
   <mat-dialog-actions align="end">

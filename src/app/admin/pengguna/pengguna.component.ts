@@ -18,7 +18,7 @@ import { FilterPenggunaComponent } from './filter-pengguna/filter-pengguna.compo
 })
 export class PenggunaComponent implements OnInit {
 
-  conterColClick:any = { name: 0, email: 0, phone: 0, is_active: 0, asManagement: 0, role: 0, date_created: 0 };
+  conterColClick:any = { name: 0, email: 0, phone: 0, is_active: 0, asManagement: 0, statusAsManagement: 0, role: 0, date_created: 0 };
   p: number = 1;
   constructor(
     public api: ApiService,
@@ -94,9 +94,10 @@ export class PenggunaComponent implements OnInit {
     // Loading.pulse();
     this.loading = true;
     this.allUsers = [];
-    this.api.get('users/'+this.userData.id).then(res=>{
+    this.api.get('users/getAllAdmin').then(res=>{
       this.allUsers = res;
       this.allUsersTemp = res;
+      this.allUsers.sort((a:any, b:any) => a.asManagement > b.asManagement ? -1 : 1);
       // Loading.remove();
       this.loading = false;
     }, err => {
@@ -167,6 +168,37 @@ export class PenggunaComponent implements OnInit {
         Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
       }
     })
+  }
+
+  konfirmasi(n:any) {
+    if(n.placeManagement) {
+      let place = n.placeManagement == 'daerah' ? n.daerah_nama:n.wilayah_nama;
+      Swal.fire({
+        title: 'Anda yakin ingin mengkonfirmasi kepengurusan '+n.name+' di '+place+'?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2196F3',
+        cancelButtonColor: '#F44336',
+        confirmButtonText: 'Ya, Konfirmasi!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          n.statusAsManagement = 'confirmed';
+          this.api.put('users/'+ n.id, n).then(res => {
+            if(res) {
+              Notiflix.Notify.success('Data Berhasil di konfirmasi.',{ timeout: 2000 });
+              this.getAllUsers()
+            }
+          }).catch(error => {
+            Notiflix.Notify.success('Data Gagal di konfirmasi.',{ timeout: 2000 });
+          })
+        } else {
+          Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
+        }
+      })
+    } else {
+      Notiflix.Notify.failure('Tempat Kepengurusan belum dipilih oleh pengguna.',{ timeout: 2000 });
+    }
   }
 
   delete(n:any) {
@@ -275,6 +307,10 @@ export class PenggunaComponent implements OnInit {
       this.allUsers = this.allUsers.filter((e:any) => e.role == role);
     } else if(role == '0' && status != '0' || role == '1' && status != '1') {
       this.allUsers = this.allUsers.filter((e:any) => e.role == role && e.is_active == status);
+    }
+
+    if(this.selectedFiltered.statusAsManagement != 'all') {
+      this.allUsers = this.allUsers.filter((e:any) => e.statusAsManagement == this.selectedFiltered.statusAsManagement);
     }
     this.p = 1;
     if(this.allUsers.length == 0) {

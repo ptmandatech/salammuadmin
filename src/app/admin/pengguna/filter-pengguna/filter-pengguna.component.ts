@@ -20,6 +20,7 @@ export class FilterPenggunaComponent implements OnInit {
     if(sourceData.data != null) {
       this.filterData = sourceData.data;
     } else {
+      this.filterData.statusAsManagement = 'all';
       this.filterData.status = 'all';
       this.filterData.role = 'all';
     }
@@ -49,6 +50,10 @@ export class FilterPenggunaComponent implements OnInit {
   selectStatus(status:any) {
     this.filterData.status = status;
   }
+  
+  selectstatusAsManagement(status:any) {
+    this.filterData.statusAsManagement = status;
+  }
 
   selectRole(role:any) {
     this.filterData.role = role;
@@ -60,6 +65,7 @@ export class FilterPenggunaComponent implements OnInit {
 
   reset() {
     this.filterData.status = 'all';
+    this.filterData.statusAsManagement = 'all';
     this.filterData.role = 'all';
     this.dialogRef.close(this.filterData);
   }
