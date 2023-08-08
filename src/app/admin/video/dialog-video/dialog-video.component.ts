@@ -103,6 +103,13 @@ export class DialogVideoComponent implements OnInit {
       this.videosData.id = new Date().getTime().toString() + '' + [Math.floor((Math.random() * 1000))];
       this.api.post('videos', this.videosData).then(res => {
         if(res) {
+          let payload = {
+            title: 'Video baru ditambahkan \n'+this.videosData.title,
+            body: this.videosData.descriptions,
+            image: this.serverImg+this.videosData.image ? this.serverImg+this.videosData.image:''
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
+
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }

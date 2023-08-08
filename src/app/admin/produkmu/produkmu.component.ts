@@ -210,6 +210,13 @@ export class ProdukmuComponent implements OnInit {
         n.images = JSON.stringify(n.images);
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
+            let payload = {
+              title: 'Produk baru ditambahkan\n'+n.name+'\nHarga: Rp.'+n.price,
+              body: this.removeHtmlTagsAndEntities(n.descriptions),
+              image: this.serverImg+n.images ? this.serverImg+n.images:''
+            }
+            this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
+
             Notiflix.Notify.success('Data Berhasil di '+t+'.',{ timeout: 2000 });
             this.allData.checked = false;
             this.hasSelectedData = false;
@@ -275,6 +282,13 @@ export class ProdukmuComponent implements OnInit {
         n.images = JSON.stringify(n.images);
         this.api.put('products/'+ n.id, n).then(res => {
           if(res) {
+            let payload = {
+              title: 'Produk favorit ditambahkan\n'+n.name+'\nHarga: Rp.'+n.price,
+              body: this.removeHtmlTagsAndEntities(n.descriptions),
+              image: this.serverImg+n.images ? this.serverImg+n.images:''
+            }
+            this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
+
             Notiflix.Notify.success('Data Berhasil disimpan',{ timeout: 2000 });
             this.allData.checked = false;
             this.hasSelectedData = false;
@@ -350,6 +364,13 @@ export class ProdukmuComponent implements OnInit {
               this.loading = false;
             })
           });
+          
+          let payload = {
+            title: 'Produk baru ditambahkan\n'+checkData[0].name+'\nHarga: Rp.'+checkData[0].price,
+            body: this.removeHtmlTagsAndEntities(checkData[0].descriptions),
+            image: this.serverImg+checkData[0].images ? this.serverImg+checkData[0].images:''
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
         } else {
           Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
@@ -357,6 +378,23 @@ export class ProdukmuComponent implements OnInit {
     } else {
       Notiflix.Notify.success('Data terpilih sudah di Verifikasi.',{ timeout: 2000 });
     }
+  }
+
+  removeHtmlTagsAndEntities(input:any) {
+    // Replace <br> and <br/> tags with line breaks
+    let textWithoutTags = input.replace(/<br\s*\/?>/gi, '\n');
+    
+    // Replace &nbsp; and other common HTML entities
+    textWithoutTags = textWithoutTags.replace(/&nbsp;/gi, ' ');
+    textWithoutTags = textWithoutTags.replace(/&lt;/gi, '<');
+    textWithoutTags = textWithoutTags.replace(/&gt;/gi, '>');
+    textWithoutTags = textWithoutTags.replace(/&amp;/gi, '&');
+    // Add more replacements as needed for other entities
+    
+    // Remove all other HTML tags
+    textWithoutTags = textWithoutTags.replace(/<[^>]+>/g, '');
+  
+    return textWithoutTags;
   }
 
   batalVerif() {

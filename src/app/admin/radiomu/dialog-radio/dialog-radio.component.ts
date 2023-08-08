@@ -108,6 +108,13 @@ export class DialogRadioComponent implements OnInit {
       this.radiomuData.created_by = this.userData.id;
       this.api.post('radiomu', this.radiomuData).then(res => {
         if(res) {
+          let payload = {
+            title: 'RadioMU baru ditambahkan',
+            body: this.radiomuData.title,
+            image: ''
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
+          
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }

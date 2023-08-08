@@ -202,7 +202,7 @@ export class ArtikelmuComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.loading = true;
-          // Loading.pulse();
+          Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = true;
             e.images = JSON.stringify(e.images);
@@ -221,9 +221,14 @@ export class ArtikelmuComponent implements OnInit {
               this.loading = false;
             }, err => {
               this.loading = false;
-              // Loading.remove();
             })
           });
+          let payload = {
+            title: checkData[0].title,
+            body: checkData[0].summary,
+            image: this.serverImg+checkData[0].image
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
         } else {
           Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }

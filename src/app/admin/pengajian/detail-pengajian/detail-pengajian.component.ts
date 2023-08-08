@@ -334,6 +334,12 @@ export class DetailPengajianComponent implements OnInit {
             Notiflix.Notify.success('Data Berhasil di Verifikasi.',{ timeout: 2000 });
             this.dialogRef.close();
           }
+          let payload = {
+            title: this.pengajianData.name,
+            body: this.pengajianData.descriptions +'\nLokasi: '+this.pengajianData.location +'\nTanggal Pengajian: '+this.datePipe.transform(new Date(this.pengajianData.datetime), 'dd MMMM yyyy H:mm'),
+            image: ''
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
         }).catch(error => {
           Notiflix.Notify.success('Data Gagal di Verifikasi.',{ timeout: 2000 });
         })

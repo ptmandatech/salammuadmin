@@ -221,6 +221,12 @@ export class KhutbahComponent implements OnInit {
               // Loading.remove();
             })
           });
+          let payload = {
+            title: checkData[0].title,
+            body: checkData[0].summary,
+            image: this.serverImg+checkData[0].image
+          }
+          this.api.post('fcm/sendNotifUpdate', payload).then(res => {})
         } else {
           Notiflix.Notify.failure('Aksi dibatalkan.',{ timeout: 2000 });
         }
