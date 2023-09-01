@@ -202,7 +202,7 @@ export class ArtikelmuComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.loading = true;
-          Loading.pulse();
+          // Loading.pulse();
           checkData.forEach((e:any, idx:any) => {
             e.verified = true;
             e.images = JSON.stringify(e.images);
