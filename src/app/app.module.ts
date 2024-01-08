@@ -11,7 +11,7 @@ import { AdminModule } from './admin/admin.module';
 import { MatTimepickerModule } from 'mat-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import { ResetComponent } from './auth/reset/reset.component';
@@ -39,7 +39,8 @@ registerLocaleData(localeId, 'id');
   ],
   providers: [
     DatePipe,
-    {provide: LOCALE_ID, useValue: "id-ID" }
+    {provide: LOCALE_ID, useValue: "id-ID" },
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

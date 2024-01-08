@@ -48,12 +48,14 @@ export class LoginComponent implements OnInit {
       this.validateAllFormFields(this.form);
     }
     else {
+      Notiflix.Loading.standard();
       if (this.form.get('remember')?.value) {
         localStorage.setItem('userSalammu', JSON.stringify(this.form.value));
       }
       this.api.post('auth/login',this.form.value).then(res=>{   
         localStorage.setItem('salammuToken',JSON.stringify(res));
         // this.success=true;
+        Notiflix.Loading.remove();
         Notiflix.Notify.success('Login sukses. Tunggu sampai diarahkan ke halaman Dashboard.',{ timeout: 2000 });
         this.redirect(res);
       },err=>{
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit {
           // this.invalid = true;
           Notiflix.Notify.failure('Tidak dapat login. Pastikan email dan password benar.',{ timeout: 2000 });
         }
+        Notiflix.Loading.remove();
         // setTimeout(function () {
         //   that.invalid = false;
         // }, 1000);

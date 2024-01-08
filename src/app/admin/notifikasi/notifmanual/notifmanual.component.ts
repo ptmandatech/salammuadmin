@@ -32,7 +32,7 @@ export class NotifmanualComponent implements OnInit {
         'Content-Type':  'application/json'
       })
     };
-    let url = 'https://api.shdprime.xyz/salammu/index.php/fcm/notifDinamis?messages=';
+    let url = 'https://api.salammu.id/index.php/fcm/notifDinamis?messages=';
 
     this.http.get(url+this.dataPesan.pesan, httpOption).subscribe((res:any) => {
       Notiflix.Loading.remove();
