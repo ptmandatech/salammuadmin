@@ -21,6 +21,7 @@ export class DialogDoaDzikirComponent implements OnInit {
   doaDzikirData: any = {};
   isCreated:boolean;
   serverImg:any;
+  isLoading:boolean = false;
   constructor(
     public common: CommonService,
     public dialogRef: MatDialogRef<DialogDoaDzikirComponent>,
@@ -132,6 +133,7 @@ export class DialogDoaDzikirComponent implements OnInit {
   progressUpload:boolean;
   async uploadPhoto()
   {
+    this.isLoading = true;
     if(this.image != undefined) {
       this.progressUpload = true;
       await this.api.put('doadzikir/uploadfoto',{image: this.image}).then(res=>{
@@ -141,6 +143,7 @@ export class DialogDoaDzikirComponent implements OnInit {
           this.save();
         }
       }, error => {
+        this.isLoading = false;
         console.log(error)
       });
     } else {
@@ -156,6 +159,9 @@ export class DialogDoaDzikirComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       this.api.put('doadzikir/'+this.doaDzikirData.id, this.doaDzikirData).then(res => {
@@ -163,6 +169,9 @@ export class DialogDoaDzikirComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

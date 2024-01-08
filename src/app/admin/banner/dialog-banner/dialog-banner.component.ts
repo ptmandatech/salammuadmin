@@ -15,6 +15,7 @@ export class DialogBannerComponent implements OnInit {
   bannersData: any = {};
   serverImgBanner:any;
   isCreated:boolean;
+  isLoading:boolean = false;
   constructor(
     public common: CommonService,
     public dialogRef: MatDialogRef<DialogBannerComponent>,
@@ -81,6 +82,7 @@ export class DialogBannerComponent implements OnInit {
   progressUpload:boolean;
   async uploadPhoto()
   {
+    this.isLoading = true;
     if(this.isValidUrl(this.bannersData.url)) { 
       if(this.image != undefined) {
         this.progressUpload = true;
@@ -91,6 +93,7 @@ export class DialogBannerComponent implements OnInit {
             this.addBanner();
           }
         }, error => {
+          this.isLoading = false;
           console.log(error)
         });
       } else {
@@ -98,6 +101,7 @@ export class DialogBannerComponent implements OnInit {
       }
     } else {
       Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+      this.isLoading = false;
     }
   }
 
@@ -120,6 +124,9 @@ export class DialogBannerComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan banner.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       this.api.put('banners/'+ this.bannersData.id, this.bannersData).then(res => {
@@ -127,6 +134,9 @@ export class DialogBannerComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui banner.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

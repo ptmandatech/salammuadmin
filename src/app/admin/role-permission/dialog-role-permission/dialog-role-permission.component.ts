@@ -20,6 +20,7 @@ export class DialogRolePermissionComponent implements OnInit {
 
   rolesData: any = {};
   isCreated:boolean;
+  isLoading:boolean = false;
   menuList = [
     {
       path: '/admin/dashboard',
@@ -179,6 +180,7 @@ export class DialogRolePermissionComponent implements OnInit {
   }
 
   save() {
+    this.isLoading = true;
     if(this.isCreated == true) {
       this.rolesData.created_by = this.userData.id;
       this.rolesData.path = JSON.stringify(this.pathSelected);
@@ -187,6 +189,9 @@ export class DialogRolePermissionComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       let dt = {
@@ -199,6 +204,9 @@ export class DialogRolePermissionComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

@@ -129,9 +129,11 @@ export class DialogArtikelmuComponent implements OnInit {
     }
   }
 
+  isLoading:boolean = false;
   progressUpload:boolean;
   async uploadPhoto()
   {
+    this.isLoading = true;
     if(this.image != undefined) {
       this.progressUpload = true;
       await this.api.put('articles/uploadfoto',{image: this.image}).then(res=>{
@@ -141,6 +143,7 @@ export class DialogArtikelmuComponent implements OnInit {
           this.save();
         }
       }, error => {
+        this.isLoading = false;
         console.log(error)
       });
     } else {
@@ -156,6 +159,9 @@ export class DialogArtikelmuComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       this.api.put('articles/'+this.articlesData.id, this.articlesData).then(res => {
@@ -163,6 +169,9 @@ export class DialogArtikelmuComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

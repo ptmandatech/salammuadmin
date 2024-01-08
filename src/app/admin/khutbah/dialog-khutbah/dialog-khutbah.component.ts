@@ -20,6 +20,7 @@ export class DialogKhutbahComponent implements OnInit {
   khutbahData: any = {};
   isCreated:boolean;
   serverImg:any;
+  isLoading:boolean = false;
   constructor(
     public common: CommonService,
     public dialogRef: MatDialogRef<DialogKhutbahComponent>,
@@ -131,6 +132,7 @@ export class DialogKhutbahComponent implements OnInit {
   progressUpload:boolean;
   async uploadPhoto()
   {
+    this.isLoading = true;
     if(this.image != undefined) {
       this.progressUpload = true;
       await this.api.put('khutbah/uploadfoto',{image: this.image}).then(res=>{
@@ -140,6 +142,7 @@ export class DialogKhutbahComponent implements OnInit {
           this.save();
         }
       }, error => {
+        this.isLoading = false;
         console.log(error)
       });
     } else {
@@ -155,6 +158,9 @@ export class DialogKhutbahComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       this.api.put('khutbah/'+this.khutbahData.id, this.khutbahData).then(res => {
@@ -162,6 +168,9 @@ export class DialogKhutbahComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

@@ -170,6 +170,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button (click)="save()" [disabled]="dateValue == null || timeValue == null || !detailLocSelected" color="primary">Simpan</button>
+  <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+  <button mat-flat-button [disabled]="isLoading || dateValue == null || timeValue == null || !detailLocSelected" (click)="save()" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
 </mat-dialog-actions>

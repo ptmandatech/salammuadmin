@@ -120,6 +120,7 @@ export class DialogNotulenmuComponent implements OnInit {
     Loading.remove();
   }
 
+  isLoading:boolean = false;
   ngOnInit(): void {
     this.today = new Date();
     this.cekLogin();
@@ -265,6 +266,7 @@ export class DialogNotulenmuComponent implements OnInit {
       this.validateAllFormFields(this.form);
     }
     else {
+      this.isLoading = true;
       this.dataNotulen.title = this.form.get('title').value;
       this.dataNotulen.place = this.form.get('place').value;
       this.dataNotulen.notulen = this.form.get('notulen').value;
@@ -290,6 +292,7 @@ export class DialogNotulenmuComponent implements OnInit {
       if(this.dateValue != undefined) {
         if(hours > 24) {
           Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
+          this.isLoading = false;
         } else {
           this.dataNotulen.datetime = this.dateValue.setHours(hours, minutes);
           this.dataNotulen.datetime = new Date(this.dataNotulen.datetime);
@@ -300,6 +303,9 @@ export class DialogNotulenmuComponent implements OnInit {
                 Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
                 this.dialogRef.close();
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           } else {
             this.api.put('notulenmu/'+this.dataNotulen.id, this.dataNotulen).then(res => {
@@ -307,11 +313,15 @@ export class DialogNotulenmuComponent implements OnInit {
                 Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
                 this.dialogRef.close();
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           }
         }
       } else {
         Notiflix.Notify.failure('Tentukan tanggal!',{ timeout: 2000 });
+        this.isLoading = false;
       }
     }
   }
@@ -408,6 +418,7 @@ export class DialogNotulenmuComponent implements OnInit {
           }
         }, error => {
           console.log(error)
+          this.isLoading = false;
         });
       }
     } else {

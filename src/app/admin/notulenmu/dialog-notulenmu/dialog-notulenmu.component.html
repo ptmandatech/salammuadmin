@@ -251,6 +251,6 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button (click)="uploadPhoto()" [disabled]="dateValue == null || timeValue == null" color="primary">Simpan</button>
+  <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+  <button mat-flat-button [disabled]="isLoading || dateValue == null || timeValue == null" (click)="uploadPhoto()" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
 </mat-dialog-actions>

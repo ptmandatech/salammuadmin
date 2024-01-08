@@ -94,7 +94,7 @@
         <p>Kata Sandi default akan dibuat berdasarkan nomor hp.</p>
     </div>
 
-  <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Batal</button>
-      <button mat-flat-button (click)="save()" color="primary">Simpan</button>
-    </mat-dialog-actions>
+<mat-dialog-actions align="end">
+    <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+    <button mat-flat-button [disabled]="isLoading" (click)="save()" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
+</mat-dialog-actions>

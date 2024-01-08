@@ -23,6 +23,7 @@ export class DialogProdukmuComponent implements OnInit {
   isCreated:boolean;
   serverImg:any;
   imageNow:any = [];
+  isLoading:boolean = false;
   constructor(
     public common: CommonService,
     public dialogRef: MatDialogRef<DialogProdukmuComponent>,
@@ -163,6 +164,7 @@ export class DialogProdukmuComponent implements OnInit {
           }
         }, error => {
           console.log(error)
+          this.isLoading = false;
         });
       }
     } else {
@@ -226,6 +228,9 @@ export class DialogProdukmuComponent implements OnInit {
           Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     } else {
       this.api.put('products/'+this.productsData.id, this.productsData).then(res => {
@@ -233,6 +238,9 @@ export class DialogProdukmuComponent implements OnInit {
           Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
           this.dialogRef.close();
         }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
       })
     }
   }

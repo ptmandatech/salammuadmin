@@ -120,6 +120,7 @@ export class DialogPengajianComponent implements OnInit {
     Loading.remove();
   }
 
+  isLoading:boolean = false;
   ngOnInit(): void {
     this.today = new Date();
     this.cekLogin();
@@ -416,10 +417,12 @@ export class DialogPengajianComponent implements OnInit {
       this.validateAllFormFields(this.form);
     }
     else {
+      this.isLoading = true;
       if(this.form.get('url_livestream').value) {
         if(this.isValidUrl(this.form.get('url_livestream').value)) { 
         } else {
           Notiflix.Notify.failure('Masukkan url dengan format yang benar, contoh https://example.com',{ timeout: 2000 });
+          this.isLoading = false;
           return;
         }
       }
@@ -442,6 +445,7 @@ export class DialogPengajianComponent implements OnInit {
       if(this.dateValue != undefined) {
         if(hours > 24) {
           Notiflix.Notify.failure('Pastikan format 24 jam!',{ timeout: 2000 });
+          this.isLoading = false;
         } else {
           this.pengajianData.datetime = this.dateValue.setHours(hours, minutes);
           this.pengajianData.datetime = new Date(this.pengajianData.datetime);
@@ -455,6 +459,9 @@ export class DialogPengajianComponent implements OnInit {
                 Notiflix.Notify.success('Berhasil menambahkan data.',{ timeout: 2000 });
                 this.dialogRef.close();
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           } else {
             this.api.put('pengajian/'+this.pengajianData.id, this.pengajianData).then(res => {
@@ -462,11 +469,15 @@ export class DialogPengajianComponent implements OnInit {
                 Notiflix.Notify.success('Berhasil memperbarui data.',{ timeout: 2000 });
                 this.dialogRef.close();
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           }
         }
       } else {
         Notiflix.Notify.failure('Tentukan tanggal!',{ timeout: 2000 });
+        this.isLoading = false;
       }
     }
   }

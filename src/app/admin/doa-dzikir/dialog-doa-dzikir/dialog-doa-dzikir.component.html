@@ -87,13 +87,9 @@
     </div>
   </mat-form-field>
   <p>*Pilih File PNG atau JPG dengan ururan tidak lebih dari 2 MB</p>
-
-
-
-
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button (click)="uploadPhoto()" [disabled]="title.invalid || descriptions.invalid || summary.invalid" color="primary">Simpan</button>
+  <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+  <button mat-flat-button [disabled]="isLoading || title.invalid || descriptions.invalid || summary.invalid" (click)="uploadPhoto()" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
 </mat-dialog-actions>

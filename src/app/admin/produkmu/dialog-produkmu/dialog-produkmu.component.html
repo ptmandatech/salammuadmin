@@ -119,13 +119,9 @@
       </div>
     </div>
   </div>
-
-
-
-
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Batal</button>
-  <button mat-flat-button (click)="uploadPhoto()" [disabled]="name.invalid || descriptions.invalid || category.invalid || price.invalid" color="primary">Simpan</button>
+    <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+    <button mat-flat-button [disabled]="isLoading || name.invalid || descriptions.invalid || category.invalid || price.invalid" (click)="uploadPhoto()" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
 </mat-dialog-actions>

@@ -7,15 +7,25 @@
     <input matInput [(ngModel)]="rolesData.name" type="text" maxlength="255" #name="ngModel" required>
   </mat-form-field>
 
+  <mat-label>List Menu:</mat-label>
   <mat-list>
-    <mat-list-item *ngFor="let n of menuList; let idx=index">
-      <mat-checkbox style="margin: 0 12px" [(ngModel)]="menuList[idx].checked" (ngModelChange)="checkRoles(idx)">{{n.name}}</mat-checkbox>
-    </mat-list-item>
-  </mat-list>
+    <div class="flex-container">
+      <div class="column">
+        <mat-list-item *ngFor="let n of menuList.slice(0, menuList.length / 2); let idx=index">
+          <mat-checkbox style="margin: 0 12px" [(ngModel)]="menuList[idx].checked" (ngModelChange)="checkRoles(idx)">{{n.name}}</mat-checkbox>
+        </mat-list-item>
+      </div>
+      <div class="column">
+        <mat-list-item *ngFor="let n of menuList.slice(menuList.length / 2); let idx=index">
+          <mat-checkbox style="margin: 0 12px" [(ngModel)]="menuList[menuList.length / 2 + idx].checked" (ngModelChange)="checkRoles(menuList.length / 2 + idx)">{{n.name}}</mat-checkbox>
+        </mat-list-item>
+      </div>
+    </div>
+  </mat-list>    
 
 </div>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Batal</button>
-    <button mat-flat-button (click)="save()" [disabled]="name.invalid && pathSelected.length == 0" color="primary">Simpan</button>
-  </mat-dialog-actions>
+  <button mat-button [disabled]="isLoading" mat-dialog-close>Batal</button>
+  <button mat-flat-button [disabled]="isLoading" (click)="save()" [disabled]="name.invalid && pathSelected.length == 0" color="primary">{{isLoading ? 'Mohon Tunggu...':'Simpan'}}</button>
+</mat-dialog-actions>

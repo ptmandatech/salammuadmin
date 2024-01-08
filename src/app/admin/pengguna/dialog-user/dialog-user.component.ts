@@ -75,6 +75,7 @@ export class DialogUserComponent implements OnInit {
     Loading.remove();
   }
 
+  isLoading:boolean = false;
   ngOnInit(): void {
     this.cekLogin();
   }
@@ -193,6 +194,7 @@ export class DialogUserComponent implements OnInit {
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.isLoading = true;
           this.usersData = this.form.value;
           if(this.isCreated == true) {
             this.usersData.is_active = 1;
@@ -206,6 +208,9 @@ export class DialogUserComponent implements OnInit {
               } else {
                 Notiflix.Notify.failure('Email salah atau sudah terdaftar.',{ timeout: 2000 });
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           } else {
             this.api.put('users/'+this.usersData.id, this.usersData).then(res => {
@@ -213,6 +218,9 @@ export class DialogUserComponent implements OnInit {
                 Notiflix.Notify.success('Berhasil memperbarui pengguna.',{ timeout: 2000 });
                 this.dialogRef.close();
               }
+              this.isLoading = false;
+            }, err => {
+              this.isLoading = false;
             })
           }
         }
